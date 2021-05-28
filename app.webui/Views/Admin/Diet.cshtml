@@ -1,0 +1,73 @@
+@model Customer
+@section css
+{
+<link rel="stylesheet" href="~/css/Diet.css">
+}
+<section class="customer-view">
+
+    <div class="container-card">
+        <div class="card-title">
+
+            <H2>DiYET GENEL BAKIŞ</H2>
+        </div>
+        <div class="name-card">
+            <div class="item1">
+                <p>@Model.FirstName @Model.LastName</p>
+            </div>
+            <div class="item2">
+                <p>
+                    Başlangıç=@Model.Diet.DateStart
+                </p>
+                <p>
+                    Bitiş=@Model.Diet.DateEnd
+                </p>
+            </div>
+        </div>
+        <div class="diet">
+
+            <div class="diet-date">
+                <p>15-11-1994</p>
+            </div>
+
+        </div>
+        <h2 class="DietTitle">Haftalık Diyet</h2>
+
+        <div class="DietWekkly">
+            @foreach (var item in Model.Diet.DietWekklies)
+            {
+                <a href="/Admin/DietWekkly/5">
+                    <div class="dwt1">
+                        <p>@item.Name</p>
+                    </div>
+                </a>
+            }
+        </div>
+        <div class="MenüCntr">
+            <h1 class="h3">Yazlıan Menüler</h1>
+
+            <div class="menüChecked">
+                <hr>
+                @foreach (var item in ViewBag.Menü)
+                {
+                    <div class="form-check checkItems">
+                        <label class="form-check-label" for="Name">
+                            @item.Name
+                        </label>
+                        <input class="form-check-input " type="checkbox" name="menü" value="@item.Name" id="Name)"
+                        @(item.Gived?"checked":"")>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="PackageContainer">
+        <div class="packageone">
+            <a style="width: 80px; height: 50px;" class="btn btn-primary" href="/Admin/DietOneMonth/@Model.Id">Aylık Paket</a>
+        </div>
+        
+        <div class="packagetwo">
+            <a style="width: 80px; height: 50px;" class="btn btn-primary" href="/Admin/DietOneWeek/@Model.Id">1. Hafta Paket</a>
+        </div>
+    </div>
+</section>
