@@ -103,5 +103,6 @@ C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca\app.webui\obj\Debug\net5.0\Razor\
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca\app.webui\obj\Debug\net5.0\Razor\Views\Shared\_navbar.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca\app.webui\bin\Debug\net5.0\package-lock.json
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Index.cshtml.g.cs
-C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca\app.webui\obj\Debug\net5.0\Razor\Views\Admin\DietWekkly.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Diet.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca\app.webui\obj\Debug\net5.0\Razor\Views\Admin\DietWekklys.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Deneme.cshtml.g.cs

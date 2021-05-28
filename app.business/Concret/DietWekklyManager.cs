@@ -17,10 +17,10 @@ namespace app.business.Concret
         {
             try
             {
-                var result=await work.DietWekkly.CreateAsync(entity);
+                var result = await work.DietWekkly.CreateAsync(entity);
                 await work.SaveAsync();
                 return OprationResult.ok;
-            
+
             }
             catch (System.Exception)
             {
@@ -48,9 +48,19 @@ namespace app.business.Concret
             return await work.DietWekkly.GetByIdAsync(id);
         }
 
-        public OprationResult UpdateAsync(DietWekkly entity)
+        public async Task<OprationResult> UpdateAsync(DietWekkly entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result1=work.DietWekkly.UpdateAsync(entity);
+                var result2=await work.SaveAsync();
+                return OprationResult.ok;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.NotSaved;
+            }
+
         }
     }
 }

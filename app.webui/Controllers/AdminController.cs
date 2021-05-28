@@ -7,6 +7,8 @@ using app.webui.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+
+
 namespace app.webui.Controllers
 {
     public class AdminController : Controller
@@ -17,6 +19,11 @@ namespace app.webui.Controllers
         {
             customerService = _customerService;
             dietWekklyService = _dietWekklyService;
+        }
+
+        public IActionResult Deneme()
+        {
+            return View();
         }
 
         public async Task<IActionResult> Index()
@@ -38,21 +45,25 @@ namespace app.webui.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DietWekkly(int id)
+        public async Task<IActionResult> DietWekklys(int id)
         {
             var result = await dietWekklyService.GetByIdAsync(id);
             return View(result.value);
         }
         [HttpPost]
-        public async Task<IActionResult> DietWekkly(DietWekkly model,IFormFile file)
+        public async Task<IActionResult> DietWekklys(DietWekkly model, IFormFile file)
         {
-            string name=file.FileName;
-            string extension=Path.GetExtension(name);
-            string path=Path.Combine(Directory.GetCurrentDirectory(),"wwwroot\\diet");
-            using(var stream =new FileStream(path,FileMode.Create))
+            string name = file.FileName;
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\diet", name);
+            using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
+            var returned = await dietWekklyService.GetByIdAsync(model.Id);
+
+            returned.value.Menü = name;
+            returned.value.Active = true;
+            await dietWekklyService.UpdateAsync(returned.value);
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> DietOneMonth(int id)
@@ -82,7 +93,7 @@ namespace app.webui.Controllers
             D = new DietWekkly()
             {
                 Name = $"{result.value.Diet.DietWekklies.Count + 1} Hafta",
-                
+
                 DietId = result.value.Diet.Id
             };
             await dietWekklyService.CreateAsync(D);
