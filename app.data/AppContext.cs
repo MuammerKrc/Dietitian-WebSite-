@@ -14,6 +14,7 @@ namespace app.data
         public DbSet<Diet> Diets {get;set;}
         public DbSet<Pilates> Pilateis{get;set;}
         public DbSet<DietWekkly> DietWekklies{get;set;}
+        public DbSet<DietMenü> DietMenüs{get;set;}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());

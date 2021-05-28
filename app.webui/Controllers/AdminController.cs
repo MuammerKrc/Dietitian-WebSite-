@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using app.business.Abstract;
 using app.entity;
+using app.webui.EmailService;
 using app.webui.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,12 @@ namespace app.webui.Controllers
     {
         public ICustomerService customerService;
         public IDietWekklyService dietWekklyService;
-        public AdminController(ICustomerService _customerService, IDietWekklyService _dietWekklyService)
+        private IEmailSender emailSender;
+        public AdminController(ICustomerService _customerService, IDietWekklyService _dietWekklyService,IEmailSender _emailSender)
         {
             customerService = _customerService;
             dietWekklyService = _dietWekklyService;
+            emailSender=_emailSender;
         }
 
         public IActionResult Deneme()
@@ -59,11 +62,14 @@ namespace app.webui.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-            var returned = await dietWekklyService.GetByIdAsync(model.Id);
+            System.Console.WriteLine(path+"   "+"yol");
+            // var returned = await dietWekklyService.GetByIdAsync(model.Id);
+            // returned.value.Menü = name;
+            // returned.value.Active = true;
+            // await dietWekklyService.UpdateAsync(returned.value);
 
-            returned.value.Menü = name;
-            returned.value.Active = true;
-            await dietWekklyService.UpdateAsync(returned.value);
+
+            await emailSender.SendEmailAsync("sinem.karaca.93@gmail.com", "Haftalık Diyetiniz", $"Bu hafta Diyetiniz <a href='http://localhost:5000/diet/{name}'>tıklayınız.</a>");
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> DietOneMonth(int id)

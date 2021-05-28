@@ -60,12 +60,12 @@
 
                 </div>
             </div>
-            <div class="form-group row mt-3">
+            @* <div class="form-group row mt-3">
                 <label asp-for="Menü" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
-                    @* <a href="~/diet/@Model.Menü" download>
+                    <a href="~/diet/@Model.Menü" download>
                         <img src="/img/model3.png" alt="DietListe" width="75px" height="75px">
-                    </a> *@
+                    </a>
                     <a href="~/diet/@Model.Menü" alt="asd">
                          <img src="/img/model3.png" alt="DietListe" width="75px" height="75px">
                     </a>
@@ -73,7 +73,7 @@
                     <input type="file" name="file">
                     <span asp-validation-for="Menü" class="text-danger"></span>
                 </div>
-            </div>
+            </div> *@
             @Html.HiddenFor(m => m.Id , Model.Id)
             <div class="form-group row mt-sm-3">
                 <div class="col-sm-2 offset-sm-2">

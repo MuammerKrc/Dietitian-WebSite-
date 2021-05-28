@@ -7,6 +7,7 @@ using app.business.Concret;
 using app.data;
 using app.data.Abstract;
 using app.data.Concret;
+using app.webui.EmailService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,8 +39,20 @@ namespace app.webui
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Customer
             services.AddScoped<ICustomerService, CustomerManager>();
+            //DietWeekly
             services.AddScoped<IDietWekklyService,DietWekklyManager>();
-
+            //DietMenü
+            services.AddScoped<IDietMenüRepository,DietMenüRepository>();
+            //email
+             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
+             new SmtpEmailSender(
+                 configuration["EmailSender:Host"],
+                 configuration.GetValue<int>("EmailSender:Port"),
+                 configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                 configuration["EmailSender:UserName"],
+                 configuration["EmailSender:Password"]
+                 )
+            );
             services.AddControllersWithViews();
         }
 

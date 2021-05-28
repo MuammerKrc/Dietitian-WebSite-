@@ -8,7 +8,7 @@ namespace app.data.Abstract
         ICustomerRepository Customers{get;}
         IPilatesRepository Piates{get;}
         IDietRepository Diets{get;}
-        
+        IDietMenüRepository dietMenüs{get;}
         IDietWekklyRepository DietWekkly{get;}
         Task<OprationResult> SaveAsync();
     }

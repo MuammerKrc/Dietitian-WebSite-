@@ -14,6 +14,7 @@ namespace app.data.Concret
         private DietRepository dietRepository;
         private PilatesRepository pilatesRepository;
         private DietWekklyRepository dietWekklyRepository;
+        private DietMenüRepository dietMenüRepository;
 
         public ICustomerRepository Customers => customerRepository=customerRepository??new CustomerRepository(context);
         public IPilatesRepository Piates => pilatesRepository=pilatesRepository??new PilatesRepository(context);
@@ -21,6 +22,8 @@ namespace app.data.Concret
         public IDietRepository Diets => dietRepository=dietRepository??new DietRepository(context);
 
         public IDietWekklyRepository DietWekkly =>dietWekklyRepository??new DietWekklyRepository(context);
+
+        public IDietMenüRepository dietMenüs => dietMenüRepository??new DietMenüRepository(context);
 
         public void Dispose()
         {
