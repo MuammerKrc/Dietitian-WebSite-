@@ -1,0 +1,168 @@
+:root {
+  --color_white: #F2F2F2;
+  --color_gray_1: #8C8C8C;
+  --color_gray_2: #737373;
+  --color_gray_3: #595959;
+  --color_gray_4: #404040;
+  --color_pink_1: #CA2F5A;
+  --color_pink_2: #DD476E;
+  --color_pink_3: #EC5F8F;
+  --color_title: #2B3240;
+  --color_background_1: #F2B138;
+  --font_1: 'Montserrat', sans-serif;
+  --font_2: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  --font_3: 'Source Code Pro', monospace;
+  --font_4: 'Original Surfer', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  /* background-color: var(--color_white); */
+  position: relative;
+}
+
+
+/* container-body*/
+.container-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+  
+}
+.body-content{
+  flex-direction: column;
+  width: 75%;
+}
+
+/* nav */
+
+nav {
+  position: sticky;
+  top: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: 0 1px 1px 0 var(--color_title);
+  z-index: 100;
+  padding: 0;
+}
+
+
+/* logo */
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 25%;
+  margin-top: 0!important;
+  text-align: center;
+}
+
+.logo .logo-header {
+  width: 100%;
+  font-family: var(--font_1);
+  color: var(--color_title);
+  font-size: 3rem;
+  line-height: 17px;
+  letter-spacing: 3px;
+  font-variant: small-caps;
+}
+
+.logo p span {
+  text-shadow: 2px 2px 5px var(--color_title);
+}
+
+
+/* socialmedia */
+
+.container-socialmedia {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialmedia {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.socialmedia:nth-child(1):hover .instagram-img {
+  display: initial;
+}
+
+.instagram {
+  position: absolute;
+  top: 40px;
+  width: 20%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.instagram-img {
+  position: relative;
+  background-image: url(./sinem_site_modeller/instagram.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  height: 300px;
+  display: none;
+}
+
+
+/* navbar */
+
+.container-navbar {
+  width: 60%;
+  font-size: 1.3rem;
+}
+
+.container-navbar .navbar {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.container-navbar ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.container-navbar ul li a {
+  font-family: var(--font_2);
+  font-size: 2rem;
+  text-decoration: none;
+  color: var(--color_title);
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.container-navbar ul li a:hover {
+  font-family: var(--font_2);
+  color: var(--color_background_1);
+  border-bottom: 2px solid var(--color_background_1);
+}
+
+

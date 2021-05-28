@@ -1,0 +1,99 @@
+@model Customer
+
+@* <div class="row">
+    <form action="/admin/DietWekkly" method="POST" enctype="multipart/form-data">
+        <div class="col-md-6">
+            <h1 class="h3">1.hafta Diyet Bilgileri</h1>
+            <hr>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row mt-3">
+                <label asp-for="CurrentWeight" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="CurrentWeight" class="form-control">
+                    <span asp-validation-for="CurrentWeight" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-3 ">
+                <label asp-for="CurrentWaistline" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="CurrentWaistline" class="form-control" placeholder="CurrentWaistline">
+                    <span asp-validation-for="CurrentWaistline" class="text-danger"></span>
+                </div>
+            </div>
+            @* <div class="form-group row mt-3">
+                <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                <textarea asp-for="Description" class="form-control" placeholder="Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+
+                </div>
+                </div> *@
+            <div class="form-group row mt-3">
+                <label asp-for="CurrentBreastSize" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="CurrentBreastSize" class="form-control" placeholder="CurrentBreastSize">
+                    <span asp-validation-for="CurrentBreastSize" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <label asp-for="DietImplementation" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="DietImplementation" class="form-control" placeholder="DietImplementation">
+                    <span asp-validation-for="DietImplementation" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <label asp-for="AvgWater" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="AvgWater" class="form-control" placeholder="AvgWater">
+                    <span asp-validation-for="AvgWater" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <label asp-for="AvgNmbrOfSteps" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="AvgNmbrOfSteps" class="form-control" placeholder="AvgNmbrOfSteps">
+                    <span asp-validation-for="AvgNmbrOfSteps" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <label asp-for="Menü" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input type="hidden" asp-for="Menü">
+                    <input type="file" name="file">
+                    <span asp-validation-for="Menü" class="text-danger"></span>
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.Id , Model.Id)
+            <div class="form-group row mt-sm-3">
+                <div class="col-sm-2 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-info form-control">Değişiklikleri Kaydet</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style=" position: relative;">
+            <div>
+                <img src="~/img/womena.png" alt="" width="360px" height="auto">
+            </div>
+        </div>
+        @* <div class="col-md-4">
+            <h1 class="h3">Selected Category</h1>
+            <hr>
+            @foreach (var item in (List<Category>)ViewBag.allCategories)
+            {
+            <div class="form-check">
+            <input class="form-check-input " type="checkbox" name="categoryIds" value="@item.CategoryId"
+            id="category_@(item.CategoryId)"
+            @(Model.categories.Any(i=>i.Name==item.Name)?"checked":"")>
+            <label class="form-check-label" for="category_@(item.CategoryId)">
+            @item.Name
+            </label>
+            </div>
+            }
+            </div> *@
+    </form>
+</div> *@

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+<ItemGroup>
+  <ProjectReference Include="..\app.data\app.data.csproj"/>
+  <ProjectReference Include="..\app.entity\app.entity.csproj"/>
+</ItemGroup>
+</Project>
