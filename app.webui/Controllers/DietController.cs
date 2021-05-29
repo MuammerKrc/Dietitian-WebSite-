@@ -44,7 +44,6 @@ namespace app.webui.Controllers
         [HttpGet]
         public async Task<IActionResult> DietWekklys(int id)
         {
-            System.Console.WriteLine();
             var result = await dietWekklyService.GetByIdAsync(id);
             return View(result.value);
         }
