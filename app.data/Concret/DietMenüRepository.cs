@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Threading.Tasks;
 using app.data.Abstract;
 using app.entity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +12,8 @@ namespace app.data.Concret
         {
 
         }
-        private AppContext appContext{get{return context as AppContext;}}
+        private AppContext appContext { get { return context as AppContext; } }
 
+      
     }
 }

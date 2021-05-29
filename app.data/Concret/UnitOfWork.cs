@@ -15,15 +15,18 @@ namespace app.data.Concret
         private PilatesRepository pilatesRepository;
         private DietWekklyRepository dietWekklyRepository;
         private DietMenüRepository dietMenüRepository;
+        private RecipeRepository recipeRepository;
 
         public ICustomerRepository Customers => customerRepository=customerRepository??new CustomerRepository(context);
         public IPilatesRepository Piates => pilatesRepository=pilatesRepository??new PilatesRepository(context);
 
         public IDietRepository Diets => dietRepository=dietRepository??new DietRepository(context);
 
-        public IDietWekklyRepository DietWekkly =>dietWekklyRepository??new DietWekklyRepository(context);
+        public IDietWekklyRepository DietWekkly =>dietWekklyRepository=dietWekklyRepository??new DietWekklyRepository(context);
 
-        public IDietMenüRepository dietMenüs => dietMenüRepository??new DietMenüRepository(context);
+        public IDietMenüRepository dietMenüs => dietMenüRepository=dietMenüRepository??new DietMenüRepository(context);
+
+        public IRecipeRepository Recipe => recipeRepository=recipeRepository??new RecipeRepository(context);
 
         public void Dispose()
         {

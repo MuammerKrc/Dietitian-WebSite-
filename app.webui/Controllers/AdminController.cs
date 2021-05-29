@@ -36,16 +36,16 @@ namespace app.webui.Controllers
             return View(returned.values);
         }
 
-        public async Task<IActionResult> Diet(int id)
-        {
-            System.Console.WriteLine(id + "Controller");
-            var result = await customerService.GetCustomerByIdWithDiet(id);
+        // public async Task<IActionResult> Diet(int id)
+        // {
+        //     System.Console.WriteLine(id + "Controller");
+        //     var result = await customerService.GetCustomerByIdWithDiet(id);
 
-            List<MenüModel> MenüList = new List<MenüModel>();
-            ModelHelper.MenüCreate(result.value.Menü, MenüList);
-            ViewBag.Menü = MenüList;
-            return View(result.value);
-        }
+        //     List<MenüModel> MenüList = new List<MenüModel>();
+        //     ModelHelper.MenüCreate(result.value.Menü, MenüList);
+        //     ViewBag.Menü = MenüList;
+        //     return View(result.value);
+        // }
 
         [HttpGet]
         public async Task<IActionResult> DietWekklys(int id)
@@ -83,12 +83,12 @@ namespace app.webui.Controllers
             {
                 D = new DietWekkly()
                 {
-                    Name = $"{result.value.Diet.DietWekklies.Count + 1} Hafta",
+                    Name = $"{result.value.Diet.DietWekklies.Count + y} Hafta",
                     DietId = result.value.Diet.Id
                 };
                 await dietWekklyService.CreateAsync(D);
             }
-            return Redirect("/admin/diet/" + id);
+            return Redirect("/Diet/Index/" + id);
         }
         public async Task<IActionResult> DietOneWeek(int id)
         {

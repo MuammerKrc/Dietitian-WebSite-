@@ -39,10 +39,17 @@ namespace app.webui
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Customer
             services.AddScoped<ICustomerService, CustomerManager>();
+            //Diet
+            services.AddScoped<IDietService,DietManager>();
             //DietWeekly
             services.AddScoped<IDietWekklyService,DietWekklyManager>();
             //DietMenü
-            services.AddScoped<IDietMenüRepository,DietMenüRepository>();
+            services.AddScoped<IDietMenüService,DietMenüManager>();
+            //Recipe
+            services.AddScoped<IRecipeService,RecipeManager>();
+            //Pilates
+            services.AddScoped<IPilatesService,PilatesManager>();
+            
             //email
              services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
              new SmtpEmailSender(

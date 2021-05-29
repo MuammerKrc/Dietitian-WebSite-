@@ -10,8 +10,8 @@ using app.data;
 namespace app.data.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20210527210812_addDietWeekly")]
-    partial class addDietWeekly
+    [Migration("20210529210307_InıtialCreate")]
+    partial class InıtialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,113 @@ namespace app.data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("app.entity.CombineDietMenüRecipe", b =>
+                {
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DietMenüId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipeId", "DietMenüId");
+
+                    b.HasIndex("DietMenüId");
+
+                    b.ToTable("CombineDietMenüRecipe");
+
+                    b.HasData(
+                        new
+                        {
+                            RecipeId = 1,
+                            DietMenüId = 1
+                        },
+                        new
+                        {
+                            RecipeId = 2,
+                            DietMenüId = 1
+                        },
+                        new
+                        {
+                            RecipeId = 4,
+                            DietMenüId = 2
+                        },
+                        new
+                        {
+                            RecipeId = 1,
+                            DietMenüId = 3
+                        },
+                        new
+                        {
+                            RecipeId = 6,
+                            DietMenüId = 4
+                        },
+                        new
+                        {
+                            RecipeId = 4,
+                            DietMenüId = 5
+                        },
+                        new
+                        {
+                            RecipeId = 7,
+                            DietMenüId = 5
+                        },
+                        new
+                        {
+                            RecipeId = 5,
+                            DietMenüId = 5
+                        },
+                        new
+                        {
+                            RecipeId = 5,
+                            DietMenüId = 6
+                        },
+                        new
+                        {
+                            RecipeId = 7,
+                            DietMenüId = 6
+                        },
+                        new
+                        {
+                            RecipeId = 6,
+                            DietMenüId = 7
+                        },
+                        new
+                        {
+                            RecipeId = 4,
+                            DietMenüId = 8
+                        },
+                        new
+                        {
+                            RecipeId = 3,
+                            DietMenüId = 8
+                        },
+                        new
+                        {
+                            RecipeId = 1,
+                            DietMenüId = 9
+                        },
+                        new
+                        {
+                            RecipeId = 2,
+                            DietMenüId = 10
+                        });
+                });
+
+            modelBuilder.Entity("app.entity.CombineDietRecipe", b =>
+                {
+                    b.Property<int>("DietId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DietId", "RecipeId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("CombineDietRecipe");
+                });
+
             modelBuilder.Entity("app.entity.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -28,7 +135,7 @@ namespace app.data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DietId")
+                    b.Property<int?>("DietId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -40,13 +147,10 @@ namespace app.data.Migrations
                     b.Property<string>("Mail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MenüID")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PilatesId")
+                    b.Property<int?>("PilatesId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -55,13 +159,12 @@ namespace app.data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DietId")
-                        .IsUnique();
-
-                    b.HasIndex("MenüID")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[DietId] IS NOT NULL");
 
                     b.HasIndex("PilatesId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[PilatesId] IS NOT NULL");
 
                     b.ToTable("Customers");
 
@@ -73,7 +176,6 @@ namespace app.data.Migrations
                             FirstName = "Dilek",
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
-                            MenüID = 1,
                             PhoneNumber = "5524673747",
                             PilatesId = 1,
                             UserId = "asdad"
@@ -85,7 +187,6 @@ namespace app.data.Migrations
                             FirstName = "Sinem",
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
-                            MenüID = 2,
                             PhoneNumber = "5524673747",
                             PilatesId = 2,
                             UserId = "asdad"
@@ -97,7 +198,6 @@ namespace app.data.Migrations
                             FirstName = "Muammer",
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
-                            MenüID = 3,
                             PhoneNumber = "5524673747",
                             PilatesId = 3,
                             UserId = "asdad"
@@ -109,7 +209,6 @@ namespace app.data.Migrations
                             FirstName = "Ercan",
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
-                            MenüID = 4,
                             PhoneNumber = "5524673747",
                             PilatesId = 4,
                             UserId = "asdad"
@@ -121,7 +220,6 @@ namespace app.data.Migrations
                             FirstName = "Mustafa",
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
-                            MenüID = 5,
                             PhoneNumber = "5524673747",
                             PilatesId = 5,
                             UserId = "asdad"
@@ -133,7 +231,6 @@ namespace app.data.Migrations
                             FirstName = "Sercan",
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
-                            MenüID = 6,
                             PhoneNumber = "5524673747",
                             PilatesId = 6,
                             UserId = "asdad"
@@ -145,7 +242,6 @@ namespace app.data.Migrations
                             FirstName = "Güven",
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
-                            MenüID = 7,
                             PhoneNumber = "5524673747",
                             PilatesId = 7,
                             UserId = "asdad"
@@ -185,8 +281,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 1,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 8, 11, 592, DateTimeKind.Local).AddTicks(478),
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 592, DateTimeKind.Local).AddTicks(9539),
+                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 304, DateTimeKind.Local).AddTicks(3634),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(3068),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -195,8 +291,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 2,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(810),
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(815),
+                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4317),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4322),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -205,8 +301,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 3,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(817),
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(818),
+                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4324),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4325),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -215,8 +311,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 4,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(819),
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(820),
+                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4327),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4328),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -225,8 +321,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 5,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(822),
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(823),
+                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4329),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4330),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -235,8 +331,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 6,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(824),
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(825),
+                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4331),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4332),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -245,12 +341,108 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 7,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(826),
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(827),
+                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4334),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4335),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
                             StartingWeight = 80
+                        });
+                });
+
+            modelBuilder.Entity("app.entity.DietMenü", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoMeals")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DietMenüs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Gender = false,
+                            TwoMeals = false,
+                            Weight = 80
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Gender = true,
+                            TwoMeals = false,
+                            Weight = 80
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Gender = false,
+                            TwoMeals = false,
+                            Weight = 65
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Gender = true,
+                            TwoMeals = false,
+                            Weight = 75
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Gender = true,
+                            TwoMeals = true,
+                            Weight = 80
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Gender = false,
+                            TwoMeals = true,
+                            Weight = 60
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Gender = false,
+                            TwoMeals = true,
+                            Weight = 65
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Gender = true,
+                            TwoMeals = false,
+                            Weight = 80
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Gender = true,
+                            TwoMeals = true,
+                            Weight = 70
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Gender = true,
+                            TwoMeals = false,
+                            Weight = 80
                         });
                 });
 
@@ -260,6 +452,9 @@ namespace app.data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<int>("AvgNmbrOfSteps")
                         .HasColumnType("int");
@@ -276,15 +471,26 @@ namespace app.data.Migrations
                     b.Property<int>("CurrentWeight")
                         .HasColumnType("int");
 
-                    b.Property<int>("DietId")
+                    b.Property<bool>("Detox")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("DietId")
                         .HasColumnType("int");
 
                     b.Property<int>("DietImplementation")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DietMenüId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DietId");
+
+                    b.HasIndex("DietMenüId");
 
                     b.ToTable("DietWekklies");
 
@@ -292,380 +498,152 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 1,
+                            Active = true,
                             AvgNmbrOfSteps = 2500,
                             AvgWater = 2.5,
                             CurrentBreastSize = 70,
                             CurrentWaistline = 80,
                             CurrentWeight = 80,
+                            Detox = true,
                             DietId = 1,
-                            DietImplementation = 4
+                            DietImplementation = 4,
+                            DietMenüId = 1,
+                            Name = "1. Hafta"
                         },
                         new
                         {
                             Id = 2,
+                            Active = true,
                             AvgNmbrOfSteps = 2700,
                             AvgWater = 2.0,
                             CurrentBreastSize = 68,
                             CurrentWaistline = 79,
                             CurrentWeight = 78,
+                            Detox = true,
                             DietId = 1,
-                            DietImplementation = 3
+                            DietImplementation = 3,
+                            DietMenüId = 2,
+                            Name = "2. Hafta"
                         },
                         new
                         {
                             Id = 3,
+                            Active = true,
                             AvgNmbrOfSteps = 2300,
                             AvgWater = 3.0,
                             CurrentBreastSize = 67,
                             CurrentWaistline = 76,
                             CurrentWeight = 75,
+                            Detox = true,
                             DietId = 1,
-                            DietImplementation = 2
+                            DietImplementation = 2,
+                            DietMenüId = 3,
+                            Name = "3. Hafta"
                         },
                         new
                         {
                             Id = 4,
+                            Active = true,
                             AvgNmbrOfSteps = 200,
                             AvgWater = 2.0,
                             CurrentBreastSize = 65,
                             CurrentWaistline = 75,
                             CurrentWeight = 60,
+                            Detox = true,
                             DietId = 1,
-                            DietImplementation = 5
+                            DietImplementation = 5,
+                            DietMenüId = 4,
+                            Name = "4. Hafta"
                         },
                         new
                         {
                             Id = 5,
+                            Active = false,
                             AvgNmbrOfSteps = 2500,
                             AvgWater = 2.5,
                             CurrentBreastSize = 70,
                             CurrentWaistline = 80,
                             CurrentWeight = 80,
+                            Detox = true,
                             DietId = 2,
-                            DietImplementation = 4
+                            DietImplementation = 4,
+                            DietMenüId = 5,
+                            Name = "1. Hafta"
                         },
                         new
                         {
                             Id = 6,
+                            Active = false,
                             AvgNmbrOfSteps = 2700,
                             AvgWater = 2.0,
                             CurrentBreastSize = 68,
                             CurrentWaistline = 79,
                             CurrentWeight = 78,
+                            Detox = true,
                             DietId = 2,
-                            DietImplementation = 3
+                            DietImplementation = 3,
+                            DietMenüId = 6,
+                            Name = "2. Hafta"
                         },
                         new
                         {
                             Id = 7,
+                            Active = false,
                             AvgNmbrOfSteps = 2300,
                             AvgWater = 3.0,
                             CurrentBreastSize = 67,
                             CurrentWaistline = 76,
                             CurrentWeight = 75,
+                            Detox = true,
                             DietId = 2,
-                            DietImplementation = 2
+                            DietImplementation = 2,
+                            DietMenüId = 7,
+                            Name = "3. Hafta"
                         },
                         new
                         {
                             Id = 8,
+                            Active = false,
                             AvgNmbrOfSteps = 200,
                             AvgWater = 2.0,
                             CurrentBreastSize = 65,
                             CurrentWaistline = 75,
                             CurrentWeight = 60,
+                            Detox = true,
                             DietId = 2,
-                            DietImplementation = 5
+                            DietImplementation = 5,
+                            DietMenüId = 8,
+                            Name = "4. Hafta"
                         },
                         new
                         {
                             Id = 9,
+                            Active = false,
                             AvgNmbrOfSteps = 2500,
                             AvgWater = 2.5,
                             CurrentBreastSize = 70,
                             CurrentWaistline = 80,
                             CurrentWeight = 80,
+                            Detox = true,
                             DietId = 3,
-                            DietImplementation = 4
+                            DietImplementation = 4,
+                            DietMenüId = 9,
+                            Name = "1. Hafta"
                         },
                         new
                         {
                             Id = 10,
+                            Active = false,
                             AvgNmbrOfSteps = 2700,
                             AvgWater = 2.0,
                             CurrentBreastSize = 68,
                             CurrentWaistline = 79,
                             CurrentWeight = 78,
+                            Detox = true,
                             DietId = 3,
-                            DietImplementation = 3
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AvgNmbrOfSteps = 2300,
-                            AvgWater = 3.0,
-                            CurrentBreastSize = 67,
-                            CurrentWaistline = 76,
-                            CurrentWeight = 75,
-                            DietId = 4,
-                            DietImplementation = 2
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AvgNmbrOfSteps = 200,
-                            AvgWater = 2.0,
-                            CurrentBreastSize = 65,
-                            CurrentWaistline = 75,
-                            CurrentWeight = 60,
-                            DietId = 4,
-                            DietImplementation = 5
-                        },
-                        new
-                        {
-                            Id = 13,
-                            AvgNmbrOfSteps = 2500,
-                            AvgWater = 2.5,
-                            CurrentBreastSize = 70,
-                            CurrentWaistline = 80,
-                            CurrentWeight = 80,
-                            DietId = 4,
-                            DietImplementation = 4
-                        },
-                        new
-                        {
-                            Id = 14,
-                            AvgNmbrOfSteps = 2700,
-                            AvgWater = 2.0,
-                            CurrentBreastSize = 68,
-                            CurrentWaistline = 79,
-                            CurrentWeight = 78,
-                            DietId = 5,
-                            DietImplementation = 3
-                        },
-                        new
-                        {
-                            Id = 15,
-                            AvgNmbrOfSteps = 2300,
-                            AvgWater = 3.0,
-                            CurrentBreastSize = 67,
-                            CurrentWaistline = 76,
-                            CurrentWeight = 75,
-                            DietId = 5,
-                            DietImplementation = 2
-                        },
-                        new
-                        {
-                            Id = 16,
-                            AvgNmbrOfSteps = 200,
-                            AvgWater = 2.0,
-                            CurrentBreastSize = 65,
-                            CurrentWaistline = 75,
-                            CurrentWeight = 60,
-                            DietId = 5,
-                            DietImplementation = 5
-                        });
-                });
-
-            modelBuilder.Entity("app.entity.Menü", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Gived1")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Gived2")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Gived3")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Gived4")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Gived5")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Gived6")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Gived7")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Gived8")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MenüName1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MenüName2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MenüName3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MenüName4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MenüName5")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MenüName6")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MenüName7")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MenüName8")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Menü");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Gived1 = false,
-                            Gived2 = false,
-                            Gived3 = false,
-                            Gived4 = false,
-                            Gived5 = false,
-                            Gived6 = false,
-                            Gived7 = false,
-                            Gived8 = false,
-                            MenüName1 = "menü1",
-                            MenüName2 = "menü2",
-                            MenüName3 = "menü3",
-                            MenüName4 = "menü4",
-                            MenüName5 = "menü5",
-                            MenüName6 = "menü6",
-                            MenüName7 = "menü7",
-                            MenüName8 = "menü8"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Gived1 = true,
-                            Gived2 = false,
-                            Gived3 = false,
-                            Gived4 = false,
-                            Gived5 = false,
-                            Gived6 = false,
-                            Gived7 = false,
-                            Gived8 = false,
-                            MenüName1 = "menü1",
-                            MenüName2 = "menü2",
-                            MenüName3 = "menü3",
-                            MenüName4 = "menü4",
-                            MenüName5 = "menü5",
-                            MenüName6 = "menü6",
-                            MenüName7 = "menü7",
-                            MenüName8 = "menü8"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Gived1 = true,
-                            Gived2 = false,
-                            Gived3 = false,
-                            Gived4 = false,
-                            Gived5 = false,
-                            Gived6 = false,
-                            Gived7 = false,
-                            Gived8 = false,
-                            MenüName1 = "menü1",
-                            MenüName2 = "menü2",
-                            MenüName3 = "menü3",
-                            MenüName4 = "menü4",
-                            MenüName5 = "menü5",
-                            MenüName6 = "menü6",
-                            MenüName7 = "menü7",
-                            MenüName8 = "menü8"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Gived1 = false,
-                            Gived2 = true,
-                            Gived3 = false,
-                            Gived4 = false,
-                            Gived5 = false,
-                            Gived6 = false,
-                            Gived7 = false,
-                            Gived8 = false,
-                            MenüName1 = "menü1",
-                            MenüName2 = "menü2",
-                            MenüName3 = "menü3",
-                            MenüName4 = "menü4",
-                            MenüName5 = "menü5",
-                            MenüName6 = "menü6",
-                            MenüName7 = "menü7",
-                            MenüName8 = "menü8"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Gived1 = false,
-                            Gived2 = false,
-                            Gived3 = true,
-                            Gived4 = false,
-                            Gived5 = false,
-                            Gived6 = false,
-                            Gived7 = false,
-                            Gived8 = false,
-                            MenüName1 = "menü1",
-                            MenüName2 = "menü2",
-                            MenüName3 = "menü3",
-                            MenüName4 = "menü4",
-                            MenüName5 = "menü5",
-                            MenüName6 = "menü6",
-                            MenüName7 = "menü7",
-                            MenüName8 = "menü8"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Gived1 = false,
-                            Gived2 = false,
-                            Gived3 = false,
-                            Gived4 = false,
-                            Gived5 = false,
-                            Gived6 = false,
-                            Gived7 = false,
-                            Gived8 = false,
-                            MenüName1 = "menü1",
-                            MenüName2 = "menü2",
-                            MenüName3 = "menü3",
-                            MenüName4 = "menü4",
-                            MenüName5 = "menü5",
-                            MenüName6 = "menü6",
-                            MenüName7 = "menü7",
-                            MenüName8 = "menü8"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Gived1 = false,
-                            Gived2 = true,
-                            Gived3 = false,
-                            Gived4 = true,
-                            Gived5 = false,
-                            Gived6 = false,
-                            Gived7 = false,
-                            Gived8 = false,
-                            MenüName1 = "menü1",
-                            MenüName2 = "menü2",
-                            MenüName3 = "menü3",
-                            MenüName4 = "menü4",
-                            MenüName5 = "menü5",
-                            MenüName6 = "menü6",
-                            MenüName7 = "menü7",
-                            MenüName8 = "menü8"
+                            DietImplementation = 3,
+                            DietMenüId = 10,
+                            Name = "2. Hafta"
                         });
                 });
 
@@ -693,70 +671,158 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 1,
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(4069),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5260),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 2,
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(4647),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5835),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 3,
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(4651),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5839),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 4,
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(4653),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5840),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 5,
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(4654),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5842),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 6,
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(4655),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5843),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 7,
-                            DateStart = new DateTime(2021, 5, 28, 0, 8, 11, 593, DateTimeKind.Local).AddTicks(4656),
+                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5844),
                             RemainingPackages = 8
                         });
+                });
+
+            modelBuilder.Entity("app.entity.Recipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recipes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            Name = "Salata Tarifi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            Name = "Kabak Tarifi"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            Name = "Tuzlu Tarifi"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Active = true,
+                            Name = "Omlet Tarifi"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Active = true,
+                            Name = "Su Tarifi"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Active = true,
+                            Name = "Kahve Tarifi"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Active = true,
+                            Name = "Karnıbahar Tarifi"
+                        });
+                });
+
+            modelBuilder.Entity("app.entity.CombineDietMenüRecipe", b =>
+                {
+                    b.HasOne("app.entity.DietMenü", "DietMenü")
+                        .WithMany("CombineDietMenüRecipes")
+                        .HasForeignKey("DietMenüId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("app.entity.Recipe", "Recipe")
+                        .WithMany("CombineDietMenüRecipes")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DietMenü");
+
+                    b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("app.entity.CombineDietRecipe", b =>
+                {
+                    b.HasOne("app.entity.Diet", "Diet")
+                        .WithMany("CombineDietRecipes")
+                        .HasForeignKey("DietId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("app.entity.Recipe", "Recipe")
+                        .WithMany("CombineDietRecipes")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Diet");
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("app.entity.Customer", b =>
                 {
                     b.HasOne("app.entity.Diet", "Diet")
                         .WithOne("Customer")
-                        .HasForeignKey("app.entity.Customer", "DietId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("app.entity.Menü", "Menü")
-                        .WithOne("Customer")
-                        .HasForeignKey("app.entity.Customer", "MenüID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("app.entity.Customer", "DietId");
 
                     b.HasOne("app.entity.Pilates", "Pilates")
                         .WithOne("Customer")
-                        .HasForeignKey("app.entity.Customer", "PilatesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("app.entity.Customer", "PilatesId");
 
                     b.Navigation("Diet");
-
-                    b.Navigation("Menü");
 
                     b.Navigation("Pilates");
                 });
@@ -765,28 +831,41 @@ namespace app.data.Migrations
                 {
                     b.HasOne("app.entity.Diet", "Diet")
                         .WithMany("DietWekklies")
-                        .HasForeignKey("DietId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DietId");
+
+                    b.HasOne("app.entity.DietMenü", "DietMenü")
+                        .WithMany()
+                        .HasForeignKey("DietMenüId");
 
                     b.Navigation("Diet");
+
+                    b.Navigation("DietMenü");
                 });
 
             modelBuilder.Entity("app.entity.Diet", b =>
                 {
+                    b.Navigation("CombineDietRecipes");
+
                     b.Navigation("Customer");
 
                     b.Navigation("DietWekklies");
                 });
 
-            modelBuilder.Entity("app.entity.Menü", b =>
+            modelBuilder.Entity("app.entity.DietMenü", b =>
                 {
-                    b.Navigation("Customer");
+                    b.Navigation("CombineDietMenüRecipes");
                 });
 
             modelBuilder.Entity("app.entity.Pilates", b =>
                 {
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("app.entity.Recipe", b =>
+                {
+                    b.Navigation("CombineDietMenüRecipes");
+
+                    b.Navigation("CombineDietRecipes");
                 });
 #pragma warning restore 612, 618
         }

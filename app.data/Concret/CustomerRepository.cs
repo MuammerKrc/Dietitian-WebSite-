@@ -19,9 +19,13 @@ namespace app.data.Concret
             try
             {
                 var result = await appContext.Customers.Where(i=>i.Id==id)
-                                .Include(m=>m.Menü)
                                 .Include(m => m.Diet)
                                 .ThenInclude(m=>m.DietWekklies)
+
+                                .Include(m=>m.Diet)
+                                .ThenInclude(m=>m.CombineDietRecipes)
+                                
+                                .AsNoTracking()
                                 .FirstOrDefaultAsync();
                 return new ReturnedClass<Customer>()
                 {

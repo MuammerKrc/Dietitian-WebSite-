@@ -6,6 +6,7 @@ namespace app.data.Abstract
     public interface IUnitOfWork:IDisposable
     {
         ICustomerRepository Customers{get;}
+        IRecipeRepository Recipe{get;}
         IPilatesRepository Piates{get;}
         IDietRepository Diets{get;}
         IDietMenüRepository dietMenüs{get;}

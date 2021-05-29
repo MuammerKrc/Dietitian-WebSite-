@@ -13,7 +13,5 @@ namespace app.entity
         public Diet Diet{get;set;}
         public int? PilatesId{get;set;}
         public Pilates Pilates{get;set;}
-        public int? MenüID{get;set;}
-        public Menü Menü{get;set;}
     }
 }

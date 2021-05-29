@@ -13,5 +13,6 @@ namespace app.entity
         public DateTime DateEnd{get;set;}
         public Customer Customer{get;set;}
         public List<DietWekkly> DietWekklies{get;set;}
+        public List<CombineDietRecipe> CombineDietRecipes{get;set;}
     }
 }
