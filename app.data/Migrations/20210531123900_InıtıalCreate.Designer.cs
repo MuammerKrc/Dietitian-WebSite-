@@ -10,8 +10,8 @@ using app.data;
 namespace app.data.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20210529210307_InıtialCreate")]
-    partial class InıtialCreate
+    [Migration("20210531123900_InıtıalCreate")]
+    partial class InıtıalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,120 @@ namespace app.data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("app.entity.AnamnezForm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Alkol")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Coffea")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cola")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Evening")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HerbalTea")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Juice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Snack1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Snack2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Soda")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Soru1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru10")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru11")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru12")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru13")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru14")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru15")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru16")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru17")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru18")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru19")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru20")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru5")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru6")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru7")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru8")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru9")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tea")
+                        .HasColumnType("int");
+
+                    b.Property<string>("morning")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("noon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("snack3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("water")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnamnezForms");
+                });
 
             modelBuilder.Entity("app.entity.CombineDietMenüRecipe", b =>
                 {
@@ -126,6 +240,38 @@ namespace app.data.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("CombineDietRecipe");
+
+                    b.HasData(
+                        new
+                        {
+                            DietId = 1,
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            DietId = 1,
+                            RecipeId = 2
+                        },
+                        new
+                        {
+                            DietId = 1,
+                            RecipeId = 3
+                        },
+                        new
+                        {
+                            DietId = 2,
+                            RecipeId = 4
+                        },
+                        new
+                        {
+                            DietId = 2,
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            DietId = 2,
+                            RecipeId = 2
+                        });
                 });
 
             modelBuilder.Entity("app.entity.Customer", b =>
@@ -140,6 +286,9 @@ namespace app.data.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -174,6 +323,7 @@ namespace app.data.Migrations
                             Id = 1,
                             DietId = 1,
                             FirstName = "Dilek",
+                            Gender = true,
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
                             PhoneNumber = "5524673747",
@@ -185,6 +335,7 @@ namespace app.data.Migrations
                             Id = 2,
                             DietId = 2,
                             FirstName = "Sinem",
+                            Gender = true,
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
                             PhoneNumber = "5524673747",
@@ -196,6 +347,7 @@ namespace app.data.Migrations
                             Id = 3,
                             DietId = 3,
                             FirstName = "Muammer",
+                            Gender = false,
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
                             PhoneNumber = "5524673747",
@@ -207,6 +359,7 @@ namespace app.data.Migrations
                             Id = 4,
                             DietId = 4,
                             FirstName = "Ercan",
+                            Gender = false,
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
                             PhoneNumber = "5524673747",
@@ -218,6 +371,7 @@ namespace app.data.Migrations
                             Id = 5,
                             DietId = 5,
                             FirstName = "Mustafa",
+                            Gender = false,
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
                             PhoneNumber = "5524673747",
@@ -229,6 +383,7 @@ namespace app.data.Migrations
                             Id = 6,
                             DietId = 6,
                             FirstName = "Sercan",
+                            Gender = false,
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
                             PhoneNumber = "5524673747",
@@ -240,6 +395,7 @@ namespace app.data.Migrations
                             Id = 7,
                             DietId = 7,
                             FirstName = "Güven",
+                            Gender = false,
                             LastName = "Karaca",
                             Mail = "dlk@gmail.com",
                             PhoneNumber = "5524673747",
@@ -254,6 +410,9 @@ namespace app.data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AnamnezFormId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateEnd")
                         .HasColumnType("datetime2");
@@ -275,14 +434,18 @@ namespace app.data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AnamnezFormId")
+                        .IsUnique()
+                        .HasFilter("[AnamnezFormId] IS NOT NULL");
+
                     b.ToTable("Diets");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 304, DateTimeKind.Local).AddTicks(3634),
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(3068),
+                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 823, DateTimeKind.Local).AddTicks(1375),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 823, DateTimeKind.Local).AddTicks(9301),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -291,8 +454,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 2,
-                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4317),
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4322),
+                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(585),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(591),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -301,8 +464,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 3,
-                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4324),
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4325),
+                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(593),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(594),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -311,8 +474,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 4,
-                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4327),
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4328),
+                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(596),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(597),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -321,8 +484,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 5,
-                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4329),
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4330),
+                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(598),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(599),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -331,8 +494,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 6,
-                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4331),
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4332),
+                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(600),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(601),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -341,8 +504,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 7,
-                            DateEnd = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4334),
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 305, DateTimeKind.Local).AddTicks(4335),
+                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(603),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(603),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -356,6 +519,9 @@ namespace app.data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Gender")
                         .HasColumnType("bit");
@@ -377,6 +543,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 1,
+                            FullName = "Muammer Karaca",
                             Gender = false,
                             TwoMeals = false,
                             Weight = 80
@@ -384,6 +551,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 2,
+                            FullName = "Sinem Karaca",
                             Gender = true,
                             TwoMeals = false,
                             Weight = 80
@@ -391,6 +559,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 3,
+                            FullName = "Muammer Karaca",
                             Gender = false,
                             TwoMeals = false,
                             Weight = 65
@@ -398,6 +567,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 4,
+                            FullName = "Sinem Karaca",
                             Gender = true,
                             TwoMeals = false,
                             Weight = 75
@@ -405,6 +575,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 5,
+                            FullName = "Muammer Karaca",
                             Gender = true,
                             TwoMeals = true,
                             Weight = 80
@@ -412,6 +583,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 6,
+                            FullName = "Dilek Karaca",
                             Gender = false,
                             TwoMeals = true,
                             Weight = 60
@@ -419,6 +591,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 7,
+                            FullName = "Sercan Karaca",
                             Gender = false,
                             TwoMeals = true,
                             Weight = 65
@@ -426,6 +599,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 8,
+                            FullName = "Muammer Karaca",
                             Gender = true,
                             TwoMeals = false,
                             Weight = 80
@@ -433,6 +607,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 9,
+                            FullName = "Muammer Karaca",
                             Gender = true,
                             TwoMeals = true,
                             Weight = 70
@@ -440,6 +615,7 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 10,
+                            FullName = "Sercan Karaca",
                             Gender = true,
                             TwoMeals = false,
                             Weight = 80
@@ -671,43 +847,43 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 1,
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5260),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(3983),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 2,
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5835),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4551),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 3,
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5839),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4556),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 4,
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5840),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4557),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 5,
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5842),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4559),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 6,
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5843),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4560),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 7,
-                            DateStart = new DateTime(2021, 5, 30, 0, 3, 7, 307, DateTimeKind.Local).AddTicks(5844),
+                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4561),
                             RemainingPackages = 8
                         });
                 });
@@ -827,6 +1003,15 @@ namespace app.data.Migrations
                     b.Navigation("Pilates");
                 });
 
+            modelBuilder.Entity("app.entity.Diet", b =>
+                {
+                    b.HasOne("app.entity.AnamnezForm", "AnamnezForm")
+                        .WithOne("Diet")
+                        .HasForeignKey("app.entity.Diet", "AnamnezFormId");
+
+                    b.Navigation("AnamnezForm");
+                });
+
             modelBuilder.Entity("app.entity.DietWekkly", b =>
                 {
                     b.HasOne("app.entity.Diet", "Diet")
@@ -840,6 +1025,11 @@ namespace app.data.Migrations
                     b.Navigation("Diet");
 
                     b.Navigation("DietMenü");
+                });
+
+            modelBuilder.Entity("app.entity.AnamnezForm", b =>
+                {
+                    b.Navigation("Diet");
                 });
 
             modelBuilder.Entity("app.entity.Diet", b =>

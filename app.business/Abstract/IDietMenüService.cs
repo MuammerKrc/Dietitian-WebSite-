@@ -12,5 +12,9 @@ namespace app.business.Abstract
         Task<OprationResult> UpdateAsync(DietMenü entity);
         Task<ReturnedClass<DietMenü>> GetAll();
         Task<ReturnedClass<DietMenü>> GetByEntityAsync(DietMenü entity);
+        Task<ReturnedClass<DietMenü>> CreateUpdateWithRecipe(DietMenü entity, int[] recipes);
+        Task<ReturnedClass<DietMenü>> GetAllWithRecpe();
+        Task<ReturnedClass<DietMenü>> GEtAllWithOption(string Adı, int MinWeight, int MaxWeight, int Cinsiyet, int Meal, int[] recipeIds);
+
     }
 }

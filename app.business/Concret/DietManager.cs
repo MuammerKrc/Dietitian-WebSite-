@@ -73,5 +73,23 @@ namespace app.business.Concret
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<ReturnedClass<Diet>> UpdateJustRecipe(int _DietId, int[] recipes)
+        {
+            try
+            {
+                if(_DietId<=0)
+                {
+                    return new ReturnedClass<Diet>(OprationResult.NotFound);
+                }
+                var result =await work.Diets.UpdateJustRecipe(_DietId,recipes);
+                var result2=await work.SaveAsync();
+                return new ReturnedClass<Diet>(OprationResult.ok);
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<Diet>(OprationResult.canceled);                
+            }
+        }
     }
 }

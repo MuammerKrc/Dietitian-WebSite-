@@ -48,12 +48,30 @@ namespace app.business.Concret
             return await work.DietWekkly.GetByIdAsync(id);
         }
 
+        public async Task<ReturnedClass<DietWekkly>> GetByIDWithDietMenü(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return new ReturnedClass<DietWekkly>(OprationResult.NotFound);
+            }
+            try
+            {
+                var result = await work.DietWekkly.GetByIDWithDietMenü((int)id);
+                result.oprationResult = OprationResult.ok;
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<DietWekkly>(OprationResult.canceled);
+            }
+        }
+
         public async Task<OprationResult> UpdateAsync(DietWekkly entity)
         {
             try
             {
-                var result1=work.DietWekkly.UpdateAsync(entity);
-                var result2=await work.SaveAsync();
+                var result1 = work.DietWekkly.UpdateAsync(entity);
+                var result2 = await work.SaveAsync();
                 return OprationResult.ok;
             }
             catch (System.Exception)
@@ -61,6 +79,26 @@ namespace app.business.Concret
                 return OprationResult.NotSaved;
             }
 
+        }
+
+        public async Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid)
+        {
+
+            try
+            {
+                if (dietid <= 0)
+                {
+
+                    return new ReturnedClass<DietWekkly>(OprationResult.NotFound);
+                }
+                var result = await work.DietWekkly.UpdateJustDietMenü(dietWeekId,dietid);
+                var result1=await work.SaveAsync();
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<DietWekkly>(OprationResult.canceled);
+            }
         }
     }
 }

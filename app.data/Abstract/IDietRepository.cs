@@ -7,5 +7,6 @@ namespace app.data.Abstract
     public interface IDietRepository:IRepository<Diet>
     {
          Task<ReturnedClass<Diet>> GetDietByIdWithWeekAndRecipe(int id);
+         Task<ReturnedClass<Diet>> UpdateJustRecipe(int DietId,int[] recipes);
     }
 }

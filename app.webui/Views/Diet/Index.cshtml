@@ -33,7 +33,7 @@
         <div class="DietWekkly">
             @foreach (var item in Model.Diet.DietWekklies)
             {
-                <a href="/Admin/DietWekklys/@item.Id">
+                <a href="/Diet/DietWekklys/@item.Id">
                     <div class="dwt1">
                         <p>@item.Name</p>
                     </div>
@@ -53,7 +53,6 @@
                     </label>
                 </div>
             }
-
         </div>
         <div class="PackageContainer">
             <div class="packageone">

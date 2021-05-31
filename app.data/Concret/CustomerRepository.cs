@@ -21,10 +21,12 @@ namespace app.data.Concret
                 var result = await appContext.Customers.Where(i=>i.Id==id)
                                 .Include(m => m.Diet)
                                 .ThenInclude(m=>m.DietWekklies)
-
+                                .AsSplitQuery()
+                                
                                 .Include(m=>m.Diet)
                                 .ThenInclude(m=>m.CombineDietRecipes)
-                                
+                                .AsSplitQuery()
+
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync();
                 return new ReturnedClass<Customer>()

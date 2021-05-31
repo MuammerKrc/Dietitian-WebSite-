@@ -11,6 +11,7 @@ namespace app.data.Abstract
         IDietRepository Diets{get;}
         IDietMenüRepository dietMenüs{get;}
         IDietWekklyRepository DietWekkly{get;}
+        IAnamnezFormRepository AnamnezForm{get;}
         Task<OprationResult> SaveAsync();
     }
 }

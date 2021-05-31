@@ -12,15 +12,18 @@ namespace app.webui.Controllers
 {
     public class DietController : Controller
     {
+        IAnamnezFormService anamnezFormService;
         ICustomerService customerService;
         IRecipeService recipeService;
         IDietWekklyService dietWekklyService;
         IEmailSender emailSender;
-        public DietController(ICustomerService _customerService, IRecipeService _recipeService,IDietWekklyService _dietWekklyService)
+        public DietController(ICustomerService _customerService, IRecipeService _recipeService,IDietWekklyService _dietWekklyService,IEmailSender _emailSender, IAnamnezFormService _anamnezFormService)
         {
+            anamnezFormService=_anamnezFormService;
             dietWekklyService=_dietWekklyService;
             customerService = _customerService;
             recipeService = _recipeService;
+            emailSender=_emailSender;
         }
         public async Task<IActionResult> Index(int? id)
         {
@@ -42,9 +45,9 @@ namespace app.webui.Controllers
             return View(result.value);
         }
         [HttpGet]
-        public async Task<IActionResult> DietWekklys(int id)
+        public async Task<IActionResult> DietWekklys(int? id)
         {
-            var result = await dietWekklyService.GetByIdAsync(id);
+            var result= await dietWekklyService.GetByIDWithDietMenü(id);
             return View(result.value);
         }
         [HttpPost]
@@ -65,6 +68,21 @@ namespace app.webui.Controllers
 
             await emailSender.SendEmailAsync("sinem.karaca.93@gmail.com", "Haftalık Diyetiniz", $"Bu hafta Diyetiniz <a href='http://localhost:5000/diet/{name}'>tıklayınız.</a>");
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> AnamnezForm()
+        {
+            AnamnezForm anamnez=new AnamnezForm();
+        
+            var result =await anamnezFormService.CreateWithRuturned(anamnez);
+
+            return View(result.value);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AnamnezForm(AnamnezForm model)
+        {
+            var result =await anamnezFormService.UpdateAsync(model);
+            return View();
         }
 
     }

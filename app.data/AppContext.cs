@@ -16,6 +16,7 @@ namespace app.data
         public DbSet<DietWekkly> DietWekklies { get; set; }
         public DbSet<DietMenü> DietMenüs { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<AnamnezForm> AnamnezForms{get;set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

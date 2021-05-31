@@ -41,6 +41,8 @@ namespace app.webui
             services.AddScoped<ICustomerService, CustomerManager>();
             //Diet
             services.AddScoped<IDietService,DietManager>();
+            //AnamnezForm
+            services.AddScoped<IAnamnezFormService,AnamnezManager>();
             //DietWeekly
             services.AddScoped<IDietWekklyService,DietWekklyManager>();
             //DietMenü

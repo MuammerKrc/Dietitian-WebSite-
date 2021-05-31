@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using app.data.Abstract;
@@ -31,5 +32,43 @@ namespace app.data.Concret
                 return new ReturnedClass<Diet>(OprationResult.ineffective);
             }
         }
+
+        public async Task<ReturnedClass<Diet>> UpdateJustRecipe(int DietId, int[] recipes)
+        {
+            try
+            {
+                var result=await appContext.Diets.Where(i=>i.Id==DietId)
+                                                .Include(m=>m.CombineDietRecipes)
+                                                .ThenInclude(m=>m.Recipe)
+                                                .AsSplitQuery()
+                                                .AsNoTracking()
+                                                .SingleOrDefaultAsync();
+                
+                if(result!=null)
+                {
+                    List<int> temp=new List<int>();
+                    List<CombineDietRecipe> all=result.CombineDietRecipes.ToList()??new List<CombineDietRecipe>();
+                    temp=recipes.ToList();
+                    foreach (var item in all)
+                    {
+                        if(!temp.Contains(item.RecipeId))
+                        {
+                            temp.Add(item.RecipeId);
+                        }
+                    }
+                    result.CombineDietRecipes=temp.Select(m=>new CombineDietRecipe{
+                        DietId=result.Id,
+                        RecipeId=(int)m
+                    }).ToList();
+                }
+                return new ReturnedClass<Diet>(OprationResult.successful,_value:result);
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<Diet>(OprationResult.ineffective);                
+            }
+        }
     }
+
+    
 }

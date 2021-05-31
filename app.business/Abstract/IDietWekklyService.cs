@@ -12,5 +12,8 @@ namespace app.business.Abstract
         Task<OprationResult> UpdateAsync(DietWekkly entity);
         Task<ReturnedClass<DietWekkly>> GetAll();
         Task<ReturnedClass<DietWekkly>> GetByEntityAsync(DietWekkly entity);
+        Task<ReturnedClass<DietWekkly>> GetByIDWithDietMenü(int? id);
+        Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid);
+
     }
 }

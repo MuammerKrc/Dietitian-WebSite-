@@ -1,0 +1,127 @@
+@model DietWekkly
+@{
+    string names = Model.Diet.Customer.FirstName + " " + Model.Diet.Customer.LastName;
+    bool gender = Model.Diet.Customer.Gender;
+}
+
+
+<div class="container" style="background-color: aliceblue;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <form action="/admin/DietSendAndChange" method="POST" enctype="multipart/form-data">
+                    <div class="col-md-5 ">
+                        <h1 class="h3">Edit Menü List</h1>
+                        <hr>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group row mt-3">
+                            <label asp-for="DietMenü.FullName" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="DietMenü.FullName" class="form-control" value="@names">
+                                <span asp-validation-for="DietMenü.FullName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-3">
+                            <label asp-for="Diet.Customer.Mail" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="Diet.Customer.Mail" class="form-control">
+                                <span asp-validation-for="Diet.Customer.Mail" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3">
+                            <label class="col-sm-2 col-form-label"> Cinsiyet</label>
+                            <div class="col-sm-5" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="btnradio" value="1" id="btnradio1"
+                                    autocomplete="off" @(gender?"checked":"")>
+                                <label class="btn btn-outline-primary" for="btnradio1">Kadın</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" value="2" id="btnradio2"
+                                    autocomplete="off" @(gender==false?"checked":"")>
+                                <label class="btn btn-outline-primary" for="btnradio2">Erkek</label>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3">
+                            <label class="col-sm-2 col-form-label">Öğün Sayısı</label>
+                            <div class="col-sm-5" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="meal" value="1" id="btnradio3"
+                                    autocomplete="off" checked>
+                                <label class="btn btn-outline-primary" for="btnradio3">2 Öğün</label>
+
+                                <input type="radio" class="btn-check" name="meal" value="2" id="btnradio4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnradio4">3 Öğün</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-3">
+                            <label asp-for="DietMenü.Weight" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="DietMenü.Weight" class="form-control"
+                                    value="@Model.Diet.StartingWeight">
+                                <span asp-validation-for="DietMenü.Weight" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3">
+                            <label for="Content" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <textarea id="editor222" name="Content" class="form-control"
+                                    placeholder="açıklama"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3">
+                            <label asp-for="DietMenü.Path" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                @if (Model.DietMenü != null)
+                                {
+                                    if (Model.DietMenü.Path != null && Model.DietMenü.Path != "")
+                                    {
+                                        <a href="~/diet/@Model.DietMenü.Path" alt="asd">
+                                            <img src="/img/model3.png" alt="DietListe" width="75px" height="75px">
+                                        </a>
+                                    }
+                                }
+                                <input type="hidden" asp-for="DietMenü.Path">
+                                <input type="file" name="file">
+                                <span asp-validation-for="DietMenü.Path" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-sm-3">
+                            <div class="col-sm-2 offset-sm-2">
+                                <button type="submit" class="btn btn-outline-info form-control">Save Menü</button>
+                            </div>
+                        </div>
+
+                        @* @Html.HiddenFor(m=>m.Diet.Customer.Mail,Model.Diet.Customer.Mail); *@
+                        @Html.HiddenFor(m=>m.Diet.Id,Model.Diet.Id);
+                        @Html.HiddenFor(m => m.Id , Model.Id)
+
+                        @if (Model.DietMenü != null)
+                        {
+                            Console.WriteLine("girdi");
+                            @Html.HiddenFor(m=>m.DietMenü.Id,Model.DietMenü.Id)
+                        }
+                    </div>
+                    <div class="col-md-3">
+                        <h1 class="h3">Selected Recipe</h1>
+                        <hr>
+                        @foreach (var item in (List<Recipe>)ViewBag.Recipe)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input " type="checkbox" name="recipeIds" value="@item.Id"
+                                id="@item.Id"
+                                @(Model.DietMenü!=null?(Model.DietMenü.CombineDietMenüRecipes.Any(m=>m.RecipeId==item.Id)?"checked":""):"")>
+                                <label class="form-check-label" for="@item.Id">
+                                    @item.Name
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

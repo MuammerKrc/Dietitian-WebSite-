@@ -11,6 +11,7 @@ namespace app.webui.EmailService
         private bool _enableSSl;
         private string _username;
         private string _password;
+
         public SmtpEmailSender(string host, int port, bool enableSSl, string username, string password)
         {
             this._host = host;
@@ -24,14 +25,35 @@ namespace app.webui.EmailService
             var client = new SmtpClient(this._host, this._port)
             {
                 Credentials = new NetworkCredential(_username, _password),
-                EnableSsl=this._enableSSl
+                EnableSsl = this._enableSSl,
+                Timeout = int.MaxValue
+
             };
+
             return client.SendMailAsync(
                 new MailMessage(this._username, email, subject, htmlMessage)
                 {
-                    IsBodyHtml = true
+                    IsBodyHtml = true,
+
                 }
             );
         }
+        public Task SendEmailAsync(string email, string subject, string htmlMessage, Attachment _attachment)
+        {
+            var client = new SmtpClient(this._host, this._port)
+            {
+                Credentials = new NetworkCredential(_username, _password),
+                EnableSsl = this._enableSSl,
+                Timeout = int.MaxValue
+
+            };
+            
+            var mail = new MailMessage(this._username,email,subject,htmlMessage);
+            mail.Attachments.Add(_attachment);
+           
+            return client.SendMailAsync(mail);
+        }
+
+
     }
 }
