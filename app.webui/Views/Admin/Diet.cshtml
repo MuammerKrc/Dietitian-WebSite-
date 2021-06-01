@@ -1,13 +1,11 @@
 @model Customer
 @section css
 {
-<link rel="stylesheet" href="~/css/Diet.css">
+<link rel="stylesheet" href="\css\Diet.css">
 }
 <section class="customer-view">
-
     <div class="container-card">
         <div class="card-title">
-
             <H2>DiYET GENEL BAKIŞ</H2>
         </div>
         <div class="name-card">
@@ -61,11 +59,15 @@
     </div>
     <div class="PackageContainer">
         <div class="packageone">
-            <a style="width: 80px; height: 50px;" class="btn btn-primary" href="/Admin/DietOneMonth/@Model.Id">Aylık Paket</a>
+            <a style="width: 80px; height: 50px;" class="btn btn-primary" href="/Admin/DietOneMonth/@Model.Id">Aylık
+                Paket</a>
         </div>
 
         <div class="packagetwo">
-            <a style="width: 80px; height: 50px;" class="btn btn-primary" href="/Admin/DietOneWeek/@Model.Id">1. Hafta Paket</a>
+            <a style="width: 80px; height: 50px;" class="btn btn-primary" href="/Admin/DietOneWeek/@Model.Id">1. Hafta
+                Paket</a>
         </div>
     </div>
+
+  
 </section>

@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="~/css/Diet.css">
 }
 <section class="customer-view">
-
     <div class="container-card">
         <div class="card-title">
 
@@ -65,4 +64,34 @@
                     Hafta Paket</a>
             </div>
         </div>
+    </div>
+    <div class="card-2">
+        <div class="Anamnez">
+            <div class="card text-center">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link text-danger active">Asla Yiyemediklerim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning " >Sağlığıma Dokunanlar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-primary">Vazgeçemediklerim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-primary">Ananmnez Formu Güncelle</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body ">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a asp-controller="Diet" asp-action="AnamnezForm" asp-route class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="Img-woman">
+            <img src="~/img/womena.png" alt="">
+        </div>
+    </div>
 </section>

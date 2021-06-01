@@ -54,19 +54,18 @@
                 </div>
             </div>
             <div class="col-md-3">
-                        <h1 class="h3">Tarifler</h1>
-                        <hr>
-                        @foreach (var item in (List<Recipe>)ViewBag.recipes)
-                        {
-                            <div class="form-check">
-                                <input class="form-check-input " type="checkbox" name="recipeIds" value="@item.Id"
-                                id="@item.Id">
-                                <label class="form-check-label" for="@item.Id">
-                                    @item.Name
-                                </label>
-                            </div>
-                        }
+                <h1 class="h3">Tarifler</h1>
+                <hr>
+                @foreach (var item in (List<Recipe>)ViewBag.recipes)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input " type="checkbox" name="recipeIds" value="@item.Id" id="@item.Id">
+                        <label class="form-check-label" for="@item.Id">
+                            @item.Name
+                        </label>
                     </div>
+                }
+            </div>
             <div class="form-group row mt-sm-3">
                 <div class="col-sm-3 offset-sm-2">
                     <button type="submit" class="btn btn-outline-info form-control">Menü Ara</button>
@@ -136,7 +135,6 @@
                         <h3>Böyle Bir Menü Yok</h3>
                     </div>
                 }
-
             </tbody>
         </table>
     </div>

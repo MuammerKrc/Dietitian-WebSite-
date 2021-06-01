@@ -8,7 +8,6 @@ namespace app.webui.Models
         public int Meal;
         //1=none 2=women 3=man
         public string Adı;
-
         public int Cinsiyet;
         public int MinWeight;
         public int MaxWeight;
