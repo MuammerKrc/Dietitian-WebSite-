@@ -8,5 +8,11 @@ namespace app.data.Abstract
     {
          Task<ReturnedClass<Diet>> GetDietByIdWithWeekAndRecipe(int id);
          Task<ReturnedClass<Diet>> UpdateJustRecipe(int DietId,int[] recipes);
+         Task<ReturnedClass<Diet>> RegisterAnamnezForm(int DietId,int AnamnezID);
+         Task<ReturnedClass<Diet>> ControlAnamnezForm(int DietId);
+         Task<ReturnedClass<Diet>> GetWithAnamnezForm(int DietId);
+
+         
+
     }
 }

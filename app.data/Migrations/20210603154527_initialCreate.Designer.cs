@@ -10,8 +10,8 @@ using app.data;
 namespace app.data.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20210531123900_InıtıalCreate")]
-    partial class InıtıalCreate
+    [Migration("20210603154527_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,22 +28,22 @@ namespace app.data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Alkol")
+                    b.Property<int?>("Alkol")
                         .HasColumnType("int");
 
-                    b.Property<int>("Coffea")
+                    b.Property<int?>("Coffea")
                         .HasColumnType("int");
 
-                    b.Property<int>("Cola")
+                    b.Property<int?>("Cola")
                         .HasColumnType("int");
 
                     b.Property<string>("Evening")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HerbalTea")
+                    b.Property<int?>("HerbalTea")
                         .HasColumnType("int");
 
-                    b.Property<int>("Juice")
+                    b.Property<int?>("Juice")
                         .HasColumnType("int");
 
                     b.Property<string>("Snack1")
@@ -52,7 +52,7 @@ namespace app.data.Migrations
                     b.Property<string>("Snack2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Soda")
+                    b.Property<int?>("Soda")
                         .HasColumnType("int");
 
                     b.Property<string>("Soru1")
@@ -115,7 +115,7 @@ namespace app.data.Migrations
                     b.Property<string>("Soru9")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Tea")
+                    b.Property<int?>("Tea")
                         .HasColumnType("int");
 
                     b.Property<string>("morning")
@@ -127,7 +127,7 @@ namespace app.data.Migrations
                     b.Property<string>("snack3")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("water")
+                    b.Property<int?>("water")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -404,6 +404,29 @@ namespace app.data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("app.entity.Day", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CurrentDay")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MounthId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MounthId");
+
+                    b.ToTable("Days");
+                });
+
             modelBuilder.Entity("app.entity.Diet", b =>
                 {
                     b.Property<int>("Id")
@@ -444,8 +467,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 1,
-                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 823, DateTimeKind.Local).AddTicks(1375),
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 823, DateTimeKind.Local).AddTicks(9301),
+                            DateEnd = new DateTime(2021, 6, 3, 18, 45, 26, 800, DateTimeKind.Local).AddTicks(7531),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(6001),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -454,8 +477,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 2,
-                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(585),
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(591),
+                            DateEnd = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7250),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7254),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -464,8 +487,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 3,
-                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(593),
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(594),
+                            DateEnd = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7256),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7258),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -474,8 +497,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 4,
-                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(596),
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(597),
+                            DateEnd = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7259),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7260),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -484,8 +507,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 5,
-                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(598),
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(599),
+                            DateEnd = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7261),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7262),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -494,8 +517,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 6,
-                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(600),
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(601),
+                            DateEnd = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7264),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7265),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -504,8 +527,8 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 7,
-                            DateEnd = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(603),
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(603),
+                            DateEnd = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7266),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7267),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -647,6 +670,9 @@ namespace app.data.Migrations
                     b.Property<int>("CurrentWeight")
                         .HasColumnType("int");
 
+                    b.Property<string>("DateTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Detox")
                         .HasColumnType("bit");
 
@@ -658,6 +684,9 @@ namespace app.data.Migrations
 
                     b.Property<int?>("DietMenüId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("GivedDate")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -684,6 +713,7 @@ namespace app.data.Migrations
                             DietId = 1,
                             DietImplementation = 4,
                             DietMenüId = 1,
+                            GivedDate = false,
                             Name = "1. Hafta"
                         },
                         new
@@ -699,6 +729,7 @@ namespace app.data.Migrations
                             DietId = 1,
                             DietImplementation = 3,
                             DietMenüId = 2,
+                            GivedDate = false,
                             Name = "2. Hafta"
                         },
                         new
@@ -714,6 +745,7 @@ namespace app.data.Migrations
                             DietId = 1,
                             DietImplementation = 2,
                             DietMenüId = 3,
+                            GivedDate = false,
                             Name = "3. Hafta"
                         },
                         new
@@ -729,6 +761,7 @@ namespace app.data.Migrations
                             DietId = 1,
                             DietImplementation = 5,
                             DietMenüId = 4,
+                            GivedDate = false,
                             Name = "4. Hafta"
                         },
                         new
@@ -744,6 +777,7 @@ namespace app.data.Migrations
                             DietId = 2,
                             DietImplementation = 4,
                             DietMenüId = 5,
+                            GivedDate = false,
                             Name = "1. Hafta"
                         },
                         new
@@ -759,6 +793,7 @@ namespace app.data.Migrations
                             DietId = 2,
                             DietImplementation = 3,
                             DietMenüId = 6,
+                            GivedDate = false,
                             Name = "2. Hafta"
                         },
                         new
@@ -774,6 +809,7 @@ namespace app.data.Migrations
                             DietId = 2,
                             DietImplementation = 2,
                             DietMenüId = 7,
+                            GivedDate = false,
                             Name = "3. Hafta"
                         },
                         new
@@ -789,6 +825,7 @@ namespace app.data.Migrations
                             DietId = 2,
                             DietImplementation = 5,
                             DietMenüId = 8,
+                            GivedDate = false,
                             Name = "4. Hafta"
                         },
                         new
@@ -804,6 +841,7 @@ namespace app.data.Migrations
                             DietId = 3,
                             DietImplementation = 4,
                             DietMenüId = 9,
+                            GivedDate = false,
                             Name = "1. Hafta"
                         },
                         new
@@ -819,8 +857,63 @@ namespace app.data.Migrations
                             DietId = 3,
                             DietImplementation = 3,
                             DietMenüId = 10,
+                            GivedDate = false,
                             Name = "2. Hafta"
                         });
+                });
+
+            modelBuilder.Entity("app.entity.Hour", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CurrentHour")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DayId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DietWekklyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FinishedHour")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartingHour")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DayId");
+
+                    b.HasIndex("DietWekklyId")
+                        .IsUnique()
+                        .HasFilter("[DietWekklyId] IS NOT NULL");
+
+                    b.ToTable("Hours");
+                });
+
+            modelBuilder.Entity("app.entity.Mounth", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CurrentMounth")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Mounths");
                 });
 
             modelBuilder.Entity("app.entity.Pilates", b =>
@@ -847,43 +940,43 @@ namespace app.data.Migrations
                         new
                         {
                             Id = 1,
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(3983),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(3963),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 2,
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4551),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4572),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 3,
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4556),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4577),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 4,
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4557),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4578),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 5,
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4559),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4580),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 6,
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4560),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4581),
                             RemainingPackages = 8
                         },
                         new
                         {
                             Id = 7,
-                            DateStart = new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4561),
+                            DateStart = new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4583),
                             RemainingPackages = 8
                         });
                 });
@@ -1003,6 +1096,15 @@ namespace app.data.Migrations
                     b.Navigation("Pilates");
                 });
 
+            modelBuilder.Entity("app.entity.Day", b =>
+                {
+                    b.HasOne("app.entity.Mounth", "Mounth")
+                        .WithMany("Days")
+                        .HasForeignKey("MounthId");
+
+                    b.Navigation("Mounth");
+                });
+
             modelBuilder.Entity("app.entity.Diet", b =>
                 {
                     b.HasOne("app.entity.AnamnezForm", "AnamnezForm")
@@ -1027,9 +1129,31 @@ namespace app.data.Migrations
                     b.Navigation("DietMenü");
                 });
 
+            modelBuilder.Entity("app.entity.Hour", b =>
+                {
+                    b.HasOne("app.entity.Day", "Day")
+                        .WithMany("Hours")
+                        .HasForeignKey("DayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("app.entity.DietWekkly", "DietWekkly")
+                        .WithOne("Hour")
+                        .HasForeignKey("app.entity.Hour", "DietWekklyId");
+
+                    b.Navigation("Day");
+
+                    b.Navigation("DietWekkly");
+                });
+
             modelBuilder.Entity("app.entity.AnamnezForm", b =>
                 {
                     b.Navigation("Diet");
+                });
+
+            modelBuilder.Entity("app.entity.Day", b =>
+                {
+                    b.Navigation("Hours");
                 });
 
             modelBuilder.Entity("app.entity.Diet", b =>
@@ -1044,6 +1168,16 @@ namespace app.data.Migrations
             modelBuilder.Entity("app.entity.DietMenü", b =>
                 {
                     b.Navigation("CombineDietMenüRecipes");
+                });
+
+            modelBuilder.Entity("app.entity.DietWekkly", b =>
+                {
+                    b.Navigation("Hour");
+                });
+
+            modelBuilder.Entity("app.entity.Mounth", b =>
+                {
+                    b.Navigation("Days");
                 });
 
             modelBuilder.Entity("app.entity.Pilates", b =>

@@ -1,0 +1,70 @@
+<main>
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="col-md-12 ">
+                    <h1 class="h3">Takvim Yap</h1>
+                    <hr>
+                    <form asp-controller="admin" asp-action="MakeCalendar" method="POST">
+            
+                        <div class="form-group row mt-3" style="max-width: 300px;">
+                            <label for="Mounth" class="col-sm-2 col-form-label-sm">Ayı Giriniz:</label>
+                            <div class="col-sm-10">
+                                <input type="datetime" class="form-control">
+                            </div>
+                        </div>
+                        @* <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group row mt-3 " style="max-width: 300px;">
+                            <label asp-for="Mounth" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="Mounth" class="form-control">
+                                <span asp-validation-for="Mounth" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-3 " style="max-width: 300px;">
+                            <label asp-for="Week" class="col-sm-2 col-form-label "></label>
+                            <div class="col-sm-10">
+                                <input asp-for="Week" class="form-control"   >
+                                <span asp-validation-for="Week" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3" style="max-width: 300px;">
+                            <label asp-for="Day" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="Day" class="form-control"  value="5" max="7" min="5">
+                                <span asp-validation-for="Day" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3" style="max-width: 300px;">
+                            <label asp-for="StartingHour" class="col-sm-2 col-form-label" ></label>
+                            <div class="col-sm-10">
+                                <input asp-for="StartingHour" class="form-control" value="6" max="12" min="6">
+                                <span asp-validation-for="StartingHour" class="text-danger"></span>
+                            </div>
+                        </div>
+                          <div class="form-group row mt-3" style="max-width: 300px;">
+                            <label asp-for="HowManyHour" class="col-sm-2 col-form-label" ></label>
+                            <div class="col-sm-10">
+                                <input asp-for="HowManyHour" class="form-control" value="1" max="17" min="1">
+                                <span asp-validation-for="HowManyHour" class="text-danger" ></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3" style="max-width: 300px;">
+                            <label asp-for="Minute" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="Minute" class="form-control" placeholder="ImageUrl"  value="20" max="60" min="10">
+                                <span asp-validation-for="Minute" class="text-danger"></span>
+                            </div>
+                        </div> *@
+                        <div class="form-group row mt-sm-3">
+                            <div class="col-sm-2 offset-sm-2">
+                                <button type="submit" class="btn btn-outline-info form-control">Make Calendar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

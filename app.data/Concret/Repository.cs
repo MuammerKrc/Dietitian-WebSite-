@@ -86,7 +86,6 @@ namespace app.data.Concret
                 return new ReturnedClass<T>(OprationResult.ineffective);
             }
         }
-
         public OprationResult UpdateAsync(T id)
         {
             try
@@ -99,14 +98,14 @@ namespace app.data.Concret
                 return OprationResult.ineffective;
             }
         }
-
-       
     }
-
 }
 public enum OprationResult
 {
     // dataResult
+    Have=-5,
+    DontHave=5,
+    Added=5,
     successful = 1,
     ineffective = -1,
 

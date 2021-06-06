@@ -22,14 +22,14 @@ namespace app.business.Concret
         {
             try
             {
-                var result =await work.AnamnezForm.CreateWithRuturned(anamnez);
+                var result = await work.AnamnezForm.CreateWithRuturned(anamnez);
                 await work.SaveAsync();
-                result.oprationResult=OprationResult.ok;
+                result.oprationResult = OprationResult.ok;
                 return result;
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<AnamnezForm>(OprationResult.canceled);                
+                return new ReturnedClass<AnamnezForm>(OprationResult.canceled);
             }
         }
 
@@ -53,9 +53,19 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
-        public Task<OprationResult> UpdateAsync(AnamnezForm entity)
+        public async Task<OprationResult> UpdateAsync(AnamnezForm entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result = work.AnamnezForm.UpdateAsync(entity);
+                var result2 = await work.SaveAsync();
+                return OprationResult.ok;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+
         }
     }
 }

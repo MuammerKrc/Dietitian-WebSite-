@@ -51,6 +51,13 @@ namespace app.webui
             services.AddScoped<IRecipeService,RecipeManager>();
             //Pilates
             services.AddScoped<IPilatesService,PilatesManager>();
+            //Mounth
+            services.AddScoped<IMounthService,MounthManager>();
+            //Day
+            services.AddScoped<IDayService,DayManager>();
+            //Hour
+            services.AddScoped<IHourService,HourManager>();
+          
             
             //email
              services.AddScoped<IEmailSender, SmtpEmailSender>(i =>

@@ -13,17 +13,19 @@ namespace app.webui.Controllers
     public class DietController : Controller
     {
         IAnamnezFormService anamnezFormService;
+        IDietService dietService;
         ICustomerService customerService;
         IRecipeService recipeService;
         IDietWekklyService dietWekklyService;
         IEmailSender emailSender;
-        public DietController(ICustomerService _customerService, IRecipeService _recipeService,IDietWekklyService _dietWekklyService,IEmailSender _emailSender, IAnamnezFormService _anamnezFormService)
+        public DietController(ICustomerService _customerService, IRecipeService _recipeService,IDietWekklyService _dietWekklyService,IEmailSender _emailSender, IAnamnezFormService _anamnezFormService,IDietService _dietService)
         {
             anamnezFormService=_anamnezFormService;
             dietWekklyService=_dietWekklyService;
             customerService = _customerService;
             recipeService = _recipeService;
             emailSender=_emailSender;
+            dietService=_dietService;
         }
         public async Task<IActionResult> Index(int? id)
         {
@@ -70,20 +72,19 @@ namespace app.webui.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public async Task<IActionResult> AnamnezForm()
+        public async Task<IActionResult> AnamnezForm(int Id)
         {
-            AnamnezForm anamnez=new AnamnezForm();
-        
-            var result =await anamnezFormService.CreateWithRuturned(anamnez);
 
-            return View(result.value);
+            var result =await dietService.UpdateOrCreateAnamnezForm(Id);
+            ViewBag.otherId=result.value.Id;
+            return View(result.value.AnamnezForm);
+       
         }
         [HttpPost]
-        public async Task<IActionResult> AnamnezForm(AnamnezForm model)
+        public async Task<IActionResult> AnamnezForm(AnamnezForm model,int otherId)
         {
             var result =await anamnezFormService.UpdateAsync(model);
-            return View();
+            return Redirect("/Diet/Index/"+otherId);
         }
-
     }
 }

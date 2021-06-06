@@ -550,3 +550,5 @@ C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\app.
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\app.webui.genruntimeconfig.cache
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Diet\AnamnezForm.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Diets.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Admin\MakeCalendar.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Denemeiki.cshtml.g.cs

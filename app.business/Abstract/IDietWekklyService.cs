@@ -14,6 +14,8 @@ namespace app.business.Abstract
         Task<ReturnedClass<DietWekkly>> GetByEntityAsync(DietWekkly entity);
         Task<ReturnedClass<DietWekkly>> GetByIDWithDietMenü(int? id);
         Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid);
+        Task<OprationResult> UpdateJustDate(int dietWeekId,string currentHour);
+
 
     }
 }

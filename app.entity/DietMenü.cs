@@ -10,6 +10,5 @@ namespace app.entity
         public bool TwoMeals { get; set; }
         public int Weight { get; set; }
         public List<CombineDietMenüRecipe> CombineDietMenüRecipes { get; set; }
-
     }
 }

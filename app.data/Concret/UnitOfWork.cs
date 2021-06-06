@@ -8,7 +8,7 @@ namespace app.data.Concret
         private readonly AppContext context;
         public UnitOfWork(AppContext _context)
         {
-            context=_context;
+            context = _context;
         }
         private CustomerRepository customerRepository;
         private DietRepository dietRepository;
@@ -17,27 +17,34 @@ namespace app.data.Concret
         private DietMenüRepository dietMenüRepository;
         private RecipeRepository recipeRepository;
         private AnamnezFormRepository anamnezFormRepository;
+        private MounthRepository mounthRepository;
+        private DayRepository dayRepository;
+        private HourRepository hourRepository;
 
 
+        public ICustomerRepository Customers => customerRepository = customerRepository ?? new CustomerRepository(context);
 
-        public ICustomerRepository Customers => customerRepository=customerRepository??new CustomerRepository(context);
-        public IPilatesRepository Piates => pilatesRepository=pilatesRepository??new PilatesRepository(context);
+        public IPilatesRepository Piates => pilatesRepository = pilatesRepository ?? new PilatesRepository(context);
 
-        public IDietRepository Diets => dietRepository=dietRepository??new DietRepository(context);
+        public IDietRepository Diets => dietRepository = dietRepository ?? new DietRepository(context);
 
-        public IDietWekklyRepository DietWekkly =>dietWekklyRepository=dietWekklyRepository??new DietWekklyRepository(context);
+        public IDietWekklyRepository DietWekkly => dietWekklyRepository = dietWekklyRepository ?? new DietWekklyRepository(context);
 
-        public IDietMenüRepository dietMenüs => dietMenüRepository=dietMenüRepository??new DietMenüRepository(context);
+        public IDietMenüRepository dietMenüs => dietMenüRepository = dietMenüRepository ?? new DietMenüRepository(context);
 
-        public IRecipeRepository Recipe => recipeRepository=recipeRepository??new RecipeRepository(context);
+        public IRecipeRepository Recipe => recipeRepository = recipeRepository ?? new RecipeRepository(context);
 
-        public IAnamnezFormRepository AnamnezForm => anamnezFormRepository=anamnezFormRepository??new AnamnezFormRepository(context);
+        public IAnamnezFormRepository AnamnezForm => anamnezFormRepository = anamnezFormRepository ?? new AnamnezFormRepository(context);
+
+        public IMounthRepository Mounth => mounthRepository = mounthRepository ?? new MounthRepository(context);
+        public IDayRepository Day => dayRepository = dayRepository ?? new DayRepository(context);
+
+        public IHourRepository Hour => hourRepository = hourRepository ?? new HourRepository(context);
 
         public void Dispose()
         {
             context.Dispose();
         }
-
         public async Task<OprationResult> SaveAsync()
         {
             try

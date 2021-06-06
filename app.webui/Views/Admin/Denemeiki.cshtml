@@ -1,0 +1,88 @@
+@model CalendarModel
+@section css
+{
+<style>
+    button {
+        border: none;
+    }
+
+    button:hover {
+        color: var(--color_background_1);
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+    }
+</style>
+}
+@{
+    DateTime previousTime = Model.time.AddDays(-7);
+    DateTime nextWeek = Model.time.AddDays(7);
+}
+<main class="my-3">
+    <section class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-center" style="overflow: auto;">
+                    <div style="min-width: 1080px;">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-1 align-self-center">
+                                    <form asp-controller="admin" asp-action="Denemeiki" method="POST">
+                                        <input type="hidden" value="@nextWeek" name="m">
+                                        <button type="submit">
+                                            <i style="transform: scale(1.5); padding: 3px; border: 1px solid; background:#3767A6 ;"
+                                                class="fas fa-arrow-left"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-sm-10">
+                                    <h3 class="h1">Diyet Plates Randevu</h3>
+                                    <h4 class="h3">@Model.time.Month @Model.time.Year</h4>
+                                </div>
+                                <div class="col-sm-1 align-self-center">
+                                    <form asp-controller="admin" asp-action="Denemeiki" method="POST">
+                                        <input type="hidden" value="@nextWeek" name="m">
+                                        <button type="submit">
+                                            <i style="transform: scale(1.5); padding: 3px; border: 1px solid; background:#3767A6 ;"
+                                                class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            @foreach (var item in Model.TakeWeek)
+                            {
+                                <table class="table ">
+                                    <thead>
+                                        <tr>
+
+                                            <th>
+                                                <h4> @item.DayName</h4>
+                                                <h5>@item.CurrentDayOfMounth</h5>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var date in item.dates)
+                                        {
+                                            <tr>
+                                                <td> @date.StartTime</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

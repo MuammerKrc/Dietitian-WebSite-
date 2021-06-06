@@ -14,6 +14,6 @@ namespace app.business.Abstract
         Task<ReturnedClass<Diet>> GetByEntityAsync(Diet entity);
         Task<ReturnedClass<Diet>> GetDietByIdWithWeekAndRecipe(int? id);
         Task<ReturnedClass<Diet>> UpdateJustRecipe(int _DietId, int[] recipes);
-
+        Task<ReturnedClass<Diet>> UpdateOrCreateAnamnezForm(int DietId);
     }
 }

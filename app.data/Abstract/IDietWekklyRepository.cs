@@ -8,5 +8,6 @@ namespace app.data.Abstract
     {
         Task<ReturnedClass<DietWekkly>> GetByIDWithDietMenü(int id);
         Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid);
+        Task<ReturnedClass<DietWekkly>> UpdateJustDate(int dietWeekId,string CurrentHour);
     }
 }

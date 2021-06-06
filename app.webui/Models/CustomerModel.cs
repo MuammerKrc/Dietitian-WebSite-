@@ -7,7 +7,7 @@ namespace app.webui.Models
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Mail { get; set; }
-        public DietModel diet{get;set;}
-        public PilatesModel Pilates{get;set;}
+        public DietModel Diet { get; set; }
+        public PilatesModel Pilates { get; set; } 
     }
 }

@@ -81,9 +81,25 @@ namespace app.business.Concret
 
         }
 
+        public async Task<OprationResult> UpdateJustDate(int dietWeekId, string currentHour)
+        {
+            try
+            {
+                var result =await work.DietWekkly.UpdateJustDate(dietWeekId,currentHour);
+                if(result.oprationResult==OprationResult.successful)
+                {
+                    return await work.SaveAsync();
+                }
+                return result.oprationResult;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;                
+            }
+        }
+
         public async Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid)
         {
-
             try
             {
                 if (dietid <= 0)
@@ -100,5 +116,6 @@ namespace app.business.Concret
                 return new ReturnedClass<DietWekkly>(OprationResult.canceled);
             }
         }
+        
     }
 }

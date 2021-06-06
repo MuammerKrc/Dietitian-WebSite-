@@ -22,7 +22,8 @@ namespace app.webui.Controllers
         private IRecipeService recipeService;
         private IDietMenüService dietMenüService;
         private IDietService dietService;
-        public AdminController(ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService)
+        private IMounthService mounthService;
+        public AdminController(ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, IMounthService _MounthService)
         {
             dietMenüService = _dietMenüService;
             customerService = _customerService;
@@ -30,17 +31,56 @@ namespace app.webui.Controllers
             emailSender = _emailSender;
             recipeService = _recipeService;
             dietService = _dietService;
+            mounthService = _MounthService;
         }
 
-        public IActionResult Deneme()
+        // public async Task<IActionResult> Deneme(DateTime time)
+        // {
+        //     List<String> allDay = new List<string>() { "Pazartesi", "Sali", "Çarşamba", "Perşembe", "Cuma", "Cumartesi" };
+        //     ViewBag.allDay = allDay;
+        //     // Console.WriteLine(MakeTakvim(2));
+        //     System.Console.WriteLine(DateTime.Today);
+        //     CalendarModel m = new CalendarModel(time);
+
+        //     var result =await mounthService.GetDateInOneMounth(DateTime.Now.Month);
+        //     if (result.oprationResult == OprationResult.ok)
+        //     {
+        //         return View(m);
+        //     }
+
+        //     return NotFound();
+        // }
+        [HttpGet]
+        public async Task<IActionResult> Denemeiki()
         {
-            return View();
+
+            var result =await mounthService.GetDateInOneMounth(DateTime.Now.Month);
+            CalendarModel c = new CalendarModel(new DateTime(),result.value);
+
+            return View(c);
+
         }
+        [HttpPost]
+        public async Task<IActionResult> Denemeiki(DateTime m)
+        {
+            var result =await mounthService.GetDateInOneMounth(m.Month);
+
+            CalendarModel c = new CalendarModel(m,result.value);
+
+            if (result.value != null)
+            {
+                System.Console.WriteLine("girdi");
+            }
+
+            return View(c);
+
+        }
+
+
 
         public async Task<IActionResult> Index()
         {
             var returned = await customerService.GetAll();
-
             return View(returned.values);
         }
 
@@ -82,11 +122,9 @@ namespace app.webui.Controllers
         }
         public async Task<IActionResult> DietOneMonth(int id)
         {
+
             DietWekkly D;
-
             var result = await customerService.GetCustomerByIdWithDiet(id);
-
-
             for (var y = 0; y < 4; y++)
             {
                 D = new DietWekkly()
@@ -196,9 +234,7 @@ namespace app.webui.Controllers
         {
             var allrecipe = await recipeService.GetAll();
             ViewBag.recipes = allrecipe.values;
-
             var result = await dietMenüService.GetAllWithRecpe();
-
             return View(result.values);
         }
         [HttpPost]
@@ -214,7 +250,7 @@ namespace app.webui.Controllers
             {
                 MinWeight = 0;
             }
-            System.Console.WriteLine(MaxWeight+" "+MinWeight+" "+Adı);
+            System.Console.WriteLine(MaxWeight + " " + MinWeight + " " + Adı);
             var result = await dietMenüService.GEtAllWithOption(Adı, (int)MinWeight, (int)MaxWeight, Cinsiyet, Meal, recipeIds);
 
             if (result.values == null)
@@ -225,7 +261,50 @@ namespace app.webui.Controllers
 
             return View(result.values);
 
-
         }
+
+        // [HttpGet]
+        // public async Task<IActionResult> MakeCalendar()
+        // {
+        //     // DateTime _mounth=DateTime.Now;
+        //     // await mounthService.MakeNewMounth;
+        //     DateTime time = DateTime.Now;
+        //     int mounth = time.Month;
+        //     int day = time.Day;
+        //     int startingHour = 501;
+        //     int finishedHour = 550;
+        //     Console.WriteLine(mounth);
+        //     Console.WriteLine(day);
+
+        //     var result = await mounthService.MakeDate(mounth, day, startingHour, finishedHour);
+        //     return View();
+        // }
+        [HttpPost]
+        public async Task<IActionResult> MakeCalendar(int dietWekklyId, int duration, DateTime timeOfDates)
+        {
+            int startingHour = (timeOfDates.Hour * 100) + timeOfDates.Minute;
+            int finishedHour = startingHour + duration;
+            int day = timeOfDates.Day;
+            int mounth = timeOfDates.Month;
+            string CurrentHour = timeOfDates.ToShortTimeString();
+
+            Console.WriteLine(startingHour);
+            Console.WriteLine(finishedHour);
+            Console.WriteLine(day);
+            Console.WriteLine(mounth);
+
+            var result = await mounthService.MakeDate(mounth, day, startingHour, finishedHour, dietWekklyId, CurrentHour);
+            if (result.oprationResult == OprationResult.Saved)
+            {
+                var resultOfDietWekkly = await dietWekklyService.UpdateJustDate(dietWekklyId, result.value.CurrentHour);
+            }
+            return Redirect("/diet/DietWekklys/" + dietWekklyId);
+        }
+
+        // [HttpPost]
+        // public async Task<IActionResult> MakeCalender()
+        // {
+        //     return View();
+        // }
     }
 }

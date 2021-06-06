@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace app.data.Migrations
 {
-    public partial class InıtıalCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,14 +39,14 @@ namespace app.data.Migrations
                     Snack2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Evening = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     snack3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    water = table.Column<int>(type: "int", nullable: false),
-                    Tea = table.Column<int>(type: "int", nullable: false),
-                    Coffea = table.Column<int>(type: "int", nullable: false),
-                    Soda = table.Column<int>(type: "int", nullable: false),
-                    HerbalTea = table.Column<int>(type: "int", nullable: false),
-                    Alkol = table.Column<int>(type: "int", nullable: false),
-                    Juice = table.Column<int>(type: "int", nullable: false),
-                    Cola = table.Column<int>(type: "int", nullable: false)
+                    water = table.Column<int>(type: "int", nullable: true),
+                    Tea = table.Column<int>(type: "int", nullable: true),
+                    Coffea = table.Column<int>(type: "int", nullable: true),
+                    Soda = table.Column<int>(type: "int", nullable: true),
+                    HerbalTea = table.Column<int>(type: "int", nullable: true),
+                    Alkol = table.Column<int>(type: "int", nullable: true),
+                    Juice = table.Column<int>(type: "int", nullable: true),
+                    Cola = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,6 +68,20 @@ namespace app.data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DietMenüs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mounths",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CurrentMounth = table.Column<int>(type: "int", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mounths", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -120,6 +134,27 @@ namespace app.data.Migrations
                         name: "FK_Diets_AnamnezForms_AnamnezFormId",
                         column: x => x.AnamnezFormId,
                         principalTable: "AnamnezForms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Days",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MounthId = table.Column<int>(type: "int", nullable: true),
+                    CurrentDay = table.Column<int>(type: "int", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Days", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Days_Mounths_MounthId",
+                        column: x => x.MounthId,
+                        principalTable: "Mounths",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -220,7 +255,9 @@ namespace app.data.Migrations
                     Detox = table.Column<bool>(type: "bit", nullable: false),
                     DietId = table.Column<int>(type: "int", nullable: true),
                     DietMenüId = table.Column<int>(type: "int", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false)
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    GivedDate = table.Column<bool>(type: "bit", nullable: false),
+                    DateTime = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -235,6 +272,36 @@ namespace app.data.Migrations
                         name: "FK_DietWekklies_Diets_DietId",
                         column: x => x.DietId,
                         principalTable: "Diets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Hours",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CurrentHour = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartingHour = table.Column<int>(type: "int", nullable: false),
+                    FinishedHour = table.Column<int>(type: "int", nullable: false),
+                    DietWekklyId = table.Column<int>(type: "int", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    DayId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hours", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Hours_Days_DayId",
+                        column: x => x.DayId,
+                        principalTable: "Days",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Hours_DietWekklies_DietWekklyId",
+                        column: x => x.DietWekklyId,
+                        principalTable: "DietWekklies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -261,13 +328,13 @@ namespace app.data.Migrations
                 columns: new[] { "Id", "AnamnezFormId", "DateEnd", "DateStart", "Height", "StartingBreastSize", "StartingWaistline", "StartingWeight" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2021, 5, 31, 15, 38, 59, 823, DateTimeKind.Local).AddTicks(1375), new DateTime(2021, 5, 31, 15, 38, 59, 823, DateTimeKind.Local).AddTicks(9301), 168, 84, 90, 80 },
-                    { 6, null, new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(600), new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(601), 168, 84, 90, 80 },
-                    { 5, null, new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(598), new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(599), 168, 84, 90, 80 },
-                    { 4, null, new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(596), new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(597), 168, 84, 90, 80 },
-                    { 3, null, new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(593), new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(594), 168, 84, 90, 80 },
-                    { 2, null, new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(585), new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(591), 168, 84, 90, 80 },
-                    { 7, null, new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(603), new DateTime(2021, 5, 31, 15, 38, 59, 824, DateTimeKind.Local).AddTicks(603), 168, 84, 90, 80 }
+                    { 1, null, new DateTime(2021, 6, 3, 18, 45, 26, 800, DateTimeKind.Local).AddTicks(7531), new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(6001), 168, 84, 90, 80 },
+                    { 6, null, new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7264), new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7265), 168, 84, 90, 80 },
+                    { 5, null, new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7261), new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7262), 168, 84, 90, 80 },
+                    { 4, null, new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7259), new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7260), 168, 84, 90, 80 },
+                    { 3, null, new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7256), new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7258), 168, 84, 90, 80 },
+                    { 2, null, new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7250), new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7254), 168, 84, 90, 80 },
+                    { 7, null, new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7266), new DateTime(2021, 6, 3, 18, 45, 26, 801, DateTimeKind.Local).AddTicks(7267), 168, 84, 90, 80 }
                 });
 
             migrationBuilder.InsertData(
@@ -275,13 +342,13 @@ namespace app.data.Migrations
                 columns: new[] { "Id", "DateStart", "Name", "RemainingPackages" },
                 values: new object[,]
                 {
-                    { 7, new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4561), null, 8 },
-                    { 6, new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4560), null, 8 },
-                    { 5, new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4559), null, 8 },
-                    { 4, new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4557), null, 8 },
-                    { 2, new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4551), null, 8 },
-                    { 1, new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(3983), null, 8 },
-                    { 3, new DateTime(2021, 5, 31, 15, 38, 59, 826, DateTimeKind.Local).AddTicks(4556), null, 8 }
+                    { 7, new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4583), null, 8 },
+                    { 6, new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4581), null, 8 },
+                    { 5, new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4580), null, 8 },
+                    { 4, new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4578), null, 8 },
+                    { 2, new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4572), null, 8 },
+                    { 1, new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(3963), null, 8 },
+                    { 3, new DateTime(2021, 6, 3, 18, 45, 26, 807, DateTimeKind.Local).AddTicks(4577), null, 8 }
                 });
 
             migrationBuilder.InsertData(
@@ -349,19 +416,19 @@ namespace app.data.Migrations
 
             migrationBuilder.InsertData(
                 table: "DietWekklies",
-                columns: new[] { "Id", "Active", "AvgNmbrOfSteps", "AvgWater", "CurrentBreastSize", "CurrentWaistline", "CurrentWeight", "Detox", "DietId", "DietImplementation", "DietMenüId", "Name" },
+                columns: new[] { "Id", "Active", "AvgNmbrOfSteps", "AvgWater", "CurrentBreastSize", "CurrentWaistline", "CurrentWeight", "DateTime", "Detox", "DietId", "DietImplementation", "DietMenüId", "GivedDate", "Name" },
                 values: new object[,]
                 {
-                    { 5, false, 2500, 2.5, 70, 80, 80, true, 2, 4, 5, "1. Hafta" },
-                    { 3, true, 2300, 3.0, 67, 76, 75, true, 1, 2, 3, "3. Hafta" },
-                    { 4, true, 200, 2.0, 65, 75, 60, true, 1, 5, 4, "4. Hafta" },
-                    { 2, true, 2700, 2.0, 68, 79, 78, true, 1, 3, 2, "2. Hafta" },
-                    { 9, false, 2500, 2.5, 70, 80, 80, true, 3, 4, 9, "1. Hafta" },
-                    { 7, false, 2300, 3.0, 67, 76, 75, true, 2, 2, 7, "3. Hafta" },
-                    { 8, false, 200, 2.0, 65, 75, 60, true, 2, 5, 8, "4. Hafta" },
-                    { 10, false, 2700, 2.0, 68, 79, 78, true, 3, 3, 10, "2. Hafta" },
-                    { 6, false, 2700, 2.0, 68, 79, 78, true, 2, 3, 6, "2. Hafta" },
-                    { 1, true, 2500, 2.5, 70, 80, 80, true, 1, 4, 1, "1. Hafta" }
+                    { 5, false, 2500, 2.5, 70, 80, 80, null, true, 2, 4, 5, false, "1. Hafta" },
+                    { 3, true, 2300, 3.0, 67, 76, 75, null, true, 1, 2, 3, false, "3. Hafta" },
+                    { 4, true, 200, 2.0, 65, 75, 60, null, true, 1, 5, 4, false, "4. Hafta" },
+                    { 2, true, 2700, 2.0, 68, 79, 78, null, true, 1, 3, 2, false, "2. Hafta" },
+                    { 9, false, 2500, 2.5, 70, 80, 80, null, true, 3, 4, 9, false, "1. Hafta" },
+                    { 7, false, 2300, 3.0, 67, 76, 75, null, true, 2, 2, 7, false, "3. Hafta" },
+                    { 8, false, 200, 2.0, 65, 75, 60, null, true, 2, 5, 8, false, "4. Hafta" },
+                    { 10, false, 2700, 2.0, 68, 79, 78, null, true, 3, 3, 10, false, "2. Hafta" },
+                    { 6, false, 2700, 2.0, 68, 79, 78, null, true, 2, 3, 6, false, "2. Hafta" },
+                    { 1, true, 2500, 2.5, 70, 80, 80, null, true, 1, 4, 1, false, "1. Hafta" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -389,6 +456,11 @@ namespace app.data.Migrations
                 filter: "[PilatesId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Days_MounthId",
+                table: "Days",
+                column: "MounthId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Diets_AnamnezFormId",
                 table: "Diets",
                 column: "AnamnezFormId",
@@ -404,6 +476,18 @@ namespace app.data.Migrations
                 name: "IX_DietWekklies_DietMenüId",
                 table: "DietWekklies",
                 column: "DietMenüId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Hours_DayId",
+                table: "Hours",
+                column: "DayId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Hours_DietWekklyId",
+                table: "Hours",
+                column: "DietWekklyId",
+                unique: true,
+                filter: "[DietWekklyId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -418,13 +502,22 @@ namespace app.data.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "DietWekklies");
+                name: "Hours");
 
             migrationBuilder.DropTable(
                 name: "Recipes");
 
             migrationBuilder.DropTable(
                 name: "Pilateis");
+
+            migrationBuilder.DropTable(
+                name: "Days");
+
+            migrationBuilder.DropTable(
+                name: "DietWekklies");
+
+            migrationBuilder.DropTable(
+                name: "Mounths");
 
             migrationBuilder.DropTable(
                 name: "DietMenüs");

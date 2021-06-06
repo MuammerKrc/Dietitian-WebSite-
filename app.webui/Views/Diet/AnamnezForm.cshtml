@@ -305,15 +305,13 @@
                     <span asp-validation-for="Cola" class="text-danger"></span>
                 </div>
             </div>
-
-            @Html.HiddenFor(m => m.Id , Model.Id)
+            <input type="hidden" name="otherId" value="@((int)ViewBag.otherId)">
+            <input type="hidden" name="Id" value="@Model.Id">
             <div class="form-group  row mt-sm-3">
                 <div class="col-md-12 offset-sm-2">
                     <button type="submit" class="btn btn-outline-info form-control">Değişiklikleri Kaydet</button>
                 </div>
             </div>
         </div>
-       
-     
     </form>
 </div>

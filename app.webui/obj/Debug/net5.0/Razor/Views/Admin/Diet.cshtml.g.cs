@@ -33,7 +33,7 @@ using app.entity;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a332cda639bd4d43b47f99bc8907607d60049a10", @"/Views/Admin/Diet.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"dcd55125ad3ddd8f7603658fa261010ee6afc019", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f40012d189a312fc37d120f27b27657a9c0f7df4", @"/Views/_ViewImports.cshtml")]
     public class Views_Admin_Diet : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<Customer>
     {
         #pragma warning disable 1998

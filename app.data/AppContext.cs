@@ -16,7 +16,10 @@ namespace app.data
         public DbSet<DietWekkly> DietWekklies { get; set; }
         public DbSet<DietMenü> DietMenüs { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
-        public DbSet<AnamnezForm> AnamnezForms{get;set;}
+        public DbSet<AnamnezForm> AnamnezForms { get; set; }
+        public DbSet<Mounth> Mounths { get; set; }
+        public DbSet<Day> Days { get; set; }
+        public DbSet<Hour> Hours { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +31,7 @@ namespace app.data
             modelBuilder.ApplyConfiguration(new DietWekklyConfiguration());
             modelBuilder.ApplyConfiguration(new RecipeConfiguration());
             modelBuilder.ApplyConfiguration(new PilatesConfiguration());
+            modelBuilder.ApplyConfiguration(new HourConfiguration());
         }
         // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         // {

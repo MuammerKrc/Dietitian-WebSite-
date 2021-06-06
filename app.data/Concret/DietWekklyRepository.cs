@@ -39,6 +39,25 @@ namespace app.data.Concret
             }
         }
 
+        public async Task<ReturnedClass<DietWekkly>> UpdateJustDate(int dietWeekId, string CurrentHour)
+        {
+            try
+            {
+                var result =await appContext.DietWekklies
+                                            .FirstOrDefaultAsync(i=>i.Active);
+                if(result!=null)
+                {
+                    result.DateTime=CurrentHour;
+                    result.GivedDate=true;
+                }
+                return new ReturnedClass<DietWekkly>(OprationResult.successful,result);
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<DietWekkly>(OprationResult.ineffective);
+            }
+        }
+
         public async Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid)
         {
             try

@@ -8,6 +8,8 @@ namespace app.data.Configuration
     {
         public void Configure(EntityTypeBuilder<DietWekkly> builder)
         {
+            builder.HasKey(i=>i.Id);
+            builder.HasOne(i=>i.Hour);
             builder.HasData(
                 new DietWekkly() { Id = 1, AvgNmbrOfSteps = 2500, DietImplementation = 4, AvgWater = 2.5, CurrentWaistline = 80, CurrentBreastSize = 70, CurrentWeight = 80, DietId = 1, Active = true, DietMenüId = 1, Detox = true, Name = "1. Hafta" },
                 new DietWekkly() { Id = 2, AvgNmbrOfSteps = 2700, DietImplementation = 3, AvgWater = 2, CurrentWaistline = 79, CurrentBreastSize = 68, CurrentWeight = 78, DietId = 1, Active = true, DietMenüId = 2, Detox = true, Name = "2. Hafta" },

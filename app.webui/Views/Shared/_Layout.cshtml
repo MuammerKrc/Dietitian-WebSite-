@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;0,600;1,300&display=swap"
         rel="stylesheet">
@@ -25,11 +25,12 @@
 <body>
     @await Html.PartialAsync("_navbar")
 
-    <main class="container-body">
-        <div class="body-content">
+    <main>
+        <div class="container">
             @RenderBody()
         </div>
     </main>
+
 
     <footer class="py-5 bg-dark text-white text-center">
         Shop App
