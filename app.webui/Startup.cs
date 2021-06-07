@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,9 +9,11 @@ using app.data;
 using app.data.Abstract;
 using app.data.Concret;
 using app.webui.EmailService;
+using app.webui.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,44 +34,85 @@ namespace app.webui
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddDbContext<AppContext>(option=>option.UseSq)
 
-            services.AddDbContext<AppContext>(options => options.UseSqlServer(configuration.GetConnectionString("MsSqlConnection")));
+            //Identity
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(configuration.GetConnectionString("MsSqlConnection")));
+            //
+            services.AddDbContext<data.AppContext>(options => options.UseSqlServer(configuration.GetConnectionString("MsSqlConnection")));
+
+            //RegisterSetting
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(options =>
+            {
+                //password
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                //lockout
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.AllowedForNewUsers = true;
+
+                //User
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+            });
+            
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/account/login";
+                options.LogoutPath = "/account/logout";
+                options.AccessDeniedPath = "/account/accessdenied";
+                options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                options.Cookie = new CookieBuilder()
+                {
+                    HttpOnly = true,
+                    Name = "Diyet",
+                    SameSite = SameSiteMode.Strict
+                };
+            });
+
+
+
 
             //UnitOfWork
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Customer
             services.AddScoped<ICustomerService, CustomerManager>();
             //Diet
-            services.AddScoped<IDietService,DietManager>();
+            services.AddScoped<IDietService, DietManager>();
             //AnamnezForm
-            services.AddScoped<IAnamnezFormService,AnamnezManager>();
+            services.AddScoped<IAnamnezFormService, AnamnezManager>();
             //DietWeekly
-            services.AddScoped<IDietWekklyService,DietWekklyManager>();
+            services.AddScoped<IDietWekklyService, DietWekklyManager>();
             //DietMenü
-            services.AddScoped<IDietMenüService,DietMenüManager>();
+            services.AddScoped<IDietMenüService, DietMenüManager>();
             //Recipe
-            services.AddScoped<IRecipeService,RecipeManager>();
+            services.AddScoped<IRecipeService, RecipeManager>();
             //Pilates
-            services.AddScoped<IPilatesService,PilatesManager>();
+            services.AddScoped<IPilatesService, PilatesManager>();
             //Mounth
-            services.AddScoped<IMounthService,MounthManager>();
+            services.AddScoped<IMounthService, MounthManager>();
             //Day
-            services.AddScoped<IDayService,DayManager>();
+            services.AddScoped<IDayService, DayManager>();
             //Hour
-            services.AddScoped<IHourService,HourManager>();
-          
-            
+            services.AddScoped<IHourService, HourManager>();
+
+
             //email
-             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
-             new SmtpEmailSender(
-                 configuration["EmailSender:Host"],
-                 configuration.GetValue<int>("EmailSender:Port"),
-                 configuration.GetValue<bool>("EmailSender:EnableSSL"),
-                 configuration["EmailSender:UserName"],
-                 configuration["EmailSender:Password"]
-                 )
-            );
+            services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
+            new SmtpEmailSender(
+                configuration["EmailSender:Host"],
+                configuration.GetValue<int>("EmailSender:Port"),
+                configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                configuration["EmailSender:UserName"],
+                configuration["EmailSender:Password"]
+                )
+           );
             services.AddControllersWithViews();
         }
 
@@ -88,16 +132,17 @@ namespace app.webui
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseAuthentication();
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 //admin
                 endpoints.MapControllerRoute(
-                    name:"Diyet Listesi Görüntüle",
-                    pattern:"/admin/diyet/{id}",
-                    defaults:new{controller="Admin",action="Diet"}
+                    name: "Diyet Listesi Görüntüle",
+                    pattern: "/admin/diyet/{id}",
+                    defaults: new { controller = "Admin", action = "Diet" }
                 );
                 //default
                 endpoints.MapControllerRoute(
@@ -105,6 +150,7 @@ namespace app.webui
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
             });
+
         }
     }
 }

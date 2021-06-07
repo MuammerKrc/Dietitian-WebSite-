@@ -552,3 +552,13 @@ C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razo
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Diets.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Admin\MakeCalendar.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Denemeiki.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Account\ConfirmEmail.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Account\ForgotPassword.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\Account\ResetPassword.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\RoleAndUser\RoleCreate.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\RoleAndUser\RoleEdit.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\RoleAndUser\RoleList.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\RoleAndUser\UserEdit.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\obj\Debug\net5.0\Razor\Views\RoleAndUser\UserList.cshtml.g.cs

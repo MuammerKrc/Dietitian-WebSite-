@@ -14,23 +14,45 @@
     </div>
     <div class="container-navbar">
         <ul class="navbar">
-            <li class="navbar-item">
-                <a href="#" class="navbar-link navbar-item-active">Ana Sayfa</a>
-            </li>
-            <li class="navbar-item">
-                <a href="#" class="navbar-link">Hakkımda</a>
-            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="navbar-item">
+                    <a href="#" class="navbar-link navbar-item-active">Ana Sayfa</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="#" class="navbar-link">Hakkımda</a>
+                </li>
 
-            <li class="navbar-item">
-                <a href="#" class="navbar-link">online diyet</a>
-            </li>
+                <li class="navbar-item">
+                    <a href="#" class="navbar-link">online diyet</a>
+                </li>
+            }
             <li class="navbar-item">
                 <a href="#" class="navbar-link">Blog</a>
             </li>
             <li class="navbar-item">
                 <a href="#" class="navbar-link">Yorumlar</a>
             </li>
-            <form action=""></form>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a href="#">
+                        @User.Identity.Name
+                    </a>
+                </li>
+                <li class="navbar-item">
+                    <a asp-controller="account" asp-action="logout" class="navbar-link">Logout</a>
+                </li>
+            }
+            else
+            {
+                <li class="navbar-item">
+                    <a asp-controller="account" asp-action="Login" class="navbar-link">Login</a>
+                </li>
+                <li class="navbar-item">
+                    <a asp-controller="account" asp-action="Register" class="navbar-link">Register</a>
+                </li>
+            }
         </ul>
     </div>
 

@@ -7,15 +7,21 @@ using System.Threading.Tasks;
 using app.business.Abstract;
 using app.entity;
 using app.webui.EmailService;
+using app.webui.Identity;
 using app.webui.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 
 namespace app.webui.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
+        private RoleManager<IdentityRole> roleManager;
+        private UserManager<User> userManager;
         public ICustomerService customerService;
         public IDietWekklyService dietWekklyService;
         private IEmailSender emailSender;
@@ -23,8 +29,10 @@ namespace app.webui.Controllers
         private IDietMenüService dietMenüService;
         private IDietService dietService;
         private IMounthService mounthService;
-        public AdminController(ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, IMounthService _MounthService)
+
+        public AdminController(UserManager<User> _userManager, ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, IMounthService _MounthService, RoleManager<IdentityRole> _roleManager)
         {
+            userManager = _userManager;
             dietMenüService = _dietMenüService;
             customerService = _customerService;
             dietWekklyService = _dietWekklyService;
@@ -32,7 +40,9 @@ namespace app.webui.Controllers
             recipeService = _recipeService;
             dietService = _dietService;
             mounthService = _MounthService;
+            roleManager = _roleManager;
         }
+       
 
         // public async Task<IActionResult> Deneme(DateTime time)
         // {
@@ -54,8 +64,8 @@ namespace app.webui.Controllers
         public async Task<IActionResult> Denemeiki()
         {
 
-            var result =await mounthService.GetDateInOneMounth(DateTime.Now.Month);
-            CalendarModel c = new CalendarModel(new DateTime(),result.value);
+            var result = await mounthService.GetDateInOneMounth(DateTime.Now.Month);
+            CalendarModel c = new CalendarModel(new DateTime(), result.value);
 
             return View(c);
 
@@ -63,9 +73,9 @@ namespace app.webui.Controllers
         [HttpPost]
         public async Task<IActionResult> Denemeiki(DateTime m)
         {
-            var result =await mounthService.GetDateInOneMounth(m.Month);
+            var result = await mounthService.GetDateInOneMounth(m.Month);
 
-            CalendarModel c = new CalendarModel(m,result.value);
+            CalendarModel c = new CalendarModel(m, result.value);
 
             if (result.value != null)
             {
@@ -83,17 +93,6 @@ namespace app.webui.Controllers
             var returned = await customerService.GetAll();
             return View(returned.values);
         }
-
-        // public async Task<IActionResult> Diet(int id)
-        // {
-        //     System.Console.WriteLine(id + "Controller");
-        //     var result = await customerService.GetCustomerByIdWithDiet(id);
-
-        //     List<MenüModel> MenüList = new List<MenüModel>();
-        //     ModelHelper.MenüCreate(result.value.Menü, MenüList);
-        //     ViewBag.Menü = MenüList;
-        //     return View(result.value);
-        // }
 
         [HttpGet]
         public async Task<IActionResult> DietWekklys(int id)
@@ -263,22 +262,7 @@ namespace app.webui.Controllers
 
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> MakeCalendar()
-        // {
-        //     // DateTime _mounth=DateTime.Now;
-        //     // await mounthService.MakeNewMounth;
-        //     DateTime time = DateTime.Now;
-        //     int mounth = time.Month;
-        //     int day = time.Day;
-        //     int startingHour = 501;
-        //     int finishedHour = 550;
-        //     Console.WriteLine(mounth);
-        //     Console.WriteLine(day);
 
-        //     var result = await mounthService.MakeDate(mounth, day, startingHour, finishedHour);
-        //     return View();
-        // }
         [HttpPost]
         public async Task<IActionResult> MakeCalendar(int dietWekklyId, int duration, DateTime timeOfDates)
         {
@@ -301,10 +285,6 @@ namespace app.webui.Controllers
             return Redirect("/diet/DietWekklys/" + dietWekklyId);
         }
 
-        // [HttpPost]
-        // public async Task<IActionResult> MakeCalender()
-        // {
-        //     return View();
-        // }
+
     }
 }

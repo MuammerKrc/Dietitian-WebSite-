@@ -1,0 +1,70 @@
+@model UserModel
+<div class="row">
+    <div class="col-md-12">
+        <form action="/admin/useredit" method="POST" >
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="h3">Edit Product</h1>
+                    <hr>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group row mt-3">
+                        <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="FirstName" class="form-control">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="LastName" class="form-control">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label asp-for="UserName" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="UserName" class="form-control">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label asp-for="Email" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="Email" class="form-control">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="custom-control custom-checkbox mt-3">
+                        <label asp-for="EmailConfirmed" class="custom-control-label"></label> 
+                        <input asp-for="EmailConfirmed" type="checkbox" class="custom-control-input m-lg-5">
+                    </div>
+                
+
+                    <div class="form-group row mt-sm-3">
+                        <div class="col-sm-2 offset-sm-2">
+                            <button type="submit" class="btn btn-outline-info form-control">Save Category</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="UserId" value="@Model.UserId">
+                </div>
+                <div class="col-md-4">
+                    <h1 class="h3">Selected Roles</h1>
+                    <hr>
+                    @foreach (var roleName in ViewBag.Roles)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input " type="checkbox" name="selectedRoles" value="@roleName"  id="@roleName"
+                            @(Model.SelectedRoles.Any(i=>i.ToString()==roleName)?"checked":"")>
+                            <label class="form-check-label" for="roleName">
+                                @roleName
+                            </label>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

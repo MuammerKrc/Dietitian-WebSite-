@@ -5,11 +5,13 @@ using app.business.Abstract;
 using app.entity;
 using app.webui.EmailService;
 using app.webui.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace app.webui.Controllers
 {
+    [Authorize]
     public class DietController : Controller
     {
         IAnamnezFormService anamnezFormService;

@@ -1,0 +1,44 @@
+@model LoginModel
+
+<h1 class="h3">Login</h1>
+<hr>
+
+<div class="row mt-3">
+    <div class="col-md-8">
+        <form asp-controller="Account" asp-action="Login" method="POST">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @Html.HiddenFor(m => m.ReturnUrl,Model.ReturnUrl)
+                <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl">
+            <div class="form-group row mt-3">
+                <label asp-for="Username" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Username">
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group row  mt-3">
+                <label asp-for="Password" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group row  mt-3">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="~/account/forgotpassword" class="btn btn-outline-primary">Forgot Password</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+<script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}

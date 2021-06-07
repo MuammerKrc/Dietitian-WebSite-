@@ -32,8 +32,22 @@ using app.entity;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\Views\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_5\app.webui\Views\_ViewImports.cshtml"
+using app.webui.Identity;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5430c85fd02533d0aebd91978bf8ff6ed9eb0131", @"/Views/Admin/Denemeiki.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f40012d189a312fc37d120f27b27657a9c0f7df4", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e7c64f982aa68b539b544c37e671c4f43c6da773", @"/Views/_ViewImports.cshtml")]
     public class Views_Admin_Denemeiki : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<CalendarModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "admin", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -105,7 +119,7 @@ using app.entity;
                             <div class=""row"">
                                 <div class=""col-sm-1 align-self-center"">
                                     ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5430c85fd02533d0aebd91978bf8ff6ed9eb01315459", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5430c85fd02533d0aebd91978bf8ff6ed9eb01315850", async() => {
                 WriteLiteral("\r\n                                        <input type=\"hidden\"");
                 BeginWriteAttribute("value", " value=\"", 1020, "\"", 1037, 1);
 #nullable restore
@@ -158,7 +172,7 @@ WriteAttributeValue("", 1028, nextWeek, 1028, 9, false);
 #line hidden
 #nullable disable
             WriteLiteral("</h4>\r\n                                </div>\r\n                                <div class=\"col-sm-1 align-self-center\">\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5430c85fd02533d0aebd91978bf8ff6ed9eb01319081", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5430c85fd02533d0aebd91978bf8ff6ed9eb01319472", async() => {
                 WriteLiteral("\r\n                                        <input type=\"hidden\"");
                 BeginWriteAttribute("value", " value=\"", 1968, "\"", 1985, 1);
 #nullable restore
