@@ -13,7 +13,7 @@ namespace app.business.Abstract
         Task<OprationResult> UpdateAsync(Customer entity);
         Task<ReturnedClass<Customer>> GetAll();
         Task<ReturnedClass<Customer>> GetByEntityAsync(Customer entity);
-        Task<ReturnedClass<Customer>> GetCustomerByIdWithDiet(int id);
+        Task<ReturnedClass<Customer>> GetCustomerByIdWithDiet(int? id);
         ReturnedClass<Customer> GetCustomerDietCount(int id);
     }
 }

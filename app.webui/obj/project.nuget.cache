@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PNFTBWqIMHDWPpVP8iMRPp3pr38AhzvOHeRKVzPO9JdtCMi0gxxR/AbiRtI9BF+FDN7dTQAAxa9FQf0ullEn0Q==",
+  "dgSpecHash": "t10WMe+TWqj56BACKCgiTHVEXqwebdc7sO0k8DkM41gUkM0h3z2Mef7usZFpCwMt1Bkc5OCdZJk85QIHyE/luw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_5\\app.webui\\app.webui.csproj",
+  "projectFilePath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_6\\app.webui\\app.webui.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\muamm\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\muamm\\.nuget\\packages\\iyzipay\\2.1.39\\iyzipay.2.1.39.nupkg.sha512",

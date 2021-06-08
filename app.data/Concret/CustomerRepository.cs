@@ -27,8 +27,12 @@ namespace app.data.Concret
                                 .ThenInclude(m=>m.CombineDietRecipes)
                                 .AsSplitQuery()
 
+                                .Include(m=>m.Diet)
+                                .ThenInclude(m=>m.AnamnezForm)
+
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync();
+
                 return new ReturnedClass<Customer>()
                 {
                     oprationResult = OprationResult.successful,
@@ -43,7 +47,6 @@ namespace app.data.Concret
                 };
             }
         }
-
         public ReturnedClass<Customer> GetCustomerDietCount(int id)
         {
             try
@@ -66,5 +69,6 @@ namespace app.data.Concret
                 };
             }
         }
+
     }
 }

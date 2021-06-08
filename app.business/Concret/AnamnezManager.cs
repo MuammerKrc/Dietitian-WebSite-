@@ -22,8 +22,25 @@ namespace app.business.Concret
         {
             try
             {
+                if (anamnez == null)
+                {
+                    return new ReturnedClass<AnamnezForm>(OprationResult.canceled);
+                }
                 var result = await work.AnamnezForm.CreateWithRuturned(anamnez);
-                await work.SaveAsync();
+
+                if (!ManagerHelper.OperationControl(result.oprationResult))
+                {
+                    result.oprationResult = OprationResult.canceled;
+                    return result;
+                }
+
+                var SaveResult = await work.SaveAsync();
+                if (!ManagerHelper.OperationControl(SaveResult))
+                {
+                    result.oprationResult = OprationResult.canceled;
+                    return result;
+                }
+
                 result.oprationResult = OprationResult.ok;
                 return result;
             }
@@ -57,8 +74,16 @@ namespace app.business.Concret
         {
             try
             {
-                var result = work.AnamnezForm.UpdateAsync(entity);
-                var result2 = await work.SaveAsync();
+                var DataResult = work.AnamnezForm.UpdateAsync(entity);
+                if (!ManagerHelper.OperationControl(DataResult))
+                {
+                    return OprationResult.canceled;
+                }
+                var SaveResult = await work.SaveAsync();
+                if (!ManagerHelper.OperationControl(SaveResult))
+                {
+                    return OprationResult.canceled;
+                }
                 return OprationResult.ok;
             }
             catch (System.Exception)

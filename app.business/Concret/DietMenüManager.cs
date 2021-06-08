@@ -63,7 +63,6 @@ namespace app.business.Concret
            {
                var result=await work.dietMenüs.GEtAllWithOption(Adı,MinWeight,MaxWeight,Cinsiyet,Meal,recipeIds);
                result.oprationResult=OprationResult.ok;
-               System.Console.WriteLine("asjl");
                return result;
            }
            catch (System.Exception)

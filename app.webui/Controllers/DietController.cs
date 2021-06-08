@@ -20,38 +20,43 @@ namespace app.webui.Controllers
         IRecipeService recipeService;
         IDietWekklyService dietWekklyService;
         IEmailSender emailSender;
-        public DietController(ICustomerService _customerService, IRecipeService _recipeService,IDietWekklyService _dietWekklyService,IEmailSender _emailSender, IAnamnezFormService _anamnezFormService,IDietService _dietService)
+        public DietController(ICustomerService _customerService, IRecipeService _recipeService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IAnamnezFormService _anamnezFormService, IDietService _dietService)
         {
-            anamnezFormService=_anamnezFormService;
-            dietWekklyService=_dietWekklyService;
+            anamnezFormService = _anamnezFormService;
+            dietWekklyService = _dietWekklyService;
             customerService = _customerService;
             recipeService = _recipeService;
-            emailSender=_emailSender;
-            dietService=_dietService;
+            emailSender = _emailSender;
+            dietService = _dietService;
         }
         public async Task<IActionResult> Index(int? id)
         {
-            if (id == null)
+            try
+            {
+
+                var result = await customerService.GetCustomerByIdWithDiet((int)id);
+                if (!(result.oprationResult == OprationResult.canceled))
+                {
+                    result.value.Diet.CombineDietRecipes = result.value.Diet.CombineDietRecipes ?? new List<entity.CombineDietRecipe>();
+                    result.value.Diet.AnamnezForm = result.value.Diet.AnamnezForm ?? new AnamnezForm();
+                    var allRecipe = await recipeService.GetAll();
+                    if (!(allRecipe.oprationResult == OprationResult.canceled))
+                    {
+                        ViewBag.Recipe = allRecipe.values;
+                        return View(result.value);
+                    }
+                }
+                return NotFound();
+            }
+            catch (System.Exception)
             {
                 return NotFound();
             }
-            System.Console.WriteLine(id + "Controller");
-
-            var result = await customerService.GetCustomerByIdWithDiet((int)id);
-            var allRecipe = await recipeService.GetAll();
-            result.value.Diet.CombineDietRecipes = result.value.Diet.CombineDietRecipes ?? new List<entity.CombineDietRecipe>();
-            System.Console.WriteLine(result.value.Diet.Id + " " + "Id bilgisi");
-            System.Console.WriteLine(result.value.Diet.DietWekklies.Count + " " + "asd");
-            System.Console.WriteLine(result.value.Diet.CombineDietRecipes.Count + " " + "asd");
-
-            System.Console.WriteLine(allRecipe.values.Count);
-            ViewBag.Recipe = allRecipe.values;
-            return View(result.value);
         }
         [HttpGet]
         public async Task<IActionResult> DietWekklys(int? id)
         {
-            var result= await dietWekklyService.GetByIDWithDietMenü(id);
+            var result = await dietWekklyService.GetByIDWithDietMenü(id);
             return View(result.value);
         }
         [HttpPost]
@@ -77,16 +82,16 @@ namespace app.webui.Controllers
         public async Task<IActionResult> AnamnezForm(int Id)
         {
 
-            var result =await dietService.UpdateOrCreateAnamnezForm(Id);
-            ViewBag.otherId=result.value.Id;
+            var result = await dietService.UpdateOrCreateAnamnezForm(Id);
+            ViewBag.otherId = result.value.Id;
             return View(result.value.AnamnezForm);
-       
+
         }
         [HttpPost]
-        public async Task<IActionResult> AnamnezForm(AnamnezForm model,int otherId)
+        public async Task<IActionResult> AnamnezForm(AnamnezForm model, int otherId)
         {
-            var result =await anamnezFormService.UpdateAsync(model);
-            return Redirect("/Diet/Index/"+otherId);
+            var result = await anamnezFormService.UpdateAsync(model);
+            return Redirect("/Diet/Index/" + otherId);
         }
     }
 }

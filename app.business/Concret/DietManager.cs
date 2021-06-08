@@ -40,25 +40,21 @@ namespace app.business.Concret
 
         public async Task<ReturnedClass<Diet>> GetDietByIdWithWeekAndRecipe(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return new ReturnedClass<Diet>(OprationResult.NotFound);
-            }
+
 
             try
             {
+                var resultID = ManagerHelper.IdControlWithReurned<Diet>(id);
+                if (!ManagerHelper.OperationControl(resultID.oprationResult))
+                {
+                    return resultID;
+                }
+
                 var result = await work.Diets.GetDietByIdWithWeekAndRecipe((int)id);
-                if (result.oprationResult == OprationResult.ineffective)
+                if (!ManagerHelper.OperationControl(result.oprationResult))
                 {
+                    result.oprationResult=OprationResult.canceled;
                     return result;
-                }
-                else if (result.value == null)
-                {
-                    return result;
-                }
-                if (result.value == null)
-                {
-                    return new ReturnedClass<Diet>(OprationResult.NotFound);
                 }
                 result.oprationResult = OprationResult.ok;
                 return result;
@@ -80,10 +76,20 @@ namespace app.business.Concret
             {
                 if (_DietId <= 0)
                 {
-                    return new ReturnedClass<Diet>(OprationResult.NotFound);
+                    return new ReturnedClass<Diet>(OprationResult.canceled);
                 }
                 var result = await work.Diets.UpdateJustRecipe(_DietId, recipes);
+                if(!ManagerHelper.OperationControl(result.oprationResult))
+                {
+                    result.oprationResult=OprationResult.canceled;
+                    return result;
+                }
                 var result2 = await work.SaveAsync();
+                if(!ManagerHelper.OperationControl(result2))
+                {
+                    result.oprationResult=OprationResult.canceled;
+                    return result;
+                }
                 return new ReturnedClass<Diet>(OprationResult.ok);
             }
             catch (System.Exception)
@@ -113,25 +119,25 @@ namespace app.business.Concret
                         var resultSave2 = await work.SaveAsync();
                         if (resultSave2 == OprationResult.Saved)
                         {
-                            var result3 =await work.Diets.GetWithAnamnezForm(DietId);
-                            result3.oprationResult=OprationResult.ok;
+                            var result3 = await work.Diets.GetWithAnamnezForm(DietId);
+                            result3.oprationResult = OprationResult.ok;
                             return result3;
                         }
                         else
                         {
-                            Registeranamnez.oprationResult=OprationResult.NotSaved;
+                            Registeranamnez.oprationResult = OprationResult.canceled;
                             return Registeranamnez;
                         }
                     }
                     else
                     {
-                        result.oprationResult = OprationResult.NotSaved;
+                        result.oprationResult = OprationResult.canceled;
                         return result;
                     }
                 }
                 else
                 {
-                    result.oprationResult = OprationResult.NotFound;
+                    result.oprationResult = OprationResult.canceled;
                     return result;
                 }
             }

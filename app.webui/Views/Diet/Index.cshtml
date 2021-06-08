@@ -1,97 +1,105 @@
 @model Customer
 @section css
 {
-<link rel="stylesheet" href="~/css/Diet.css">
+<link rel="stylesheet" href="\css\Menüs.css">
 }
-<section class="customer-view">
-    <div class="container-card">
-        <div class="card-title">
+<section>
 
-            <H2>DiYET GENEL BAKIŞ</H2>
-        </div>
-        <div class="name-card">
-            <div class="item1">
-                <p>@Model.FirstName @Model.LastName</p>
-            </div>
-            <div class="item2">
-                <p>
-                    Başlangıç=@Model.Diet.DateStart
-                </p>
-                <p>
-                    Bitiş=@Model.Diet.DateEnd
-                </p>
-            </div>
-        </div>
-        <div class="diet">
-            <div class="diet-date">
-                <p>15-11-1994</p>
-            </div>
-        </div>
-        <h2 class="DietTitle">Haftalık Diyet</h2>
+    <div class="frame">
 
-        <div class="DietWekkly">
-            @foreach (var item in Model.Diet.DietWekklies)
-            {
-                <a href="/Diet/DietWekklys/@item.Id">
-                    <div class="dwt1">
-                        <p>@item.Name</p>
-                    </div>
-                </a>
-            }
-        </div>
-        <div class="MenüCntr">
-            <h1 class="h3">Yazlıan Menüler</h1>
-            <hr>
-            @foreach (var item in (List<Recipe>)ViewBag.Recipe)
-            {
-                <div class="form-check">
-                    <input class="form-check-input " type="checkbox" name="selectedRecipe" value="@item.Id"
-                    id="@(item.Id)" @(Model.Diet.CombineDietRecipes.Any(i=>i.RecipeId==item.Id)?"checked":"")>
-                    <label class="form-check-label" for="item.id">
-                        @item.Name
-                    </label>
+        <div class="center">
+
+            <div class="profile" >
+                <div class="image" style="transform: scale(1.5);">
+                    <div class="circle-1"></div>
+                    <div class="circle-2"></div>
+                    @if (Model.Gender)
+                    {
+                        <img src="~/img/asda.png" width="70" height="70" alt="Jessica Potter">
+                    }
+                    else
+                    {
+                        <img src="~/img/asdacas.png" width="70" height="70" alt="Jessica Potter">
+                    }
                 </div>
-            }
-        </div>
-        <div class="PackageContainer">
-            <div class="packageone">
-                <a style="width: 80px; height: 50px;" class="btn btn-primary" href="/Admin/DietOneMonth/@Model.Id">Aylık
-                    Paket</a>
+
+                <div class="name">@Model.FirstName @Model.LastName</div>
+                <div class="job">15-06-2021</div>
+                @if (Model.Diet.AnamnezForm.Id <= 0)
+                {
+                    <div class="actions">
+                        <a href="~/diet/anamnezform/@Model.Diet.Id" class="btn">Anamnez Form</a>
+                    </div>
+                }
             </div>
 
-            <div class="packagetwo">
-                <a style="width: 80px; height: 50px;" class="btn btn-primary" href="/Admin/DietOneWeek/@Model.Id">1.
-                    Hafta Paket</a>
+            <div class="stats">
+                <div class="box">
+                    <span class="value">@Model.Diet.StartingWeight</span>
+                    <span class="parameter">Başlangıç Kilo</span>
+                </div>
+                <div class="box">
+                    <span class="value">@Model.Diet.Height</span>
+                    <span class="parameter">Boyu</span>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="card-2">
-        <div class="Anamnez">
-            <div class="card text-center">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link text-danger active">Asla Yiyemediklerim</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning " >Sağlığıma Dokunanlar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled text-primary">Vazgeçemediklerim</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled text-primary">Ananmnez Formu Güncelle</a>
-                    </li>
-                </ul>
+
+            <div class="other">
+                @if (Model.Diet.AnamnezForm.Id > 0)
+                {
+                    <div class="card-2">
+                        <div class="Anamnez">
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs sek">
+                                        <li class="nav-item" id="item1">
+                                            <a class="nav-link text-danger">Asla Yiyemediklerim</a>
+                                        </li>
+                                        <li class="nav-item" id="item2">
+                                            <a class="nav-link text-warning">Sağlık Sorunları</a>
+                                        </li>
+                                        <li class="nav-item" id="item3">
+                                            <a class="nav-link disabled text-primary" >Ananmnez Form</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body" id="r1">
+                                    <h5 class="card-title text-danger">Asla Yiyemediklerim</h5>
+                                    <p class="card-text">@Model.Diet.AnamnezForm.Soru1
+                                    </p>
+                                </div>
+                                <div class="card-body" id="r2">
+                                    <h5 class="card-title  text-warning">Sağlık Sorunları</h5>
+                                    <p class="card-text">
+                                        @Model.Diet.AnamnezForm.Soru2
+                                    </p>
+                                </div>
+                                <div class="card-body" id="r3">
+                                    <h5 class="card-title text-primary" >Ananmnez Form Güncelle</h5>
+                                    <a href="~/diet/anamnezform/@Model.Diet.Id" class="btn btn-primary mt-3">Form</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="week stats">
+                    <h1>Haftalık Diyet</h1>
+                    <div class="week-box">
+                        @foreach (var item in Model.Diet.DietWekklies)
+                        {
+                            <a href="/Diet/DietWekklys/@item.Id">
+                                <div class="box">
+                                    <span class="value">@item.Name</span>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
             </div>
-            <div class="card-body ">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a asp-controller="Diet" asp-action="AnamnezForm" asp-route-Id="@Model.Diet.Id" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="Img-woman">
-            <img src="~/img/womena.png" alt="">
         </div>
     </div>
 </section>
+@section Scripts
+{
+    <script src="/js/DietIndex.js"></script>
+}

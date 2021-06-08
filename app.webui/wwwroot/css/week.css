@@ -1,0 +1,98 @@
+
+section {
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: relative;
+    background: #eeeeec;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
+}
+.profile .other{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    width: 500px;
+    height: auto;
+    background: #fdfeff;
+    border-radius: 10px;
+    margin:50px 0px;
+    padding: 20px 20px 20px 20px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, .2);
+}
+
+.wrapper .profile {
+    margin-top: 2.2em;
+    position: relative;
+}
+.profile .card-title{
+    text-shadow: 1px 10px 10px gray;
+}
+.wrapper .profile:after {
+    width: 100%;
+    height: 1px;
+    content: ' ';
+    display: block;
+    margin-top: 1.3em;
+    background: #e9eff6;
+}
+
+.wrapper .profile .thumbnail {
+    width: 124px;
+    height: 124px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 100%;
+    box-shadow: 0 13px 26px rgba(0, 0, 0, .2), 0 3px 6px rgba(0, 0, 0, .2);
+}
+.wrapper .profile .name {
+    color: #2d354a;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.wrapper .profile .description {
+    color: #080911;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 1.3em;
+}
+.wrapper .profile .btn {
+    color: #fff;
+    width: 130px;
+    height: 42px;
+    outline: none;
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-weight: 300;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 70px;
+    box-shadow: 0 13px 26px rgba(0, 0, 0, .16), 0 3px 6px rgba(0, 0, 0, .16);
+    background: linear-gradient(to top right, #a2165e, #ff48a0);
+}
+.wrapper .profile .btns {
+    color: #fff;
+    width: 130px;
+    height: 42px;
+    outline: none;
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-weight: 300;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 70px;
+    box-shadow: 0 13px 26px rgba(0, 0, 0, .16), 0 3px 6px rgba(0, 0, 0, .16);
+    background: linear-gradient(to top right, #1616a2, #4885ff);
+}

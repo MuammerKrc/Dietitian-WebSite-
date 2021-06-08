@@ -42,24 +42,21 @@ namespace app.webui.Controllers
             mounthService = _MounthService;
             roleManager = _roleManager;
         }
-       
-
-        // public async Task<IActionResult> Deneme(DateTime time)
-        // {
-        //     List<String> allDay = new List<string>() { "Pazartesi", "Sali", "Çarşamba", "Perşembe", "Cuma", "Cumartesi" };
-        //     ViewBag.allDay = allDay;
-        //     // Console.WriteLine(MakeTakvim(2));
-        //     System.Console.WriteLine(DateTime.Today);
-        //     CalendarModel m = new CalendarModel(time);
-
-        //     var result =await mounthService.GetDateInOneMounth(DateTime.Now.Month);
-        //     if (result.oprationResult == OprationResult.ok)
-        //     {
-        //         return View(m);
-        //     }
-
-        //     return NotFound();
-        // }
+        // Index
+        public async Task<IActionResult> Index()
+        {
+            var returned = await customerService.GetAll();
+            return View(returned.values);
+        }
+        public IActionResult Deneme3()
+        {
+            
+            return View();
+        }
+        public  IActionResult Deneme(DateTime time)
+        {
+            return View();
+        }
         [HttpGet]
         public async Task<IActionResult> Denemeiki()
         {
@@ -85,15 +82,6 @@ namespace app.webui.Controllers
             return View(c);
 
         }
-
-
-
-        public async Task<IActionResult> Index()
-        {
-            var returned = await customerService.GetAll();
-            return View(returned.values);
-        }
-
         [HttpGet]
         public async Task<IActionResult> DietWekklys(int id)
         {
@@ -259,10 +247,7 @@ namespace app.webui.Controllers
             }
 
             return View(result.values);
-
         }
-
-
         [HttpPost]
         public async Task<IActionResult> MakeCalendar(int dietWekklyId, int duration, DateTime timeOfDates)
         {
@@ -284,7 +269,6 @@ namespace app.webui.Controllers
             }
             return Redirect("/diet/DietWekklys/" + dietWekklyId);
         }
-
 
     }
 }
