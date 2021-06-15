@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="~/css/admin-Index.css">
 }
 
+
 <section class="customer-view">
     @foreach (var item in Model)
     {
@@ -20,8 +21,9 @@
                 <div class="diet-date">
                     <p>15-11-1994</p>
                 </div>
-                <div class="diet-info" >
-                    <a asp-controller="Diet" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-outline-light">Diyet bilgisi</a> 
+                <div class="diet-info">
+                    <a asp-controller="Diet" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-outline-light">Diyet
+                        bilgisi</a>
                 </div>
             </div>
             <div class="pilates">net

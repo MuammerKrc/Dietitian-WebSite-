@@ -66,6 +66,19 @@ namespace app.business.Concret
             }
         }
 
+        public async Task<OprationResult> MakeActive(int weekId)
+        {
+            try
+            {
+                var result =await work.DietWekkly.MakeActive(weekId);
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;                
+            }
+        }
+
         public async Task<OprationResult> UpdateAsync(DietWekkly entity)
         {
             try
@@ -86,7 +99,7 @@ namespace app.business.Concret
             try
             {
                 var result =await work.DietWekkly.UpdateJustDate(dietWeekId,currentHour);
-                if(result.oprationResult==OprationResult.successful)
+                if(result.oprationResult==OprationResult.ok)
                 {
                     return await work.SaveAsync();
                 }

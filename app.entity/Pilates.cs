@@ -6,7 +6,7 @@ namespace app.entity
     {
         public string Name{get;set;}
         public DateTime DateStart { get; set; }
-        public int RemainingPackages { get; set; }
         public Customer Customer { get; set; }
+        public int CustomerId{get;set;}
     }
 }

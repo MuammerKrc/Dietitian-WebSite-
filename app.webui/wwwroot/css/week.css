@@ -4,7 +4,6 @@ section {
     height: auto;
     display: flex;
     position: relative;
-    background: #eeeeec;
     align-items: center;
     flex-direction: column;
     justify-content: flex-start;

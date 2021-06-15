@@ -60,9 +60,7 @@ namespace app.business.Concret
                 case OprationResult.canceled:
                 temp=false;
                 break;
-                case OprationResult.ineffective:
-                temp= false;
-                break;
+               
                 case OprationResult.InvalidId:
                 temp= false;
                 break;
@@ -77,9 +75,6 @@ namespace app.business.Concret
                 break;
                 case OprationResult.Saved:
                 temp= true;
-                break;
-                case OprationResult.successful:
-                temp =true;
                 break;
                 default:
                 temp =false;

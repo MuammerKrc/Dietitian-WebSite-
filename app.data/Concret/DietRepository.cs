@@ -15,8 +15,6 @@ namespace app.data.Concret
         }
         private AppContext appContext { get { return context as AppContext; } }
 
-
-
         public async Task<ReturnedClass<Diet>> GetDietByIdWithWeekAndRecipe(int id)
         {
             try
@@ -24,14 +22,15 @@ namespace app.data.Concret
                 var result = await appContext.Diets.Where(i => i.Id == id)
                                .Include(m => m.DietWekklies)
                                .Include(m => m.CombineDietRecipes)
+                               .Include(m=>m.AnamnezForm)
                                .AsNoTracking()
                                .FirstOrDefaultAsync();
 
-                return new ReturnedClass<Diet>(OprationResult.successful, _value: result);
+                return new ReturnedClass<Diet>(OprationResult.ok, _value: result);
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<Diet>(OprationResult.ineffective);
+                return new ReturnedClass<Diet>(OprationResult.canceled);
             }
         }
         
@@ -57,7 +56,7 @@ namespace app.data.Concret
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<Diet>(OprationResult.ineffective);
+                return new ReturnedClass<Diet>(OprationResult.canceled);
             }
         }
 
@@ -69,7 +68,6 @@ namespace app.data.Concret
                                                 .Include(m => m.CombineDietRecipes)
                                                 .ThenInclude(m => m.Recipe)
                                                 .AsSplitQuery()
-                                                .AsNoTracking()
                                                 .SingleOrDefaultAsync();
 
                 if (result != null)
@@ -90,41 +88,41 @@ namespace app.data.Concret
                         RecipeId = (int)m
                     }).ToList();
                 }
-                return new ReturnedClass<Diet>(OprationResult.successful, _value: result);
+                return new ReturnedClass<Diet>(OprationResult.ok, _value: result);
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<Diet>(OprationResult.ineffective);
+                return new ReturnedClass<Diet>(OprationResult.canceled);
             }
         }
 
-        public async Task<ReturnedClass<Diet>> RegisterAnamnezForm(int DietId, int AnamnezID)
-        {
+        // public async Task<ReturnedClass<Diet>> RegisterAnamnezForm(int DietId, int AnamnezID)
+        // {
 
-            try
-            {
-                var result = await appContext.Diets
-                                            .Where(i => i.Id == DietId)
-                                            .Include(m => m.AnamnezForm)
-                                            .AsSplitQuery()
-                                            .SingleOrDefaultAsync();
+        //     try
+        //     {
+        //         var result = await appContext.Diets
+        //                                     .Where(i => i.Id == DietId)
+        //                                     .Include(m => m.AnamnezForm)
+        //                                     .AsSplitQuery()
+        //                                     .SingleOrDefaultAsync();
 
-                if (result.AnamnezForm == null)
-                {
-                    result.AnamnezFormId = AnamnezID;
-                    return new ReturnedClass<Diet>(OprationResult.Added, result);
-                }
-                else
-                {
-                    return new ReturnedClass<Diet>(OprationResult.Have);
-                }
-            }
-            catch (System.Exception)
-            {
-                return new ReturnedClass<Diet>(OprationResult.ineffective);
-            }
+        //         if (result.AnamnezForm == null)
+        //         {
+        //             result.AnamnezFormId = AnamnezID;
+        //             return new ReturnedClass<Diet>(OprationResult.Added, result);
+        //         }
+        //         else
+        //         {
+        //             return new ReturnedClass<Diet>(OprationResult.Have);
+        //         }
+        //     }
+        //     catch (System.Exception)
+        //     {
+        //         return new ReturnedClass<Diet>(OprationResult.canceled);
+        //     }
 
-        }
+        // }
 
         public async Task<ReturnedClass<Diet>> GetWithAnamnezForm(int DietId)
         {
@@ -137,11 +135,28 @@ namespace app.data.Concret
                                             .AsNoTracking()
                                             .SingleOrDefaultAsync();
 
-                return new ReturnedClass<Diet>(OprationResult.successful,result);
+                return new ReturnedClass<Diet>(OprationResult.ok,result);
             }
             catch (System.Exception)
             {
                 return new ReturnedClass<Diet>(OprationResult.NotSaved);                
+            }
+        }
+
+        public async Task<OprationResult> InitilazeDiet( Diet diet)
+        {
+            try
+            {
+                if(diet.CustomerId<=0)
+                {
+                    return OprationResult.canceled;
+                }
+                var resutl =await appContext.Diets.AddAsync(diet);
+                return OprationResult.ok;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
             }
         }
     }

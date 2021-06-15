@@ -17,10 +17,8 @@ namespace app.data
         public DbSet<DietMenü> DietMenüs { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<AnamnezForm> AnamnezForms { get; set; }
-        public DbSet<Mounth> Mounths { get; set; }
-        public DbSet<Day> Days { get; set; }
-        public DbSet<Hour> Hours { get; set; }
-
+        public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<PackageRequest> packageRequests{get;set;}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CombineDietMenüRecipeConfiguration());

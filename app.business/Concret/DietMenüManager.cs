@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using app.business.Abstract;
 using app.data.Abstract;
@@ -25,16 +26,16 @@ namespace app.business.Concret
                 if (entity.Id <= 0)
                 {
                     var result = work.dietMenüs.CreateDietMenüReturned(entity);
-                    var result1=await work.SaveAsync();
-                    var resultWithRecipe= await work.dietMenüs.UpdateWithRecipe(result.value, recipes);
-                    var result2=await work.SaveAsync();
-                    return new ReturnedClass<DietMenü>(OprationResult.successful,_value:resultWithRecipe.value);
+                    var result1 = await work.SaveAsync();
+                    var resultWithRecipe = await work.dietMenüs.UpdateWithRecipe(result.value, recipes);
+                    var result2 = await work.SaveAsync();
+                    return new ReturnedClass<DietMenü>(OprationResult.ok, _value: resultWithRecipe.value);
                 }
                 else
                 {
-                    var result=await work.dietMenüs.UpdateWithRecipe(entity, recipes);
-                    var result1=await work.SaveAsync();
-                    return new ReturnedClass<DietMenü>(OprationResult.successful,_value:result.value);
+                    var result = await work.dietMenüs.UpdateWithRecipe(entity, recipes);
+                    var result1 = await work.SaveAsync();
+                    return new ReturnedClass<DietMenü>(OprationResult.ok, _value: result.value);
                 }
             }
             catch (System.Exception)
@@ -44,7 +45,7 @@ namespace app.business.Concret
 
         }
 
-      
+
 
         public OprationResult DeleteAsync(DietMenü entity)
         {
@@ -53,35 +54,35 @@ namespace app.business.Concret
 
         public async Task<ReturnedClass<DietMenü>> GetAll()
         {
-           
+
             return await work.dietMenüs.GetAll();
         }
 
         public async Task<ReturnedClass<DietMenü>> GEtAllWithOption(string Adı, int MinWeight, int MaxWeight, int Cinsiyet, int Meal, int[] recipeIds)
         {
-           try
-           {
-               var result=await work.dietMenüs.GEtAllWithOption(Adı,MinWeight,MaxWeight,Cinsiyet,Meal,recipeIds);
-               result.oprationResult=OprationResult.ok;
-               return result;
-           }
-           catch (System.Exception)
-           {
-               return new ReturnedClass<DietMenü>(OprationResult.canceled);
-           }
+            try
+            {
+                var result = await work.dietMenüs.GEtAllWithOption(Adı, MinWeight, MaxWeight, Cinsiyet, Meal, recipeIds);
+                result.oprationResult = OprationResult.ok;
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<DietMenü>(OprationResult.canceled);
+            }
         }
 
         public async Task<ReturnedClass<DietMenü>> GetAllWithRecpe()
         {
             try
             {
-                var result =await work.dietMenüs.GetAllWithRecpe();
-                result.oprationResult=OprationResult.ok;
+                var result = await work.dietMenüs.GetAllWithRecpe();
+                result.oprationResult = OprationResult.ok;
                 return result;
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<DietMenü>(OprationResult.canceled);                
+                return new ReturnedClass<DietMenü>(OprationResult.canceled);
             }
         }
 
@@ -95,9 +96,58 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
-        public  Task<OprationResult> UpdateAsync(DietMenü entity)
+        public Task<OprationResult> UpdateAsync(DietMenü entity)
         {
             throw new System.NotImplementedException();
+        }
+        public async Task<OprationResult> InitilazeDietMenü(DietMenü dietMenü, int[] recipeIds)
+        {
+            try
+            {
+                var result = await work.dietMenüs.CreateAsync(dietMenü);
+                if (result == OprationResult.ok)
+                {
+                    var saveResult = await work.SaveAsync();
+                    if (saveResult == OprationResult.Saved)
+                    {
+                        var result2 = await work.dietMenüs.UpdateWithRecipe(dietMenü, recipeIds);
+                        if (result2.oprationResult == OprationResult.ok)
+                        {
+                            var saveResult2 = await work.SaveAsync();
+                            if (saveResult == OprationResult.Saved)
+                            {
+                                return OprationResult.ok;
+                            }
+                        }
+                    }
+                }
+                return OprationResult.canceled;
+
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+        public async Task<OprationResult> UpdateDietmenü(DietMenü dietMenü, int[] recipeIds)
+        {
+            try
+            {
+                var result = await work.dietMenüs.UpdateWithRecipe(dietMenü, recipeIds);
+                if(result.oprationResult==OprationResult.ok)
+                {
+                    var SaveResult =await work.SaveAsync();
+                    if(SaveResult==OprationResult.Saved)
+                    {
+                        return   OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
     }
 }

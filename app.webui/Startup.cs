@@ -60,7 +60,7 @@ namespace app.webui
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
-            
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/account/login";
@@ -75,10 +75,6 @@ namespace app.webui
                     SameSite = SameSiteMode.Strict
                 };
             });
-
-
-
-
             //UnitOfWork
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //Customer
@@ -95,14 +91,10 @@ namespace app.webui
             services.AddScoped<IRecipeService, RecipeManager>();
             //Pilates
             services.AddScoped<IPilatesService, PilatesManager>();
-            //Mounth
-            services.AddScoped<IMounthService, MounthManager>();
-            //Day
-            services.AddScoped<IDayService, DayManager>();
-            //Hour
-            services.AddScoped<IHourService, HourManager>();
-
-
+            //Calander
+            services.AddScoped<ICalendarService, CalendarManager>();
+            //Package
+            services.AddScoped<IPackageRequestService, PackageRequestManager>();
             //email
             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
             new SmtpEmailSender(
@@ -118,7 +110,7 @@ namespace app.webui
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration, UserManager<User> userManager, RoleManager<IdentityRole> role)
         {
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
@@ -150,7 +142,6 @@ namespace app.webui
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
             });
-
         }
     }
 }

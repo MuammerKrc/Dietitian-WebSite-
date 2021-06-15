@@ -70,6 +70,7 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
+
         public async Task<OprationResult> UpdateAsync(AnamnezForm entity)
         {
             try
@@ -90,7 +91,6 @@ namespace app.business.Concret
             {
                 return OprationResult.canceled;
             }
-
         }
     }
 }

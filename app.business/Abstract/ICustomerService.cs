@@ -15,5 +15,10 @@ namespace app.business.Abstract
         Task<ReturnedClass<Customer>> GetByEntityAsync(Customer entity);
         Task<ReturnedClass<Customer>> GetCustomerByIdWithDiet(int? id);
         ReturnedClass<Customer> GetCustomerDietCount(int id);
+        Task<OprationResult> InitilazeCustomer(Customer customer);
+        Task<ReturnedClass<Customer>> GetCustomerByUserId(string UserId);
+        Task<OprationResult> InitilazeDiet(int customerId);
+        Task<OprationResult> InitilazeAnamnezForm(int DietId);
+        Task<OprationResult> ReduceDietPackage(int customerId);
     }
 }

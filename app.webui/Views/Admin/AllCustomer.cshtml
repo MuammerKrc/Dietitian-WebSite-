@@ -1,0 +1,145 @@
+@model List<Customer>
+
+@section css
+{
+<style>
+    .addHeight {
+        height: 40px;
+
+    }
+
+    .card {
+        color: black;
+        width: 320px !important;
+        margin: 0 10px;
+    }
+
+    .card-header {
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .changeColor {
+        color: var(--primary-color);
+    }
+
+    section {
+        position: relative;
+        width: auto;
+        min-height: 1080px;
+    }
+
+    .makeCenterContent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .makeColumnCenter{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .deneme {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: black;
+        background-image: url("/img/aa2.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1000;
+    }
+
+    .asdasd {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    a {
+        color: #fff;
+        font-weight: normal;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+        color: var(--primary-color);
+        outline: none;
+        text-decoration: none;
+    }
+
+    .asdasda {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+
+    /* BG OVERLAY */
+
+    .bg-overlay {
+        background: var(--dark-color);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.10;
+    }
+</style>
+}
+
+<section style="margin-top: 20px;">
+    <div class="deneme">
+    </div>
+    <div class="container-fluid" style="padding: 50px;">
+        <div class="row justify-content-sm-center justify-content-md-around">
+            <div class="col-12 col-md-4 col-lg-3 asdasd h-100">
+                @await Html.PartialAsync("_AdminNavbar")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="color: #fff;">
+                <div class="row justify-content-sm-between justify-content-around asdasda mt-2" style="padding: 10px;">
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Randevular</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Bugün Diet</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Bugün Pilates</a>
+                    </div>
+                </div>
+                <div class="row  justify-content-around asdasda mt-2">
+                    @foreach (var item in Model)
+                    {
+                        <div class="card mt-3">
+                            <div class="card-header">@item.FirstName @item.LastName</div>
+                            <div class="card-body makeColumnCenter ">
+                                <h5 class="card-title" style="border-bottom: 2px solid black;">Diyet</h5>
+                                <hr>
+                                <p class="card-text "><a asp-controller="Diet" asp-action="Index" asp-route-Id="@item.Id"
+                                    class="btn btn-primary">Diyet
+                                        bilgisi</a></p>
+                            </div>
+                            <hr>
+                            <div class="card-body makeColumnCenter">
+                                <h5 class="card-title" style="border-bottom: 2px solid black;">Pilates</h5>
+                                <hr>
+                                <p class="card-text changeColor"><a href="#" class="btn btn-secondary">Pilates Bilgisi</a></p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>

@@ -110,8 +110,29 @@ namespace app.business.Concret
                 {
                     return value;
                 }
-
                 var result = await work.Customers.GetCustomerByIdWithDiet((int)id);
+                result.oprationResult = OprationResult.ok;
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<Customer>(OprationResult.canceled);
+            }
+        }
+
+        public async Task<ReturnedClass<Customer>> GetCustomerByUserId(string UserId)
+        {
+            try
+            {
+                if (UserId == null)
+                {
+                    return new ReturnedClass<Customer>(OprationResult.canceled);
+                }
+                var result = await work.Customers.GetByUserId(UserId);
+                if (result.oprationResult != OprationResult.ok)
+                {
+                    return result;
+                }
                 result.oprationResult = OprationResult.ok;
                 return result;
             }
@@ -124,6 +145,122 @@ namespace app.business.Concret
         public ReturnedClass<Customer> GetCustomerDietCount(int id)
         {
             return work.Customers.GetCustomerDietCount(id);
+        }
+
+        public async Task<OprationResult> InitilazeAnamnezForm(int customerId)
+        {
+            try
+            {
+                var varResult = await GetCustomerByIdWithDiet(customerId);
+                if (varResult.oprationResult == OprationResult.canceled)
+                {
+                    return OprationResult.canceled;
+                }
+                if (varResult.value.Diet != null)
+                {
+                    AnamnezForm anamnezForm = new AnamnezForm()
+                    {
+                        DietId = varResult.value.Diet.Id
+                    };
+                    var result = await work.AnamnezForm.CreateAsync(anamnezForm);
+                    if (result == OprationResult.ok)
+                    {
+                        var savedResult = await work.SaveAsync();
+                        if (savedResult == OprationResult.Saved)
+                        {
+                            return OprationResult.ok;
+                        }
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<OprationResult> InitilazeCustomer(Customer customer)
+        {
+            try
+            {
+                if (customer.UserId == null)
+                {
+                    return OprationResult.canceled;
+                }
+                var result = await work.Customers.CreateAsync(customer);
+                if (result == OprationResult.canceled)
+                {
+                    return OprationResult.canceled;
+                }
+                var resultSave = await work.SaveAsync();
+                if (resultSave == OprationResult.NotSaved)
+                {
+                    return resultSave;
+                }
+                return OprationResult.ok;
+
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<OprationResult> InitilazeDiet(int customerId)
+        {
+            try
+            {
+                var resultCustomer = await work.Customers.GetByIdAsync(customerId);
+                if (resultCustomer.oprationResult == OprationResult.ok)
+                {
+                    Diet d = new Diet()
+                    {
+                        CustomerId = resultCustomer.value.Id
+                    };
+                    var result = await work.Diets.InitilazeDiet(d);
+                    if (result == OprationResult.ok)
+                    {
+                        var saveResult = await work.SaveAsync();
+                        if (saveResult == OprationResult.Saved)
+                        {
+                            return OprationResult.ok;
+                        }
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<OprationResult> ReduceDietPackage(int customerId)
+        {
+            try
+            {
+                var result = await work.Customers.GetCustomerByIdWithDiet(customerId);
+                if (result.oprationResult == OprationResult.ok)
+                {
+                    if (result.value != null)
+                    {
+                        if (result.value.Diet != null)
+                        {
+                            if(result.value.RemaningDietPackages != result.value.Diet.DietWekklies.Count(i=>i.Active==false))
+                            {
+                                var results=await work.Customers.updateDietPackages(result.value.Diet.DietWekklies.Count(i=>i.Active==false),customerId);
+                                return results;
+                            }
+                        }
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
 
         public Task<OprationResult> UpdateAsync(Customer entity)

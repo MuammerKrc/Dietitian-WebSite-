@@ -12,9 +12,8 @@ namespace app.data.Abstract
         IDietMenüRepository dietMenüs { get; }
         IDietWekklyRepository DietWekkly { get; }
         IAnamnezFormRepository AnamnezForm { get; }
-        IMounthRepository Mounth { get; }
-        IDayRepository Day { get; }
-        IHourRepository Hour { get; }
+        ICalendarRepository Calendar { get; }
+        IPackageRequestRepository packageRequest{get;}
         Task<OprationResult> SaveAsync();
     }
 }

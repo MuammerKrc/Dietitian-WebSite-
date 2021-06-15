@@ -20,7 +20,7 @@ namespace app.data.Concret
                 var result = await appContext.AnamnezForms.AddAsync(anamnez);
                 AnamnezForm anamnez1=result.Entity;
 
-                return new ReturnedClass<AnamnezForm>(OprationResult.successful,_value:anamnez1);
+                return new ReturnedClass<AnamnezForm>(OprationResult.ok,_value:anamnez1);
             }
             catch (System.Exception)
             {

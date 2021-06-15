@@ -8,10 +8,8 @@ namespace app.data.Concret
     {
         public PilatesRepository(AppContext context) : base(context)
         {
-
+            
         }
         private AppContext AppContext { get { return context as AppContext; } }
-
-
     }
 }

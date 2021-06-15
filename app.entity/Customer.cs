@@ -10,9 +10,9 @@ namespace app.entity
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Mail { get; set; }
-        public int? DietId{get;set;}
+        public int RemaningDietPackages{get;set;}
+        public int RemaningPilatesPackages{get;set;}
         public Diet Diet{get;set;}
-        public int? PilatesId{get;set;}
         public Pilates Pilates{get;set;}
     }
 }

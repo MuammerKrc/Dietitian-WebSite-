@@ -24,7 +24,7 @@ namespace app.webui.Controllers
             var role = await roleManager.FindByIdAsync(id);
             var members = new List<User>();
             var nonMembers = new List<User>();
-            foreach (var user in userManager.Users)
+            foreach (var user in userManager.Users.ToList())
             {
                 if (await userManager.IsInRoleAsync(user, role.Name))
                 {
@@ -187,7 +187,6 @@ namespace app.webui.Controllers
                                 }
                             }
                         }
-
                     }
                 }
                 else{
@@ -199,9 +198,6 @@ namespace app.webui.Controllers
             }
             return Redirect("/RoleAndUser/UserList");
         }
-
-
-
         #endregion
 
     }

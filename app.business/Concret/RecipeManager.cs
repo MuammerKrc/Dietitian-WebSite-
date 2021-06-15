@@ -28,11 +28,10 @@ namespace app.business.Concret
             try
             {
                 var result =await work.Recipe.GetAll();
-                if(result.oprationResult==OprationResult.ineffective)
+                if(result.oprationResult==OprationResult.canceled)
                 {
                     return result;
                 }
-                result.oprationResult=OprationResult.ok;
                 return result;
             }
             catch (System.Exception)

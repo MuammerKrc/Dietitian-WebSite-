@@ -35,12 +35,13 @@ namespace app.data.Concret
                     result.Path = entity.Path;
                     result.TwoMeals = entity.TwoMeals;
                     result.Weight = entity.Weight;
+                    result.Content=entity.Content;
                     result.CombineDietMenüRecipes = recipes.ToList().Select(Ids => new CombineDietMenüRecipe
                     {
                         DietMenüId = entity.Id,
                         RecipeId = (int)Ids
                     }).ToList();
-                    return new ReturnedClass<DietMenü>(OprationResult.successful, _value: result);
+                    return new ReturnedClass<DietMenü>(OprationResult.ok, _value: result);
                 }
                 else
                 {
@@ -60,11 +61,11 @@ namespace app.data.Concret
                 var result = appContext.DietMenüs.Add(entity);
                 DietMenü asd = result.Entity;
 
-                return new ReturnedClass<DietMenü>(OprationResult.successful, _value: asd);
+                return new ReturnedClass<DietMenü>(OprationResult.ok, _value: asd);
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<DietMenü>(OprationResult.ineffective);
+                return new ReturnedClass<DietMenü>(OprationResult.canceled);
             }
         }
 
@@ -77,11 +78,11 @@ namespace app.data.Concret
                                     .ThenInclude(m => m.Recipe)
                                     .ToListAsync();
 
-                return new ReturnedClass<DietMenü>(OprationResult.successful, _values: result);
+                return new ReturnedClass<DietMenü>(OprationResult.ok, _values: result);
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<DietMenü>(OprationResult.ineffective);
+                return new ReturnedClass<DietMenü>(OprationResult.canceled);
             }
         }
 
@@ -150,12 +151,12 @@ namespace app.data.Concret
 
                 var results = await product.ToListAsync();
 
-                return new ReturnedClass<DietMenü>(OprationResult.successful, _values: results);
+                return new ReturnedClass<DietMenü>(OprationResult.ok, _values: results);
             }
             catch (System.Exception)
             {
 
-                return new ReturnedClass<DietMenü>(OprationResult.ineffective);
+                return new ReturnedClass<DietMenü>(OprationResult.canceled);
             }
         }
     }

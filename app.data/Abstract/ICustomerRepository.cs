@@ -8,5 +8,7 @@ namespace app.data.Abstract
     {
         Task<ReturnedClass<Customer>> GetCustomerByIdWithDiet(int id);
         ReturnedClass<Customer> GetCustomerDietCount(int id);
+        Task<ReturnedClass<Customer>> GetByUserId(string userId);
+        Task<OprationResult> updateDietPackages(int quantity,int customerId);
     }
 }

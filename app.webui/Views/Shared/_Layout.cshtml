@@ -17,18 +17,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/Css/layout.css">
+
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/asd.css">
+
     @RenderSection("css",false);
 
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
     @await Html.PartialAsync("_navbar")
 
     <main>
-        <div class="container">
-            @RenderBody()
-        </div>
+        @RenderBody()
     </main>
 
 

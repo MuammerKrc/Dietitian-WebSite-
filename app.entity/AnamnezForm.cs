@@ -6,6 +6,7 @@ namespace app.entity
     public class AnamnezForm : BaseClass
     {
         public Diet Diet { get; set; }
+        public int DietId{get;set;}
         public string Soru1 { get; set; }
         public string Soru2 { get; set; }
         public string Soru3 { get; set; }

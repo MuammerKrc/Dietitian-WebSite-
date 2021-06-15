@@ -14,11 +14,10 @@ namespace app.entity
         public bool Detox { get; set; }
         public int? DietId { get; set; }
         public Diet Diet { get; set; }
-        public int? DietMenüId { get; set; }
         public DietMenü DietMenü { get; set; }
         public bool Active { get; set; }
         public bool GivedDate { get; set; }
         public string DateTime { get; set; }
-        public Hour Hour { get; set; }
+        public Calendar Calendar { get; set; }
     }
 }

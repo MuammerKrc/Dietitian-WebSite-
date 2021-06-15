@@ -15,6 +15,7 @@ namespace app.business.Abstract
         Task<ReturnedClass<DietMenü>> CreateUpdateWithRecipe(DietMenü entity, int[] recipes);
         Task<ReturnedClass<DietMenü>> GetAllWithRecpe();
         Task<ReturnedClass<DietMenü>> GEtAllWithOption(string Adı, int MinWeight, int MaxWeight, int Cinsiyet, int Meal, int[] recipeIds);
-
+        Task<OprationResult> InitilazeDietMenü(DietMenü dietMenü, int[] recipeIds);
+        Task<OprationResult> UpdateDietmenü(DietMenü dietMenü, int[] recipeIds);
     }
 }

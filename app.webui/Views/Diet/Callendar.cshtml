@@ -1,0 +1,106 @@
+@model List<Week>
+@section css
+{
+<link rel="stylesheet" href="~/css/callander.css">
+<style>
+    .flexMake {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 1580px;
+        overflow-x: auto;
+    }
+
+    .MakeMargin {
+        margin-top: 75px;
+    }
+</style>
+}
+<section class="schedule section" id="schedule">
+    <div class="aaaaa" style="display: block;"> "</div>
+    <div class="container MakeMargin">
+        <div style="display: block;"> "</div>
+        <div class="row ">
+
+            <div class="col-lg-12 col-12 text-center">
+                <h2 class="text-white" data-aos="fade-up" data-aos-delay="200">Haftalık Randevu Takvimi</h2>
+            </div>
+            <div class="row flexMake">
+                @foreach (var item in Model)
+                {
+                    <div class="col " style="width: 150px;">
+
+
+                        <table class="table table-bordered schedule-table" data-aos="fade-up" data-aos-delay="300">
+
+                            <thead class="thead-light">
+                                @if (item.DayOfWeek == 1)
+                                {
+                                    <th><i class="fa fa-calendar"></i></th>
+                                }
+                                <th>
+                                    <strong>@item.DayName</strong>
+                                    <span>@item.CurrentLocalTime</span>
+                                </th>
+
+                            </thead>
+
+                            <tbody>
+                                @if(User.IsInRole("Admin"))
+                                {
+                                        @foreach (var c in item.AllDateInDay)
+                                    {
+                                        <tr>
+                                            @if (item.DayOfWeek == 1)
+                                            {
+                                                <td style="background: var(--primary-color); border: 1px solid #212122; color: var(--white-color);"></td>
+                                            }
+                                            <td>
+                                                <a href="~/Diet/Dietwekklys/@c.DietWekklyId">
+                                                    @if(c.FirstName!=null&&c.LastName!=null)
+                                                    {
+                                                        <strong>@c.FirstName @c.LastName</strong>
+                                                    }
+                                                    <span>@c.CurrentHour</span>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }else{
+                                     @foreach (var c in item.AllDateInDay)
+                                    {
+                                        <tr>
+                                            @if (item.DayOfWeek == 1)
+                                            {
+                                                <td style="background: var(--primary-color); border: 1px solid #212122; color: var(--white-color);"></td>
+                                            }
+                                            <td>
+                                                    @if(c.FirstName!=null&&c.LastName!=null)
+                                                    {
+                                                        <strong>@c.FirstName.Substring(0,2)*** @c.LastName.Substring(0,2)***</strong>
+                                                    }
+                                                    <span>@c.CurrentHour</span>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts
+{
+<script src="/js/aos.js"></script>
+<script src="/js/smoothscroll.js"></script>
+<script src="/js/custom.js"></script>
+}

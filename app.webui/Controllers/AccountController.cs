@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using app.business.Abstract;
+using app.entity;
 using app.webui.EmailService;
 using app.webui.Identity;
 using app.webui.Models;
@@ -10,19 +12,21 @@ namespace app.webui.Controllers
     public class AccountController : Controller
     {
         private UserManager<User> userManager;
+        private RoleManager<IdentityRole> roleManager;
         private SignInManager<User> signInManager;
         private IEmailSender emailSender;
-        public AccountController(UserManager<User> _userManager, SignInManager<User> _signInManager, IEmailSender _emailSender)
+        private ICustomerService customerService;
+        public AccountController(ICustomerService _customerService, UserManager<User> _userManager, SignInManager<User> _signInManager, IEmailSender _emailSender, RoleManager<IdentityRole> _roleManager)
         {
+            customerService = _customerService;
             userManager = _userManager;
             signInManager = _signInManager;
             emailSender = _emailSender;
+            roleManager = _roleManager;
         }
-
         [HttpGet]
         public IActionResult Login(string ReturnUrl = null)
         {
-
             return View(new LoginModel()
             {
                 ReturnUrl = ReturnUrl
@@ -45,7 +49,7 @@ namespace app.webui.Controllers
                 model.Password = "";
                 return View(model);
             }
-            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password,true,true);
+            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, true, true);
             if (result.Succeeded)
             {
                 return Redirect(model.ReturnUrl ?? "~/");
@@ -84,7 +88,6 @@ namespace app.webui.Controllers
 
             return View();
         }
-
         public IActionResult ResetPassword(string userId, string token)
         {
             if (userId == null || token == null)
@@ -126,34 +129,55 @@ namespace app.webui.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                model.Password = "";
-                model.RePassword = "";
+                if (!ModelState.IsValid)
+                {
+                    model.Password = "";
+                    model.RePassword = "";
+                    return View(model);
+                }
+                var user = new User
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.UserName,
+                    Email = model.Email
+                };
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //Add in Customer Role
+                    var resultRoleAdd = await userManager.AddToRoleAsync(user, "Customer");
+                    //make Customer
+                    Customer customer = new Customer()
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Mail = user.Email,
+                        UserId = user.Id
+                    };
+                    var resultCustomer = await customerService.InitilazeCustomer(customer);
+
+
+                    //Email
+                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var url = Url.Action("ConfirmEmail", "Account", new
+                    {
+                        userId = user.Id,
+                        token = code
+                    });
+                    await emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız.", $"lütfen email hesabınızı onaylamak için linke <a href='http://localhost:5000{url}'>tıklayınız.</a>");
+                    return RedirectToAction("Login", "Account");
+                }
+                ModelState.AddModelError("", "Bilinmeyen bir nden oldu lütfen tekrar deneyiniz");
                 return View(model);
             }
-            var user = new User
+            catch (System.Exception)
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.UserName,
-                Email = model.Email
-            };
-            var result = await userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
-            {
-                var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                var url = Url.Action("ConfirmEmail", "Account", new
-                {
-                    userId = user.Id,
-                    token = code
-                });
-                //Email
-                await emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız.", $"lütfen email hesabınızı onaylamak için linke <a href='http://localhost:5000{url}'>tıklayınız.</a>");
-                return RedirectToAction("Login", "Account");
+                ModelState.AddModelError("", "Bilinmeyen bir nden oldu lütfen tekrar deneyiniz");
+                return View(model);
             }
-            ModelState.AddModelError("", "Bilinmeyen bir nden oldu lütfen tekrar deneyiniz");
-            return View(model);
         }
 
         public async Task<IActionResult> Logout()
@@ -161,7 +185,6 @@ namespace app.webui.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             if (userId == null || token == null)

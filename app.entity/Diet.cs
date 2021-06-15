@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace app.entity
 {
-    public class Diet:BaseClass
+    public class Diet : BaseClass
     {
-        public int StartingWeight{get;set;}
-        public int Height{get;set;}
-        public int StartingWaistline{get;set;}
-        public int StartingBreastSize{get;set;}
-        public DateTime DateStart{ get; set; }
-        public DateTime DateEnd{get;set;}
-        public Customer Customer{get;set;}
-        public int? AnamnezFormId{get;set;}
-        public AnamnezForm AnamnezForm{get;set;}
-        public List<DietWekkly> DietWekklies{get;set;}
-        public List<CombineDietRecipe> CombineDietRecipes{get;set;}
+        public int StartingWeight { get; set; }
+        public int Height { get; set; }
+        public int StartingWaistline { get; set; }
+        public int StartingBreastSize { get; set; }
+        public DateTime DateStart { get; set; }
+        public DateTime DateEnd { get; set; }
+        public Customer Customer { get; set; }
+        public int CustomerId{get;set;}
+        public AnamnezForm AnamnezForm { get; set; }
+        public List<DietWekkly> DietWekklies { get; set; }
+        public List<CombineDietRecipe> CombineDietRecipes { get; set; }
     }
 }

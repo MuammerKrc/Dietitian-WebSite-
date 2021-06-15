@@ -2,140 +2,235 @@
 @section css
 {
 <link rel="stylesheet" href="\css\dietmenü.css">
+<style>
+    .addHeight {
+        height: 40px;
 
+    }
+
+    .changeColor {
+        color: var(--primary-color);
+    }
+
+    section {
+        position: relative;
+        width: auto;
+        min-height: 1080px;
+    }
+
+    .makeCenterContent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .deneme {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: black;
+        background-image: url("/img/aa2.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1000;
+    }
+
+    .asdasd {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    a {
+        color: #fff;
+        font-weight: normal;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+        color: var(--primary-color);
+        outline: none;
+        text-decoration: none;
+    }
+
+    .asdasda {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+</style>
 }
 
-<div id="MenüTable" class="row">
-    <div class="col-md-3 option">
-        <h1>Arama Yap</h1>
-        <hr>
-        <form asp-controller="admin" asp-action="DietMenüList" method="POST">
-            <div class="form-group row mt-3">
-                <label for="Adı" class="col-sm-2 col-form-label">Adı:</label>
-                <div class="col-sm-10">
-                    <input type="text" name="Adı" class="form-control">
-                </div>
-            </div>
-
-            <div class="form-group row mt-3">
-                <label for="MinWeight" class="col-sm-2 col-form-label">Min Kilo</label>
-                <div class="col-sm-10">
-                    <input style="width: 100px;" type="number" name="MinWeight" class="form-control">
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label for="MaxWeight" class="col-sm-2 col-form-label">Max Kilo</label>
-                <div class="col-sm-10">
-                    <input style="width: 100px;" type="number" name="MaxWeight" class="form-control">
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-2 col-form-label"> Cinsiyet</label>
-                <div class="col-sm-5" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="Cinsiyet" value="0" id="btnradio0" autocomplete="off"
-                        checked>
-                    <label class="btn btn-outline-primary" for="btnradio0">Boş</label>
-                    <input type="radio" class="btn-check" name="Cinsiyet" value="1" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">Kadın</label>
-                    <input type="radio" class="btn-check" name="Cinsiyet" value="2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">Erkek</label>
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-2 col-form-label"> Öğün sayısı</label>
-                <div class="col-sm-5" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="Meal" value="0" id="btnradio3" autocomplete="off"
-                        checked>
-                    <label class="btn btn-outline-primary" for="btnradio3">Boş</label>
-                    <input type="radio" class="btn-check" name="Meal" value="1" id="btnradio4" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio4">2 </label>
-                    <input type="radio" class="btn-check" name="Meal" value="2" id="btnradio5" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio5">3</label>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <h1 class="h3">Tarifler</h1>
-                <hr>
-                @foreach (var item in (List<Recipe>)ViewBag.recipes)
-                {
-                    <div class="form-check">
-                        <input class="form-check-input " type="checkbox" name="recipeIds" value="@item.Id" id="@item.Id">
-                        <label class="form-check-label" for="@item.Id">
-                            @item.Name
-                        </label>
-                    </div>
-                }
-            </div>
-            <div class="form-group row mt-sm-3">
-                <div class="col-sm-3 offset-sm-2">
-                    <button type="submit" class="btn btn-outline-info form-control">Menü Ara</button>
-                </div>
-            </div>
-        </form>
+<section style="margin-top: 20px;">
+    <div class="deneme">
     </div>
-
-    <div class="col-md-9">
-
-        <h1>Menü List</h1>
-        <hr>
-        <a class="btn btn-primary btn-sm mb-3" href="/admin/CreateProduct">AddMenü</a>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="width: 100px;">Menü</th>
-                    <th style="width: 100px;">Gönderilen Kişi</th>
-                    <th style="width: 20px;">Kilo</th>
-                    <th style="width: 40px;">Cinsiyet</th>
-                    <th style="width: 40px;">Öğün Sayısı</th>
-                    <th style="width: 200px;">İçinde Bulunan Tarifler</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Count > 0)
-                {
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td><a href="@item.Path"><img src="~/img/model3.png" alt="resim" width="40px" height="auto"></a>
-                            </td>
-                            <td>@item.FullName</td>
-                            <td>@item.Weight</td>
-                            <td>
-                                @if (item.Gender)
-                                {
-                                    <i style="color:red; transform: scale(2);" class="fas fa-female"></i>
-                                }
-                                else
-                                {
-                                    <i style="color:blue; transform: scale(2);" class="fas fa-male"></i>
-                                }
-                            </td>
-                            <td>
-                                @if (item.TwoMeals)
-                                {
-                                    <span>2 Öğün</span>
-                                }
-                                else
-                                {
-                                    <span>3 öğün</span>
-                                }
-                            </td>
-                            <td>
-                                @foreach (var recipe in item.CombineDietMenüRecipes)
-                                {
-                                    <span> @(recipe.Recipe.Name+" ")</span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                }
-                else
-                {
-                    <div class="alert alert-warning">
-                        <h3>Böyle Bir Menü Yok</h3>
+    <div class="container-fluid" style="padding: 50px;">
+        <div class="row justify-content-sm-center justify-content-md-around">
+            <div class="col-12 col-md-4 col-lg-3 asdasd h-100">
+                @await Html.PartialAsync("_AdminNavbar")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12  " style="color: #fff;">
+                <div class="row justify-content-sm-between justify-content-around asdasda mt-2" style="padding: 10px;">
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Randevular</a>
                     </div>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Bugün Diet</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Bugün Pilates</a>
+                    </div>
+                </div>
+                <div class="row  justify-content-around asdasda mt-2 p-5">
+                    <div class="col-md-12">
+                        <div id="MenüTable" class="row">
+                            <div class="col-md-3 option">
+                                <h1>Arama Yap</h1>
+                                <hr>
+                                <form asp-controller="admin" asp-action="DietMenüList" method="POST">
+                                    <div class="form-group row mt-3">
+                                        <label for="Adı" class="col-sm-2 col-form-label">Adı:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Adı" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mt-3">
+                                        <label for="MinWeight" class="col-sm-2 col-form-label">Min Kilo</label>
+                                        <div class="col-sm-10">
+                                            <input style="width: 100px;" type="number" name="MinWeight"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-3">
+                                        <label for="MaxWeight" class="col-sm-2 col-form-label">Max Kilo</label>
+                                        <div class="col-sm-10">
+                                            <input style="width: 100px;" type="number" name="MaxWeight"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-3">
+                                        <label class="col-sm-2 col-form-label"> Cinsiyet</label>
+                                        <div class="col-sm-5" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="Cinsiyet" value="0"
+                                                id="btnradio0" autocomplete="off" checked>
+                                            <label class="btn btn-outline-primary" for="btnradio0">Boş</label>
+                                            <input type="radio" class="btn-check" name="Cinsiyet" value="1"
+                                                id="btnradio1" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="btnradio1">Kadın</label>
+                                            <input type="radio" class="btn-check" name="Cinsiyet" value="2"
+                                                id="btnradio2" autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="btnradio2">Erkek</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-3">
+                                        <label class="col-sm-2 col-form-label"> Öğün sayısı</label>
+                                        <div class="col-sm-5" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="Meal" value="0" id="btnradio3"
+                                                autocomplete="off" checked>
+                                            <label class="btn btn-outline-primary" for="btnradio3">Boş</label>
+                                            <input type="radio" class="btn-check" name="Meal" value="1" id="btnradio4"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="btnradio4">2 </label>
+                                            <input type="radio" class="btn-check" name="Meal" value="2" id="btnradio5"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="btnradio5">3</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h1 class="h3">Tarifler</h1>
+                                        <hr>
+                                        @foreach (var item in (List<Recipe>)ViewBag.recipes)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input " type="checkbox" name="recipeIds"
+                                                value="@item.Id" id="@item.Id">
+                                                <label class="form-check-label" for="@item.Id">
+                                                    @item.Name
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="form-group row mt-sm-3">
+                                        <div class="col-sm-3 offset-sm-2">
+                                            <button type="submit" class="btn btn-outline-info form-control">Menü
+                                                Ara</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Menü List</h1>
+                                <hr>
+                                <a class="btn btn-primary btn-sm mb-3" href="/admin/CreateProduct">AddMenü</a>
+                                <div class="table-responsive-md">
+                                    <table class="table table-bordered table-light">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 100px;">Menü</th>
+                                                <th style="width: 100px;">Gönderilen Kişi</th>
+                                                <th style="width: 20px;">Kilo</th>
+                                                <th style="width: 40px;">Cinsiyet</th>
+                                                <th style="width: 40px;">Öğün Sayısı</th>
+                                                <th style="width: 200px;">İçinde Bulunan Tarifler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.Count > 0)
+                                            {
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td><a href="@item.Path"><img src="~/img/model3.png" alt="resim"
+                                                            width="40px" height="auto"></a>
+                                                        </td>
+                                                        <td>@item.FullName</td>
+                                                        <td>@item.Weight</td>
+                                                        <td>
+                                                            @if (item.Gender)
+                                                            {
+                                                                <i style="color:red; transform: scale(2);"
+                                                        class="fas fa-female"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i style="color:blue; transform: scale(2);" class="fas fa-male"></i>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @if (item.TwoMeals)
+                                                            {
+                                                                <span>2 Öğün</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>3 öğün</span>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @foreach (var recipe in item.CombineDietMenüRecipes)
+                                                            {
+                                                                <span> @(recipe.Recipe.Name+" ")</span>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div class="alert alert-warning">
+                                                    <h3>Böyle Bir Menü Yok</h3>
+                                                </div>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>

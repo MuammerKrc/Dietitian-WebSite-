@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using app.data.Abstract;
 
@@ -17,9 +18,9 @@ namespace app.data.Concret
         private DietMenüRepository dietMenüRepository;
         private RecipeRepository recipeRepository;
         private AnamnezFormRepository anamnezFormRepository;
-        private MounthRepository mounthRepository;
-        private DayRepository dayRepository;
-        private HourRepository hourRepository;
+        private CalendarRepository calendarRepository;
+        private PackageRequestRepository packageRequestRepository;
+
 
 
         public ICustomerRepository Customers => customerRepository = customerRepository ?? new CustomerRepository(context);
@@ -36,10 +37,10 @@ namespace app.data.Concret
 
         public IAnamnezFormRepository AnamnezForm => anamnezFormRepository = anamnezFormRepository ?? new AnamnezFormRepository(context);
 
-        public IMounthRepository Mounth => mounthRepository = mounthRepository ?? new MounthRepository(context);
-        public IDayRepository Day => dayRepository = dayRepository ?? new DayRepository(context);
+        public ICalendarRepository Calendar => calendarRepository = calendarRepository ?? new CalendarRepository(context);
 
-        public IHourRepository Hour => hourRepository = hourRepository ?? new HourRepository(context);
+        public IPackageRequestRepository packageRequest => packageRequestRepository = packageRequestRepository ?? new PackageRequestRepository(context);
+
 
         public void Dispose()
         {
@@ -52,11 +53,11 @@ namespace app.data.Concret
                 await context.SaveChangesAsync();
                 return OprationResult.Saved;
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex);
                 return OprationResult.NotSaved;
             }
-
         }
     }
 }

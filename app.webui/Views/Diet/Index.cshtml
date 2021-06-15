@@ -2,104 +2,303 @@
 @section css
 {
 <link rel="stylesheet" href="\css\Menüs.css">
+
+<style>
+    .addHeight {
+        height: 40px;
+
+    }
+
+    .changeColor {
+        color: var(--primary-color);
+    }
+
+    section {
+        position: relative;
+        width: auto;
+        min-height: 1080px;
+    }
+
+    .makeCenterContent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .deneme {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: black;
+        background-image: url("/img/aa3.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1000;
+    }
+
+    .asdasd {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    a {
+        color: #fff;
+        font-weight: normal;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+        color: var(--primary-color);
+        outline: none;
+        text-decoration: none;
+    }
+
+    .asdasda {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+</style>
 }
 <section>
-
-    <div class="frame">
-
-        <div class="center">
-
-            <div class="profile" >
-                <div class="image" style="transform: scale(1.5);">
-                    <div class="circle-1"></div>
-                    <div class="circle-2"></div>
-                    @if (Model.Gender)
-                    {
-                        <img src="~/img/asda.png" width="70" height="70" alt="Jessica Potter">
-                    }
-                    else
-                    {
-                        <img src="~/img/asdacas.png" width="70" height="70" alt="Jessica Potter">
-                    }
+    <div class="deneme">
+    </div>
+    <div class="container-fluid" style="padding: 50px;">
+        @if (Model.Diet == null)
+        {
+            <div class="row">
+                <div class="alert alert-info" role="alert">
+                    Diet Paketiniz Tanmlanmamıştır Ana Sayfadan İstek Talebi Oluşturabilirsiniz.
                 </div>
-
-                <div class="name">@Model.FirstName @Model.LastName</div>
-                <div class="job">15-06-2021</div>
-                @if (Model.Diet.AnamnezForm.Id <= 0)
+            </div>
+        }
+        <div class="row justify-content-sm-center justify-content-md-around">
+            <div class="col-12 col-md-4 col-lg-3 asdasd h-100">
+                @if (User.IsInRole("Admin"))
                 {
-                    <div class="actions">
-                        <a href="~/diet/anamnezform/@Model.Diet.Id" class="btn">Anamnez Form</a>
+                    @await Html.PartialAsync("_AdminNavbar")
+                }
+                else
+                {
+                    <div class="row justify-content-around asdasd py-4">
+                        <div class="col-12 text-center changeColor">
+                            <h1>Online Menü</h1>
+                            <hr style="height: 3px;">
+                        </div>
+                        <div class="w-100 mt-3"></div>
+                        <div class="col-5 asdasda addHeight makeCenterContent "><a href="~/diet/Home">Ana Sayfa</a></div>
+                        <div class="col-5 asdasda addHeight makeCenterContent "><a href="#">Bildirimler</a></div>
+                        <div class="w-100 mt-3"></div>
+                        @if (Model.Diet != null)
+                        {
+                            <div class="col-5 asdasda addHeight makeCenterContent"> <a href="~/diet/Index/"> Diet</a></div>
+                        }
+                        @if (Model.Pilates != null)
+                        {
+                            <div class="col-5 asdasda addHeight makeCenterContent"><a href="#">Pilates</a></div>
+                        }
+                        <div class="w-100 mt-3"></div>
+                        <div class="col-5 asdasda addHeight makeCenterContent"><a href="#">Takvim</a></div>
+                        <div class="col-5 asdasda addHeight makeCenterContent"><a href="#">Ödeme</a></div>
+
+                    </div>
+                }
+                @if (Model.Diet != null)
+                {
+                    <div class="row">
+                        <div class="other">
+                            @if (Model.Diet.AnamnezForm.Id > 0)
+                            {
+                                <div class="card-2">
+                                    <div class="Anamnez">
+                                        <div class="card text-center">
+                                            <div class="card-header">
+                                                <ul class="nav nav-tabs card-header-tabs sek">
+                                                    <li class="nav-item" id="item1">
+                                                        <a class="nav-link text-danger">Asla Yiyemediklerim</a>
+                                                    </li>
+                                                    <li class="nav-item" id="item2">
+                                                        <a class="nav-link text-warning">Sağlık Sorunları</a>
+                                                    </li>
+                                                    <li class="nav-item" id="item3">
+                                                        <a class="nav-link disabled text-primary">Ananmnez Form</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="card-body" id="r1">
+                                                <h5 class="card-title text-danger">Asla Yiyemediklerim</h5>
+                                                <p class="card-text">@Model.Diet.AnamnezForm.Soru1
+                                                </p>
+                                            </div>
+                                            <div class="card-body" id="r2">
+                                                <h5 class="card-title  text-warning">Sağlık Sorunları</h5>
+                                                <p class="card-text">
+                                                    @Model.Diet.AnamnezForm.Soru2
+                                                </p>
+                                            </div>
+                                            <div class="card-body" id="r3">
+                                                <h5 class="card-title text-primary">Ananmnez Form Güncelle</h5>
+                                                <a href="~/diet/anamnezform/@Model.Diet.Id"
+                                            class="btn btn-primary mt-3">Form</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    @if (Model.Diet != null)
+                    {
+                        <div class="row justify-content-around asdasd py-4 mt-5">
+                            <div class="MenüCntr">
+                                <h1 class="h3">Yazlıan Menüler</h1>
+                                <hr>
+                                @if (ViewBag.Recipe != null)
+                                {
+                                    { Console.Write("asd"); }
+                                    @foreach (var item in (List<Recipe>)ViewBag.Recipe)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input " type="checkbox" name="selectedRecipe" value="@item.Id"
+                                id="@(item.Id)"
+                                @(Model.Diet.CombineDietRecipes.Any(i=>i.RecipeId==item.Id)?"checked":"")>
+                                            <label class="form-check-label" for="item.id">
+                                                @item.Name
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div class="row justify-content-around asdasd py-4 mt-5">
+                        @if (Model.Diet == null)
+                        {
+                            <div class="col-12 text-center changeColor">
+                                <h1>Diet Tanımla</h1>
+                                <hr style="height: 3px;">
+                            </div>
+                            <div class="w-100 mt-2"></div>
+                            <form action="~/Admin/RegisterDiet" method="Post">
+                                <input type="hidden" name="CustomerId" value="@Model.Id">
+                                <div class="col-5  addHeight"><button type="submit" class="btn btn-warning">Diet Paket</button>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="col-12 text-center changeColor">
+                                <h1>Paket Tanımla</h1>
+                                <hr style="height: 3px;">
+                            </div>
+                            <div class="w-100 mt-2"></div>
+                            <div class="col-6">
+                                <form action="~/Admin/DietOneMonth" method="Post">
+                                    @* <div class="form-gorup row">
+                                        <label for="Fiyat" class="col-12 col-form-label">Fiyatı Giriniz</label>
+                                        <div class="col-12">
+                                            <input type="Number" class="form-control" name="Fiyat" min="200">
+                                        </div>
+                                    </div> *@
+                                    <input type="hidden" name="id" value="@Model.Id" >
+                                    <div class="col-5 mt-3 addHeight makeCenterContent"><button type="submit"
+                                    class="btn btn-warning form-control">Aylık paket</button></div>
+                                </form>
+                            </div>
+                        }
                     </div>
                 }
             </div>
-
-            <div class="stats">
-                <div class="box">
-                    <span class="value">@Model.Diet.StartingWeight</span>
-                    <span class="parameter">Başlangıç Kilo</span>
+            <div class="col-12 col-md-6 col-lg-5  " style="color: #fff;">
+                <div class="row justify-content-sm-between justify-content-around asdasda mt-2" style="padding: 10px;">
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Duyurular</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Bildirimler</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="#" class=" addHeight bg-primary makeCenterContent">Mesaj Gönder</a>
+                    </div>
                 </div>
-                <div class="box">
-                    <span class="value">@Model.Diet.Height</span>
-                    <span class="parameter">Boyu</span>
-                </div>
-            </div>
+                <div class="row  justify-content-around asdasda mt-2 p-5">
+                    <div class="frame justify-content-center">
+                        <div class="center">
+                            <div class="profile">
+                                <div class="image" style="transform: scale(1.5);">
+                                    <div class="circle-1"></div>
+                                    <div class="circle-2"></div>
+                                    @if (Model.Gender)
+                                    {
+                                        <img src="~/img/asda.png" width="70" height="70" alt="Jessica Potter">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/img/asdacas.png" width="70" height="70" alt="Jessica Potter">
+                                    }
+                                </div>
 
-            <div class="other">
-                @if (Model.Diet.AnamnezForm.Id > 0)
-                {
-                    <div class="card-2">
-                        <div class="Anamnez">
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <ul class="nav nav-tabs card-header-tabs sek">
-                                        <li class="nav-item" id="item1">
-                                            <a class="nav-link text-danger">Asla Yiyemediklerim</a>
-                                        </li>
-                                        <li class="nav-item" id="item2">
-                                            <a class="nav-link text-warning">Sağlık Sorunları</a>
-                                        </li>
-                                        <li class="nav-item" id="item3">
-                                            <a class="nav-link disabled text-primary" >Ananmnez Form</a>
-                                        </li>
-                                    </ul>
+                                <div class="name">@Model.FirstName @Model.LastName</div>
+                                <div class="job">15-06-2021</div>
+                                @if (Model.Diet != null)
+                                {
+                                    @if (Model.Diet.AnamnezForm.Id <= 0)
+                                    {
+                                        <div class="actions">
+                                            <a href="~/diet/anamnezform/@Model.Diet.Id" class="btn">Anamnez Form</a>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                            <div class="stats">
+                                <div class="box">
+                                    @if (Model.Diet != null)
+                                    {
+                                        <span class="value">@Model.Diet.StartingWeight</span>
+
+                                    }
+                                    <span class="parameter">Başlangıç Kilo</span>
                                 </div>
-                                <div class="card-body" id="r1">
-                                    <h5 class="card-title text-danger">Asla Yiyemediklerim</h5>
-                                    <p class="card-text">@Model.Diet.AnamnezForm.Soru1
-                                    </p>
+                                <div class="box">
+                                    @if (Model.Diet != null)
+                                    {
+                                        <span class="value">@Model.Diet.Height</span>
+                                    }
+                                    <span class="parameter">Boyu</span>
                                 </div>
-                                <div class="card-body" id="r2">
-                                    <h5 class="card-title  text-warning">Sağlık Sorunları</h5>
-                                    <p class="card-text">
-                                        @Model.Diet.AnamnezForm.Soru2
-                                    </p>
-                                </div>
-                                <div class="card-body" id="r3">
-                                    <h5 class="card-title text-primary" >Ananmnez Form Güncelle</h5>
-                                    <a href="~/diet/anamnezform/@Model.Diet.Id" class="btn btn-primary mt-3">Form</a>
+                            </div>
+                            <div class="week stats">
+                                <h1>Haftalık Diyet</h1>
+                                <div class="week-box">
+                                    @if (Model.Diet != null)
+                                    {
+                                        @foreach (var item in Model.Diet.DietWekklies)
+                                        {
+                                            <a href="/Diet/DietWekklys/@item.Id">
+                                                <div class="box">
+                                                    <span class="value">@item.Name</span>
+                                                </div>
+                                            </a>
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
-                <div class="week stats">
-                    <h1>Haftalık Diyet</h1>
-                    <div class="week-box">
-                        @foreach (var item in Model.Diet.DietWekklies)
-                        {
-                            <a href="/Diet/DietWekklys/@item.Id">
-                                <div class="box">
-                                    <span class="value">@item.Name</span>
-                                </div>
-                            </a>
-                        }
-                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
+
+
+
 @section Scripts
 {
-    <script src="/js/DietIndex.js"></script>
+<script src="/js/DietIndex.js"></script>
 }

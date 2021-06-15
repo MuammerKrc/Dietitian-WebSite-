@@ -13,5 +13,6 @@ namespace app.business.Abstract
         Task<ReturnedClass<AnamnezForm>> GetAll();
         Task<ReturnedClass<AnamnezForm>> GetByEntityAsync(AnamnezForm entity);
         Task<ReturnedClass<AnamnezForm>> CreateWithRuturned(AnamnezForm anamnez);
+
     }
 }

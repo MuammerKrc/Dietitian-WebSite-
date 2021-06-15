@@ -18,12 +18,12 @@ namespace app.data.Concret
         {
             try
             {
-                await data.AddAsync(entity);
-                return OprationResult.successful;
+               var result= await data.AddAsync(entity);
+                return OprationResult.ok;
             }
             catch (System.Exception)
             {
-                return OprationResult.ineffective;
+                return OprationResult.canceled;
             }
 
         }
@@ -35,11 +35,11 @@ namespace app.data.Concret
             try
             {
                 data.Remove(entity);
-                return OprationResult.successful;
+                return OprationResult.ok;
             }
             catch (System.Exception)
             {
-                return OprationResult.ineffective;
+                return OprationResult.canceled;
             }
         }
 
@@ -50,12 +50,12 @@ namespace app.data.Concret
             try
             {
                 var result =await data.ToListAsync();
-                return new ReturnedClass<T>(OprationResult.successful,result);
+                return new ReturnedClass<T>(OprationResult.ok,result);
 
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<T>(OprationResult.ineffective);
+                return new ReturnedClass<T>(OprationResult.canceled);
             }
         }
 
@@ -65,12 +65,12 @@ namespace app.data.Concret
             {
                 var resultentity = await data.FindAsync(entity);
                 
-                return new ReturnedClass<T>(OprationResult.successful);
+                return new ReturnedClass<T>(OprationResult.ok);
             }
             catch (System.Exception)
             {
                
-                return new ReturnedClass<T>(OprationResult.ineffective);
+                return new ReturnedClass<T>(OprationResult.canceled);
             }
         }
         public async Task<ReturnedClass<T>> GetByIdAsync(int id)
@@ -79,11 +79,11 @@ namespace app.data.Concret
             {
                 var result = await data.FindAsync(id);
 
-                return new ReturnedClass<T>(OprationResult.successful,_value:result);
+                return new ReturnedClass<T>(OprationResult.ok,_value:result);
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<T>(OprationResult.ineffective);
+                return new ReturnedClass<T>(OprationResult.canceled);
             }
         }
         public OprationResult UpdateAsync(T id)
@@ -91,29 +91,27 @@ namespace app.data.Concret
             try
             {
                 context.Entry(id).State = EntityState.Modified;
-                return OprationResult.successful;
+                return OprationResult.ok;
             }
             catch (System.Exception)
             {
-                return OprationResult.ineffective;
+                return OprationResult.canceled;
             }
         }
     }
 }
+
+
 public enum OprationResult
 {
     // dataResult
     Have=-5,
     DontHave=5,
     Added=5,
-    successful = 1,
-    ineffective = -1,
-
 
     //saveChangeResult
     Saved = 2,
     NotSaved = -2,
-
 
     //businessResult
     InvalidId = -3,

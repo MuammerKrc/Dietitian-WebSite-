@@ -1,59 +1,69 @@
-<nav>
-    <div class="logo">
-        <p class="logo-header">Diyetisyen <br> <span> Sinem Karaca </span></p>
-    </div>
-    <div class="container-socialmedia">
-        <div class="socialmedia">
-            <span><i class="fab fa-instagram fa-2x">
-                    <div class="instagram">
-                        <div class="instagram-img"></div>
-                    </div>
-                </i></span>
-            <span><i class="fab fa-whatsapp fa-2x"></i></i></span>
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand" href="~/Home/Index">Dyt Sinem Karaca</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @* <ul class="navbar-nav ml-lg-auto"> *@
+                <li class="nav-item">
+                    <a href="#home" class="nav-link smoothScroll">Ana Sayfa</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#about" class="nav-link smoothScroll">Hakkımızda</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#class" class="nav-link smoothScroll">Hizmetlerimiz</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#schedule" class="nav-link smoothScroll">Randevu</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link smoothScroll">İletişim</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Diet" asp-action="Home" class="nav-link smoothScroll">Online</a>
+                </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item">
+                        <a asp-controller="Admin" asp-action="Home" class="nav-link smoothScroll">AdminGiriş</a>
+                    </li>
+                }
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a asp-controller="account" asp-action="logout" class="nav-link">
+                            @User.Identity.Name
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="account" asp-action="logout" class="nav-link">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a href="/account/login" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/account/register" class="nav-link">Register</a>
+                    </li>
+                }
+
+            </ul>
+
         </div>
     </div>
-    <div class="container-navbar">
-        <ul class="navbar">
-            @if (User.Identity.IsAuthenticated)
-            {
-                <li class="navbar-item">
-                    <a href="#" class="navbar-link navbar-item-active">Ana Sayfa</a>
-                </li>
-                <li class="navbar-item">
-                    <a href="#" class="navbar-link">Hakkımda</a>
-                </li>
-
-                <li class="navbar-item">
-                    <a href="#" class="navbar-link">online diyet</a>
-                </li>
-            }
-            <li class="navbar-item">
-                <a href="#" class="navbar-link">Blog</a>
-            </li>
-            <li class="navbar-item">
-                <a href="#" class="navbar-link">Yorumlar</a>
-            </li>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <li>
-                    <a href="#">
-                        @User.Identity.Name
-                    </a>
-                </li>
-                <li class="navbar-item">
-                    <a asp-controller="account" asp-action="logout" class="navbar-link">Logout</a>
-                </li>
-            }
-            else
-            {
-                <li class="navbar-item">
-                    <a asp-controller="account" asp-action="Login" class="navbar-link">Login</a>
-                </li>
-                <li class="navbar-item">
-                    <a asp-controller="account" asp-action="Register" class="navbar-link">Register</a>
-                </li>
-            }
-        </ul>
-    </div>
-
 </nav>
