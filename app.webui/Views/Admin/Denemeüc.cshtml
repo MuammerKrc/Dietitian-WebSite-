@@ -1,0 +1,339 @@
+@section css{
+<style>
+    .makeFlex {
+        display: flex;
+        justify-content: center;
+    }
+
+    .list-group-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .profile-user-img {
+        border: 1px solid gray;
+        border-radius: 50%;
+    }
+
+    .make-flex-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .make-flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .space-around {
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .space-beetwen {
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .center {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .box-shadow {
+        box-shadow: 1px 5px 5px 1px #A6A6A6;
+    }
+
+    .asd li .active {
+        color: white !important;
+    }
+
+    .general-information {
+        position: relative;
+
+    }
+
+    .general-information .time {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        color: black;
+    }
+
+    .make-flex-row img {
+        display: inline-block;
+        max-width: 75px !important;
+
+    }
+
+    .make-flex-row p {
+        display: inline-block;
+    }
+
+    .make-margin {
+        margin: 0 15px;
+    }
+</style>
+}
+
+
+<div class="content-wrapper" style="margin-top: 50px;">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>2 .Hafta Diyet</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">AnaSayfa</a></li>
+                            <li class="breadcrumb-item active"><a href="#">Diyet</a></li>
+                            <li class="breadcrumb-item active">Haftalık Diyet</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid " src="~/avatar/avatar2.png"
+                                    alt="User profile picture">
+                            </div>
+
+                            <h3 class="profile-username text-center">Sinem Karaca</h3>
+
+                            <div class="row make-flex-row space-around my-3">
+                                <a href="#" class="btn btn-secondary btn-block col-5 col-sm-3 col-md-5"><b>Diet</b></a>
+                                <a href="#"
+                                    class="btn btn-secondary btn-block col-5 col-sm-3 col-md-5"><b>Pilates</b></a>
+                            </div>
+
+                            <div class="card g-0" style="width:100%;">
+                                <h5 class="card-header text-center ">Kalan Paketler</h5>
+                                <div class="card-body  make-flex-row space-beetwen">
+                                    <div class=" make-flex-column center p-2 box-shadow" style="min-width: 150px;">
+                                        <h5 class="card-title text-muted"
+                                            style="border-bottom: 2px solid black; padding-bottom:12px;">Kalan Diet
+                                            Adeti</h5>
+                                        <p class="card-text " style="font-size:20px;">5</p>
+                                        <a href="#" class="btn btn-primary">Paket Satın Al</a>
+                                    </div>
+                                    <div class="make-flex-column center p-2 box-shadow" style="min-width: 150px;">
+                                        <h5 class="card-title  text-muted"
+                                            style="border-bottom: 2px solid black; padding-bottom:12px;">Kalan Pilates
+                                            Adeti</h5>
+                                        <p class="card-text" style="font-size:20px;">3</p>
+                                        <a href="#" class="btn btn-primary">Paket Satın Al</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <div class="row make-flex-row space-around">
+
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:360px; border-top: 3px solid #fd7e14; ">
+                                            <div class="card-header text-center" style="background-color: white; border: none; ">
+                                                <p class="h2">5.Hafta Diyeti</p>
+                                                <hr>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="row make-flex-row center" style="min-height: 200px;">
+                                                    <div class="col-4">
+                                                        <a href="#">
+                                                            <img src="https://www.dropbox.com/s/5xp7sy21sqb6jm4/ImageCap.jpg?raw=1"
+                                                                class="card-img-top" alt="...">
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p class="card-text">Some quick example text to build on the
+                                                            card
+                                                            title and
+                                                            make up the bulk
+                                                            of the card's content. Lorem ipsum dolor sit amet
+                                                            consectetur
+                                                            adipisicing elit. Vitae, modi. Enim odio asperiores eius a
+                                                            at
+                                                            voluptas,
+                                                            optio sapiente nostrum ex, quaerat reprehenderit fugiat
+                                                            rerum
+                                                            provident
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:360px;">
+                                            <div class="card-header text-center">
+                                                <p class="h2">5.Hafta Randevu</p>
+                                                <hr>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="row make-flex-column center" style="min-height: 200px;">
+                                                    @* @if (false)
+                                                    {
+                                                        <p class="text-center">Randevu Talebinde Bulunmak İçin Lütfe Aşağıdaki Butona Tıklayınız
+                                                        </p>
+                                                        <a href="#" class="btn btn-warning col-6">Randevu Talebi</a>
+                                                    }else{
+                                                        <p class="card-title text-center h1 p-3 bg-dark text-white">16-15-2021</p>
+                                                        <p class="card-text  text-center">Randevu İptali İçin Lütfen Butona Tıklayınız</p>
+                                                        <a href="#" class="btn btn-warning col-6">Randevu Talebi</a>
+                                                    } *@
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills asd">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Genel
+                                        Bilgilendirme</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <form class="form-horizontal">
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputName"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputEmail"
+                                                    placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputName2"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputExperience"
+                                                class="col-sm-2 col-form-label">Experience</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="inputExperience"
+                                                    placeholder="Experience"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputSkills"
+                                                    placeholder="Skills">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> I agree to the <a href="#">terms and
+                                                            conditions</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane" id="settings">
+                                    <form class="form-horizontal">
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputName"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputEmail"
+                                                    placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputName2"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputExperience"
+                                                class="col-sm-2 col-form-label">Experience</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="inputExperience"
+                                                    placeholder="Experience"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputSkills"
+                                                    placeholder="Skills">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> I agree to the <a href="#">terms and
+                                                            conditions</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -29,6 +29,10 @@ namespace app.data.Concret
 
                                 .Include(m => m.Diet)
                                 .ThenInclude(m => m.AnamnezForm)
+                                .AsSplitQuery()
+
+                                .Include(m=>m.Pilates)
+                                .AsSplitQuery()
 
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync();
@@ -114,6 +118,26 @@ namespace app.data.Concret
             catch (System.Exception)
             {
                 return OprationResult.canceled;
+            }
+        }
+
+        public async Task<ReturnedClass<Customer>> GetCustomerForHome()
+        {
+            try
+            {
+                var result =await appContext.Customers
+                                            .Include(m=>m.Pilates)
+                                            .AsSplitQuery()
+
+                                            .Include(m=>m.Diet)
+                                            .AsSplitQuery()
+                                            .AsNoTracking()
+                                            .ToListAsync();
+                return new ReturnedClass<Customer>(OprationResult.ok,_values:result);
+            }
+            catch (System.Exception)
+            {
+               return new ReturnedClass<Customer>(OprationResult.canceled);                 
             }
         }
     }

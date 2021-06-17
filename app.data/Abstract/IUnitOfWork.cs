@@ -14,6 +14,7 @@ namespace app.data.Abstract
         IAnamnezFormRepository AnamnezForm { get; }
         ICalendarRepository Calendar { get; }
         IPackageRequestRepository packageRequest{get;}
+        IGeneralMsjRepository GeneralMsj{get;}
         Task<OprationResult> SaveAsync();
     }
 }

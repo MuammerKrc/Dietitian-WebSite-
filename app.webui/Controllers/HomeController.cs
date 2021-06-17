@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 
 namespace app.webui.Controllers
@@ -8,6 +9,7 @@ namespace app.webui.Controllers
     {
         public IActionResult Index()
         {
+            System.Console.WriteLine(DateTime.Now.ToShortDateString());
             return View();
         }
     }

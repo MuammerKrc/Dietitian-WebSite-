@@ -489,8 +489,8 @@ namespace app.data.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            DateEnd = new DateTime(2021, 6, 15, 16, 32, 46, 395, DateTimeKind.Local).AddTicks(5245),
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(4494),
+                            DateEnd = new DateTime(2021, 6, 18, 0, 18, 35, 667, DateTimeKind.Local).AddTicks(1015),
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(4991),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -500,8 +500,8 @@ namespace app.data.Migrations
                         {
                             Id = 2,
                             CustomerId = 2,
-                            DateEnd = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6186),
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6192),
+                            DateEnd = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6710),
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6715),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -511,8 +511,8 @@ namespace app.data.Migrations
                         {
                             Id = 3,
                             CustomerId = 3,
-                            DateEnd = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6194),
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6196),
+                            DateEnd = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6718),
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6719),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -522,8 +522,8 @@ namespace app.data.Migrations
                         {
                             Id = 4,
                             CustomerId = 4,
-                            DateEnd = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6198),
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6199),
+                            DateEnd = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6721),
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6723),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -533,8 +533,8 @@ namespace app.data.Migrations
                         {
                             Id = 5,
                             CustomerId = 5,
-                            DateEnd = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6201),
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6202),
+                            DateEnd = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6724),
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6725),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -544,8 +544,8 @@ namespace app.data.Migrations
                         {
                             Id = 6,
                             CustomerId = 6,
-                            DateEnd = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6203),
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6204),
+                            DateEnd = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6727),
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6728),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -555,8 +555,8 @@ namespace app.data.Migrations
                         {
                             Id = 7,
                             CustomerId = 7,
-                            DateEnd = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6206),
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 396, DateTimeKind.Local).AddTicks(6207),
+                            DateEnd = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6729),
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 668, DateTimeKind.Local).AddTicks(6730),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -894,6 +894,36 @@ namespace app.data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("app.entity.GeneralMesaj", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AlertType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Time")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("href")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GeneralMesajs");
+                });
+
             modelBuilder.Entity("app.entity.PackageRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -946,43 +976,43 @@ namespace app.data.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 400, DateTimeKind.Local).AddTicks(2348)
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 673, DateTimeKind.Local).AddTicks(11)
                         },
                         new
                         {
                             Id = 2,
                             CustomerId = 2,
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 400, DateTimeKind.Local).AddTicks(3030)
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 673, DateTimeKind.Local).AddTicks(615)
                         },
                         new
                         {
                             Id = 3,
                             CustomerId = 3,
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 400, DateTimeKind.Local).AddTicks(3035)
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 673, DateTimeKind.Local).AddTicks(620)
                         },
                         new
                         {
                             Id = 4,
                             CustomerId = 4,
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 400, DateTimeKind.Local).AddTicks(3037)
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 673, DateTimeKind.Local).AddTicks(621)
                         },
                         new
                         {
                             Id = 5,
                             CustomerId = 5,
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 400, DateTimeKind.Local).AddTicks(3039)
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 673, DateTimeKind.Local).AddTicks(623)
                         },
                         new
                         {
                             Id = 6,
                             CustomerId = 6,
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 400, DateTimeKind.Local).AddTicks(3040)
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 673, DateTimeKind.Local).AddTicks(626)
                         },
                         new
                         {
                             Id = 7,
                             CustomerId = 7,
-                            DateStart = new DateTime(2021, 6, 15, 16, 32, 46, 400, DateTimeKind.Local).AddTicks(3042)
+                            DateStart = new DateTime(2021, 6, 18, 0, 18, 35, 673, DateTimeKind.Local).AddTicks(627)
                         });
                 });
 
@@ -995,6 +1025,9 @@ namespace app.data.Migrations
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

@@ -147,6 +147,19 @@ namespace app.business.Concret
             return work.Customers.GetCustomerDietCount(id);
         }
 
+        public async Task<ReturnedClass<Customer>> GetCustomerForHome()
+        {
+            try
+            {
+                var result =await work.Customers.GetCustomerForHome();
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<Customer>(OprationResult.canceled);
+            }
+        }
+
         public async Task<OprationResult> InitilazeAnamnezForm(int customerId)
         {
             try

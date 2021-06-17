@@ -30,9 +30,11 @@ namespace app.webui.Controllers
         private IDietService dietService;
         private IPackageRequestService packageService;
         private ICalendarService calendarService;
+        private IGeneralMsjService generalMsjService;
 
-        public AdminController(ICalendarService _calendarService, IPackageRequestService _packageService, UserManager<User> _userManager, ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, RoleManager<IdentityRole> _roleManager)
+        public AdminController(IGeneralMsjService _generalMsjService, ICalendarService _calendarService, IPackageRequestService _packageService, UserManager<User> _userManager, ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, RoleManager<IdentityRole> _roleManager)
         {
+            generalMsjService = _generalMsjService;
             calendarService = _calendarService;
             packageService = _packageService;
             userManager = _userManager;
@@ -49,41 +51,132 @@ namespace app.webui.Controllers
         {
             try
             {
-                var result = await packageService.GetAll();
-                if (result.values.Count() > 0)
+                //Get all Customer
+                var result = await customerService.GetCustomerForHome();
+                //Get General Mesaj
+                var resultGeneralMesaj =await generalMsjService.GetAll();
+                //All Recipe
+                var resultRecipe =await recipeService.GetAll();
+                if(resultRecipe.oprationResult==OprationResult.ok)
                 {
-                    ViewBag.Package = "Yeni Paket İstekleri Bulunmaktadır";
-                    ViewBag.Request = result.values;
+                    ViewBag.Recipe=resultRecipe.values;
                 }
-                return View();
+                else
+                {
+                    //hata Raporu Yazılacak
+                }
+                if(resultGeneralMesaj.oprationResult==OprationResult.ok)
+                {
+                    ViewBag.General =resultGeneralMesaj.values;
+                }
+                else
+                {
+                    //Hata Raporları oluşturulacak
+                }
+                if(result.oprationResult==OprationResult.ok)
+                {
+                    return View(result.values);
+                }
+                else
+                {
+                    //Hata Raporları oluşturulacak
+                    return View(new List<Customer>());
+                }
             }
             catch (System.Exception)
             {
-                return View();
+                return View(new List<Customer>());
+            }
+        }
+        // Index
+        public async Task<IActionResult> CustomerHome()
+        {
+            var returned = await customerService.GetAll();
+            return View(new Customer());
+        }
+        public async Task<IActionResult> CustomerDiet()
+        {
+            var returned = await customerService.GetAll();
+            return View(new Customer());
+        }
+        [HttpPost]
+        public async Task<IActionResult> GeneralMesaj(GeneralMesaj mesaj,int TypeOfAlert,string deneme)
+        {
+            try
+            {
+                List<string> Alert=new List<string>()
+                {
+                    "alert-primary",
+                    "alert-secondary",
+                    "alert-success",
+                    "alert-danger",
+                    "alert-warning",
+                    "alert-info",
+                    "alert-light",
+                    "alert-dark"
+                };
+                mesaj.AlertType=Alert[TypeOfAlert];
+                if(deneme!=null)
+                {
+                    mesaj.href=true;
+                }
+                else{
+                    mesaj.href=false;
+                }
+                mesaj.Time=DateTime.Now.ToShortDateString();
+                var result=await generalMsjService.CreateAsync(mesaj);
+                return RedirectToAction("home");
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+        public async Task<IActionResult> RemoveGeneralMesaj(int id)
+        {
+            try
+            {
+                GeneralMesaj m =new GeneralMesaj()
+                {
+                    Id=id
+                };
+                var result=await generalMsjService.DeleteAsync(m);
+                if(result==OprationResult.ok)
+                {
+                    // buraya mesaj girilecek
+                }
+                return RedirectToAction("Home");
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
             }
         }
 
-        public async Task<IActionResult> AllCustomer()
+        public async Task<IActionResult> CreateRecipe(Recipe recipe)
         {
-            var returned = await customerService.GetAll();
-            return View(returned.values);
-        }
-        // Index
-        public async Task<IActionResult> Index()
-        {
-            var returned = await customerService.GetAll();
-            return View(returned.values);
+            try
+            {
+                var result =await recipeService.CreateAsync(recipe);
+                if(result==OprationResult.ok)
+                {
+                    // buraya mesaj girilecek
+                }
+                return RedirectToAction("Home");
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
         }
         public IActionResult Deneme3()
         {
-
+            Console.WriteLine(DateTime.Now.ToShortDateString());
             return View();
         }
-        public IActionResult Deneme(DateTime time)
-        {
-            return View();
-        }
-        [HttpGet]
         // public async Task<IActionResult> Denemeiki()
         // {
 
@@ -258,6 +351,18 @@ namespace app.webui.Controllers
                 throw;
             }
 
+        }
+        public IActionResult Deneme()
+        {
+            return View();
+        }
+        public IActionResult Denemeiki()
+        {
+            return View();
+        }
+        public IActionResult Denemeüc()
+        {
+            return View();
         }
 
         [HttpGet]

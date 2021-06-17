@@ -95,6 +95,8 @@ namespace app.webui
             services.AddScoped<ICalendarService, CalendarManager>();
             //Package
             services.AddScoped<IPackageRequestService, PackageRequestManager>();
+            //General Mesaj
+            services.AddScoped<IGeneralMsjService,GeneralMsjManager>();
             //email
             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
             new SmtpEmailSender(
@@ -130,6 +132,12 @@ namespace app.webui
 
             app.UseEndpoints(endpoints =>
             {
+                //CustomerOnlineWeek
+                endpoints.MapControllerRoute(
+                  name: "Diyet Listesi Görüntüle",
+                  pattern: "/online/HaftalıkDiyet/{id}",
+                  defaults: new { controller = "Online", action = "DietWekklys" }
+              );
                 //admin
                 endpoints.MapControllerRoute(
                     name: "Diyet Listesi Görüntüle",

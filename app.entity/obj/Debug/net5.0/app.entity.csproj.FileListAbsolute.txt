@@ -94,3 +94,15 @@ C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_8\app.entity\obj\Debug\net5.0\app
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_8\app.entity\obj\Debug\net5.0\app.entity.dll
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_8\app.entity\obj\Debug\net5.0\ref\app.entity.dll
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_8\app.entity\obj\Debug\net5.0\app.entity.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\bin\Debug\net5.0\app.entity.deps.json
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\bin\Debug\net5.0\app.entity.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\bin\Debug\net5.0\ref\app.entity.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\bin\Debug\net5.0\app.entity.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\obj\Debug\net5.0\app.entity.csproj.AssemblyReference.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\obj\Debug\net5.0\app.entity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\obj\Debug\net5.0\app.entity.AssemblyInfoInputs.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\obj\Debug\net5.0\app.entity.AssemblyInfo.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\obj\Debug\net5.0\app.entity.csproj.CoreCompileInputs.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\obj\Debug\net5.0\app.entity.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\obj\Debug\net5.0\ref\app.entity.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.entity\obj\Debug\net5.0\app.entity.pdb

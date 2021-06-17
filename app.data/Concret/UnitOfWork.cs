@@ -21,7 +21,7 @@ namespace app.data.Concret
         private CalendarRepository calendarRepository;
         private PackageRequestRepository packageRequestRepository;
 
-
+        private GeneralMsjRepository generalMsjRepository;
 
         public ICustomerRepository Customers => customerRepository = customerRepository ?? new CustomerRepository(context);
 
@@ -41,6 +41,7 @@ namespace app.data.Concret
 
         public IPackageRequestRepository packageRequest => packageRequestRepository = packageRequestRepository ?? new PackageRequestRepository(context);
 
+        public IGeneralMsjRepository GeneralMsj => generalMsjRepository=generalMsjRepository??new GeneralMsjRepository(context);
 
         public void Dispose()
         {

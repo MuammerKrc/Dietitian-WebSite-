@@ -1,0 +1,128 @@
+@model Customer
+
+@section css{
+<link rel="stylesheet" href="~/css/online.css">
+}
+
+
+<div class="content-wrapper" style="margin-top: 50px;">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Online AnaSayfa</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">AnaSayfa</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Customer Navbar -->
+                    @await Html.PartialAsync("_CustomerNavbar",Model)
+                    <!-- Customer Navbar -->
+
+                </div>
+                <div class="col-md-9">
+
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills asd">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Bilgileri Güncelle</a></li>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <form class="form-horizontal" method="POST">
+                                        <h4 class="h2">Bilgilerimi Güncelle</h4>
+                                        <hr>
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                                        <div class="form-group row mt-2">
+                                            <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="FirstName" class="form-control" placeholder="Adı"
+                                                    required>
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="LastName" class="form-control" placeholder="Soyadı"
+                                                    required>
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label asp-for="Mail" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Mail" class="form-control" placeholder="Email Adresi"
+                                                    required>
+                                                <span asp-validation-for="Mail" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label asp-for="PhoneNumber" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="PhoneNumber" class="form-control"
+                                                    placeholder="Telefon No" required>
+                                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label class="col-sm-2 col-form-label">Cinsiyet</label>
+                                            <div class="btn-group col-5" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                                                    autocomplete="off" autocomplete="off" value="1"
+                                                    @(Model.Gender?"checked":"")>
+                                                <label class="btn btn-outline-primary" for="btnradio1">Kadın</label>
+
+                                                <input type="radio" class="btn-check" value="2" name="btnradio"
+                                                    id="btnradio2" @(Model.Gender?"":"checked") autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="btnradio2">Erkek</label>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="@Model.UserId" name="UserId">
+                                        <input type="hidden" value="@Model.RemaningDietPackages"
+                                            name="RemaningDietPackages">
+                                        <input type="hidden" value="@Model.RemaningPilatesPackages"
+                                            name="RemaningPilatesPackages">
+                                        <input type="hidden" value="@Model.Id" name="Id">
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Kaydet</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane" id="settings">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts
+{
+<script src="~/js/online.js"></script>
+}

@@ -1,0 +1,50 @@
+@model Customer
+
+@section css{
+<link rel="stylesheet" href="~/css/online.css">
+}
+
+
+<div class="content-wrapper" style="margin-top: 50px;">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Online AnaSayfa</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">AnaSayfa</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Customer Navbar -->
+                    @await Html.PartialAsync("_CustomerNavbar",Model)
+                    <!-- Customer Navbar -->
+
+                </div>
+                <div class="col-md-9">
+
+                    <!-- Customer Home -->
+                    @await Html.PartialAsync("_CustomerHome",Model)
+                    <!-- Customer Home -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/online.js"></script>
+}

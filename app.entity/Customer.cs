@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace app.entity
 {
     public class Customer : BaseClass
     {
-        public string UserId { get; set; }
+        public string UserId { get; set;}
         public bool Gender{get;set;}
         public string FirstName { get; set; }
         public string LastName { get; set; }

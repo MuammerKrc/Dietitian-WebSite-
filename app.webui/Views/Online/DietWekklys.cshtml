@@ -1,0 +1,245 @@
+@model DietWekkly
+@{
+    Customer c =Model.Diet.Customer;
+}
+
+@section css{
+<link rel="stylesheet" href="~/css/online.css">
+}
+
+
+<div class="content-wrapper" style="margin-top: 50px;">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>@Model.Name Diyet</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="~/Online/Home">AnaSayfa</a></li>
+                            <li class="breadcrumb-item active"><a href="~/Online/DietIndex">Diyet</a></li>
+                            <li class="breadcrumb-item active text-danger">Haftalık Diyet</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- Partial View -->
+                    @await Html.PartialAsync("_CustomerNavbar",c)
+                        <!-- Partial View -->
+
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <div class="row make-flex-row space-around">
+
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:360px;">
+                                            <div class="card-header text-center">
+                                                <p class="h2">5.Hafta Diyeti</p>
+                                                <hr>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="row make-flex-row center" style="min-height: 200px;">
+                                                    <div class="col-4">
+                                                        <a href="#">
+                                                            <img src="https://www.dropbox.com/s/5xp7sy21sqb6jm4/ImageCap.jpg?raw=1"
+                                                                class="card-img-top" alt="...">
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p class="card-text">Some quick example text to build on the
+                                                            card
+                                                            title and
+                                                            make up the bulk
+                                                            of the card's content. Lorem ipsum dolor sit amet
+                                                            consectetur
+                                                            adipisicing elit. Vitae, modi. Enim odio asperiores eius a
+                                                            at
+                                                            voluptas,
+                                                            optio sapiente nostrum ex, quaerat reprehenderit fugiat
+                                                            rerum
+                                                            provident
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:360px;">
+                                            <div class="card-header text-center">
+                                                <p class="h2">Randevu</p>
+                                                <hr>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="row make-flex-column center" style="min-height: 200px;">
+                                                    @* @if (false)
+                                                    {
+                                                        <p class="text-center">Randevu Talebinde Bulunmak İçin Lütfe
+                                                            Aşağıdaki Butona Tıklayınız
+                                                        </p>
+                                                        <a href="#" class="btn btn-warning col-6">Randevu Talebi</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="card-title text-center h1 p-3 bg-dark text-white">
+                                                            16-15-2021</p>
+                                                        <p class="card-text  text-center">Randevu İptali İçin Lütfen Butona
+                                                            Tıklayınız</p>
+                                                        <a href="#" class="btn btn-warning col-6">Randevu Talebi</a>
+                                                    } *@
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills asd">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Genel
+                                        Bilgilendirme</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <form class="form-horizontal">
+                                        <div>
+                                            <input type="range" name="ass" min="1" max="10" step="1">
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputName"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputEmail"
+                                                    placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputName2"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputExperience"
+                                                class="col-sm-2 col-form-label">Experience</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="inputExperience"
+                                                    placeholder="Experience"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputSkills"
+                                                    placeholder="Skills">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> I agree to the <a href="#">terms and
+                                                            conditions</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane" id="settings">
+                                    <form class="form-horizontal">
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputName"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputEmail"
+                                                    placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputName2"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputExperience"
+                                                class="col-sm-2 col-form-label">Experience</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="inputExperience"
+                                                    placeholder="Experience"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputSkills"
+                                                    placeholder="Skills">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> I agree to the <a href="#">terms and
+                                                            conditions</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts
+{
+    <script src="~/js/online.js"></script>
+}

@@ -10,5 +10,7 @@ namespace app.data.Abstract
         ReturnedClass<Customer> GetCustomerDietCount(int id);
         Task<ReturnedClass<Customer>> GetByUserId(string userId);
         Task<OprationResult> updateDietPackages(int quantity,int customerId);
+        Task<ReturnedClass<Customer>> GetCustomerForHome();
+
     }
 }

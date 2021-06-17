@@ -20,5 +20,6 @@ namespace app.business.Abstract
         Task<OprationResult> InitilazeDiet(int customerId);
         Task<OprationResult> InitilazeAnamnezForm(int DietId);
         Task<OprationResult> ReduceDietPackage(int customerId);
+        Task<ReturnedClass<Customer>> GetCustomerForHome();
     }
 }

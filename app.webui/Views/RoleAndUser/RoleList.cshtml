@@ -1,80 +1,5 @@
 @model IEnumerable<IdentityRole>
-@section Css
-{
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
-<style>
-    .addHeight {
-        height: 40px;
 
-    }
-
-    .changeColor {
-        color: var(--primary-color);
-    }
-
-    section {
-        position: relative;
-        width: auto;
-        min-height: 1080px;
-    }
-
-    .makeCenterContent {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .deneme {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: black;
-        background-image: url("/img/aa2.jpg");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        z-index: -1000;
-    }
-
-    .asdasd {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-
-    a {
-        color: #fff;
-        font-weight: normal;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    a:hover,
-    a:active,
-    a:focus {
-        color: var(--primary-color);
-        outline: none;
-        text-decoration: none;
-    }
-
-    .asdasda {
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-
-    /* BG OVERLAY */
-
-    .bg-overlay {
-        background: var(--dark-color);
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.10;
-    }
-</style>
-}
 @section Scripts
 {
 <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
@@ -88,73 +13,52 @@
 }
 
 <section style="margin-top: 20px;">
-    <div class="deneme">
-    </div>
+
     <div class="container-fluid" style="padding: 50px;">
-        <div class="row justify-content-sm-center justify-content-md-around">
-            <div class="col-12 col-md-4 col-lg-3 asdasd h-100">
-                @await Html.PartialAsync("_AdminNavbar")
-            </div>
-        </div>
         <div class="row">
-            <div class="col-12  " style="color: #fff;">
-                <div class="row justify-content-sm-between justify-content-around asdasda mt-2" style="padding: 10px;">
-                    <div class="col-4">
-                        <a href="#" class=" addHeight bg-primary makeCenterContent">Randevular</a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#" class=" addHeight bg-primary makeCenterContent">Bugün Diet</a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#" class=" addHeight bg-primary makeCenterContent">Bugün Pilates</a>
-                    </div>
-                </div>
-                <div class="row  justify-content-around asdasda mt-2 p-5">
-                    <div class="col-md-12">
-                        <h1>Role List</h1>
-                        <hr>
-                        <a class="btn btn-primary btn-sm mb-3" href="/RoleAnduser/RoleCreate">Create Role</a>
-                        <div class="table-responsive-lg">
-
-                            <table class="table table-bordered table-dark">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 100px;">ID</th>
-                                        <th>Role name</th>
-                                        <th style="width: 100px;"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model.Count() > 0)
+            <div class="row  justify-content-around  mt-2 p-5">
+                <div class="col-md-12">
+                    <h1>Role List</h1>
+                    <hr>
+                    <div class="table-responsive-lg">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;">ID</th>
+                                    <th>Role name</th>
+                                    <th style="width: 100px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count() > 0)
+                                {
+                                    @foreach (var item in Model)
                                     {
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr>
-                                                <td>@item.Id</td>
-                                                <td>@item.Name</td>
-                                                <td>
-                                                    <a href="/RoleAndUser/roleEdit/@item.Id"
-                                                class="btn btn-primary btn-sm me-1">Edit</a>
-                                                    <form action="/admin/role/delete" method="POST" style="display: inline;">
-                                                        <input type="hidden" name="RoleId" value="@item.Id">
-                                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        }
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.Name</td>
+                                            <td>
+                                                <a href="/RoleAndUser/roleEdit/@item.Id"
+                                            class="btn btn-primary btn-sm me-1">Edit</a>
+                                                <form action="/admin/role/delete" method="POST" style="display: inline;">
+                                                    <input type="hidden" name="RoleId" value="@item.Id">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
                                     }
-                                    else
-                                    {
-                                        <div class="alert alert-warning">
-                                            <h3>No Products</h3>
-                                        </div>
-                                    }
+                                }
+                                else
+                                {
+                                    <div class="alert alert-warning">
+                                        <h3>No Products</h3>
+                                    </div>
+                                }
 
-                                </tbody>
-                            </table>
-                        </div>
-
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>

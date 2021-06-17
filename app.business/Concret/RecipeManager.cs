@@ -13,9 +13,25 @@ namespace app.business.Concret
         {
             work=_work;
         }
-        public Task<OprationResult> CreateAsync(Recipe entity)
+        public async Task<OprationResult> CreateAsync(Recipe entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result = await work.Recipe.CreateAsync(entity);
+                if (result == OprationResult.ok)
+                {
+                    var SaveResult = await work.SaveAsync();
+                    if (SaveResult == OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
 
         public OprationResult DeleteAsync(Recipe entity)
@@ -27,12 +43,7 @@ namespace app.business.Concret
         {
             try
             {
-                var result =await work.Recipe.GetAll();
-                if(result.oprationResult==OprationResult.canceled)
-                {
-                    return result;
-                }
-                return result;
+                return await work.Recipe.GetAll();
             }
             catch (System.Exception)
             {

@@ -1,0 +1,276 @@
+@model Customer
+@section css{
+<link rel="stylesheet" href="~/css/online.css">
+}
+
+
+<div class="content-wrapper" style="margin-top: 50px;">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Online Diyet</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/online/Home">AnaSayfa</a></li>
+                        <li class="breadcrumb-item text-danger">Diyet</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Partial View -->
+                    <partial name="_CustomerNavbar" value="@Model">
+                        <!-- Partial View -->
+
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills asd">
+                                <li class="nav-item"><a class="nav-link active" href="#activity"
+                                        data-toggle="tab">Haftalık Diet</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#package" data-toggle="tab">Diet
+                                        Paketi</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane g-0 " id="activity">
+                                    <div class="post ">
+                                        <div class="general-information ">
+                                            <div class="card g-0" style="width:100%;border:none; ">
+                                                <div class="card-body  make-flex-row center" style="border:none;">
+                                                    @if (Model.Diet != null)
+                                                    {
+                                                        @if (Model.Diet.DietWekklies != null)
+                                                        {
+                                                            @foreach (var item in Model.Diet.DietWekklies)
+                                                            {
+                                                                <div class=" make-flex-column center  bg-light mx-2 p-2 box-shadow"
+                                                        style="min-width: 150px;border-top: 3px solid #ffc107;">
+                                                                    <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                        @item.Name</h5>
+                                                                    <a href="HaftalıkDiyet/@item.Id" class="btn btn-primary">Git</a>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="alert alert-danger">Diet Paketi Yok</div>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="alert alert-danger">Diet Paketi Yok</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="package">
+                                    <form class="form-horizontal">
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputName"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputEmail"
+                                                    placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputName2"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputExperience"
+                                                class="col-sm-2 col-form-label">Experience</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="inputExperience"
+                                                    placeholder="Experience"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputSkills"
+                                                    placeholder="Skills">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> I agree to the <a href="#">terms and
+                                                            conditions</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills asd">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Beden
+                                        Güncel Analiz</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane g-0 " id="activity">
+                                    <div class="post ">
+                                        <div class="general-information mt-3">
+                                            <div class="card g-0" style="width:100%; border:none;">
+
+                                                <div class="card-body  make-flex-row center">
+                                                    <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 125px;">
+                                                        <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                            Başlagıç kilo</h5>
+                                                        <p class="card-text " style="font-size:20px;">65</p>
+                                                        <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                        <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                            Güncel kilo</h5>
+                                                        <p class="card-text " style="font-size:20px;">50</p>
+                                                    </div>
+                                                    <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 125px;">
+                                                        <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                            Başlagıç kilo</h5>
+                                                        <p class="card-text " style="font-size:20px;">65</p>
+                                                        <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                        <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                            Güncel kilo</h5>
+                                                        <p class="card-text " style="font-size:20px;">50</p>
+                                                    </div>
+                                                    <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 125px;">
+                                                        <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                            Başlagıç kilo</h5>
+                                                        <p class="card-text " style="font-size:20px;">65</p>
+                                                        <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                        <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                            Güncel kilo</h5>
+                                                        <p class="card-text " style="font-size:20px;">50</p>
+                                                    </div>
+                                                    <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 125px;">
+                                                        <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                            Başlagıç kilo</h5>
+                                                        <p class="card-text " style="font-size:20px;">65</p>
+                                                        <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                        <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                            Güncel kilo</h5>
+                                                        <p class="card-text " style="font-size:20px;">50</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="settings">
+                                    <form class="form-horizontal">
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputName"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputEmail"
+                                                    placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputName2"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputExperience"
+                                                class="col-sm-2 col-form-label">Experience</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="inputExperience"
+                                                    placeholder="Experience"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputSkills"
+                                                    placeholder="Skills">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> I agree to the <a href="#">terms and
+                                                            conditions</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts
+{
+<script src="~/js/online.js"></script>
+}

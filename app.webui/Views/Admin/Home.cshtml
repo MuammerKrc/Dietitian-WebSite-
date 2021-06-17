@@ -1,273 +1,554 @@
-@section css
-{
-<style>
-    .addHeight {
-        height: 40px;
+@model List<Customer>
 
-    }
-
-    .changeColor {
-        color: var(--primary-color);
-    }
-
-    section {
-        position: relative;
-        width: auto;
-        min-height: 1080px;
-    }
-
-    .makeCenterContent {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .deneme {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: black;
-        background-image: url("/img/aa2.jpg");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        z-index: -1000;
-    }
-
-    .asdasd {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-
-    a {
-        color: #fff;
-        font-weight: normal;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    a:hover,
-    a:active,
-    a:focus {
-        color: var(--primary-color);
-        outline: none;
-        text-decoration: none;
-    }
-
-    .asdasda {
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-
-    /* BG OVERLAY */
-
-    .bg-overlay {
-        background: var(--dark-color);
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.10;
-    }
-
-    #r2,
-    #r3 {
-        display: none;
-    }
-</style>
+@section css{
+<link rel="stylesheet" href="~/css/online.css">
 }
 
 
-<section style="margin-top: 20px;">
-    <div class="deneme">
-    </div>
-    <div class="container-fluid" style="padding: 50px;">
-        @if (ViewBag.Package != null)
-        {
-            <div class="row">
-                <div class="alert alert-info" role="alert">
-                    @ViewBag.Package
+<div class="content-wrapper" style="margin-top: 50px;">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Admin AnaSayfa</h1>
                 </div>
-            </div>
-        }
-        <div class="row justify-content-sm-center justify-content-md-around">
-            <div class="col-12 col-md-4 col-lg-3 asdasd h-100">
-                @await Html.PartialAsync("_AdminNavbar")
-            </div>
-            <div class="col-12 col-md-6 col-lg-5  " style="color: #fff;">
-                <div class="row justify-content-sm-between justify-content-around asdasda mt-2" style="padding: 10px;">
-                    <div class="col-4">
-                        <a id="item1" href="#" class=" addHeight bg-primary makeCenterContent">Duyurular</a>
-                    </div>
-                    <div class="col-4">
-                        <a id="item2" href="#" class=" addHeight bg-primary makeCenterContent">Bildirimler</a>
-                    </div>
-                    <div class="col-4">
-                        <a id="item3" href="#" class=" addHeight bg-primary makeCenterContent">Mesaj Gönder</a>
-                    </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">Admin AnaSayfa</li>
+                    </ol>
                 </div>
-                <div class="row asdasda mt-3">
-                    <div id="r1" class="col-12 justify-content-around p-5">
-                        <div class="col-12 text-center changeColor">
-                            <h1>Duyurular</h1>
-                            <hr style="height: 3px;">
-                        </div>
-                        <div class="aler alert-dark   mt-4">
-                            <h2>Diyetlerle ilgili Bilgilendirme</h2>
-                            <hr>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus deleniti impedit
-                                accusamus aut, nobis in blanditiis voluptatem, omnis cupiditate ducimus sint dolor eius
-                                magni libero et ab tenetur, culpa officia!</p>
-                        </div>
-                        <div class="aler alert-success  mt-4">
-                            <h2>Platesler hakkında genel bilgilendirme</h2>
-                            <hr>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus deleniti impedit
-                                accusamus aut, nobis in blanditiis voluptatem, omnis cupiditate ducimus sint dolor eius
-                                magni libero et ab tenetur, culpa officia!</p>
-                        </div>
-                    </div>
-                    <div id="r2" class="col-12  justify-content-around  p-5">
-                        <div class="col-12 text-center changeColor">
-                            <h1>Bildirimler</h1>
-                            <hr style="height: 3px;">
-                        </div>
-                        <div class="col-12 table-responsive">
-                            <table class="table table-hover  table-dark">
-                                <thead>
-                                    <tr>
-                                        <th>İstek</th>
-                                        <th>Adı</th>
-                                        <th>Tarih</th>
-                                        <th>Git</th>
-                                        <th>Sil</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (ViewBag.Request != null)
-                                    {
-                                        @foreach (var item in (List<PackageRequest>)ViewBag.Request)
-                                        {
-                                            <tr>
-                                                <td>@item.PackageName</td>
-                                                <td>@item.FullName</td>
-                                                <td>@item.RequestTime</td>
-
-                                                <td><a href="/Diet/Index/@item.CustomerId" class="btn btn-warning">Git</a></td>
-                                                <td><a href="/Diet/DeleteRequest/@item.Id" class="btn btn-danger">Sil</a></td>
-                                            </tr>
-                                        }
-                                    }
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="r3" class="col-12  justify-content-around  p-5">
-                        <div class="col-12 text-center changeColor">
-                            <h1>Duyurular</h1>
-                            <hr style="height: 3px;">
-                        </div>
-                        <div class="aler alert-dark  mt-4">
-                            <h2>Diyetlerle ilgili Bilgilendirme</h2>
-                            <hr>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus deleniti impedit
-                                accusamus aut, nobis in blanditiis voluptatem, omnis cupiditate ducimus sint dolor eius
-                                magni libero et ab tenetur, culpa officia!</p>
-                        </div>
-                        <div class="aler alert-success mt-4">
-                            <h2>Platesler hakkında genel bilgilendirme</h2>
-                            <hr>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus deleniti impedit
-                                accusamus aut, nobis in blanditiis voluptatem, omnis cupiditate ducimus sint dolor eius
-                                magni libero et ab tenetur, culpa officia!</p>
-                        </div>
-                    </div>
-
-                </div>
-
-
             </div>
         </div>
-</section>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid " src="~/avatar/avatar2.png"
+                                    alt="User profile picture">
+                            </div>
+                            <h3 class="profile-username text-center makeUpperCase">Admin</h3>
+                            <div class="row make-flex-row space-around my-3">
+
+                                <a href="~/admin/DietMenüList"
+                                    class="btn btn-secondary btn-block col-5 col-sm-3 my-2 col-md-5"><b>Menüler</b></a>
+
+                                <a href="~/RoleAndUser/UserList"
+                                    class="btn btn-secondary btn-block col-5 col-sm-3 my-2 col-md-5"><b>Kullanıcılar</b></a>
+
+                                <a href="~/RoleAndUser/RoleList"
+                                    class="btn btn-secondary btn-block col-5 col-sm-3 my-2 col-md-5"><b>Rolleme</b></a>
+                            </div>
+                            <div class="card g-0" style="width:100%;">
+                                <h5 class="card-header text-center ">Randevu Talebi</h5>
+                                <div class="card-body  make-flex-row space-beetwen">
+                                    <table class="table table-hover table-light" style="font-size: 8px;">
+                                        <thead>
+                                            <tr>
+                                                <th>İstek</th>
+                                                <th>Adı</th>
+                                                <th>Tarih</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Diet</th>
+                                                <td>Muammer Karaca</td>
+                                                <td>15/16/2021</td>
+                                                <td>
+                                                    <button class="btn btn-success btn-sm">Git</button>
+                                                    <button class="btn btn-danger btn-sm">Sil</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Diet</th>
+                                                <td>Muammer Karaca</td>
+                                                <td>15/16/2021</td>
+                                                <td>
+                                                    <button class="btn btn-success btn-sm">Git</button>
+                                                    <button class="btn btn-danger btn-sm">Sil</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card g-0" style="width:100%;">
+                                <h5 class="card-header text-center ">Paket Yenileme</h5>
+                                <div class="card-body  make-flex-row space-beetwen">
+                                    <table class="table table-hover table-dark" style="font-size: 8px;">
+                                        <thead>
+                                            <tr>
+                                                <th>İstek</th>
+                                                <th>Adı</th>
+                                                <th>Tarih</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Diet</th>
+                                                <td>Muammer Karaca</td>
+                                                <td>15/16/2021</td>
+                                                <td>
+                                                    <button class="btn btn-success btn-sm">Git</button>
+                                                    <button class="btn btn-danger btn-sm">Sil</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Diet</th>
+                                                <td>Muammer Karaca</td>
+                                                <td>15/16/2021</td>
+                                                <td>
+                                                    <button class="btn btn-success btn-sm">Git</button>
+                                                    <button class="btn btn-danger btn-sm">Sil</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card g-0" style="width:100%;">
+                                <h5 class="card-header text-center ">Paket Tanımlama</h5>
+                                <div class="card-body  make-flex-row space-beetwen">
+                                    <table class="table table-hover table-light" style="font-size: 8px;">
+                                        <thead>
+                                            <tr>
+                                                <th>İstek</th>
+                                                <th>Adı</th>
+                                                <th>Tarih</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Diet</th>
+                                                <td>Muammer Karaca</td>
+                                                <td>15/16/2021</td>
+                                                <td>
+                                                    <button class="btn btn-success btn-sm">Git</button>
+                                                    <button class="btn btn-danger btn-sm">Sil</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills asd">
+                                <li class="nav-item"><a class="nav-link active" href="#diet" data-toggle="tab">Diet
+                                    </a></li>
+                                <li class="nav-item"><a class="nav-link" href="#pilates" data-toggle="tab">Pilates</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#tüm" data-toggle="tab">Bütün
+                                        Müsteriler</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#info" data-toggle="tab">Genel
+                                        Bildiri</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#Recipe" data-toggle="tab">Tarifler</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="diet">
+                                    <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Adı</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Telefon</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Mail</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row make-flex-row space-around">
+                                        @foreach (var item in Model.Where(i => i.Diet != null).ToList())
+                                        {
+                                            <div class="card  g-0 shadow  bg-body rounded mt-2 mx-1" style="width:200px;">
+                                                <div class="card-header"
+                                                style="position: relative;  background-color:rgba(32, 39, 49,0.5)">
+                                                    <a href="~/admin/CustomerHome/@item.Id">
+                                                        <p class="h4 text-white">@item.FirstName</p>
+                                                        <p class="h4  text-white">@item.LastName</p>
+                                                    </a>
+                                                    <small class="MakeAbsolute  text-white"> 15/11/2021</small>
+                                                </div>
+                                                <div class="card-body g-0">
+                                                    @if (item.Diet != null)
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2 "
+                                                    style="position: relative;">
+                                                            <a href="~/admin/CustomerDiet/@item.Id">
+                                                                <h4 class="text-warning">Diyet</h4>
+                                                                <hr style="color: red;">
+                                                                <div
+                                                            class=" @(item.RemaningDietPackages<1?"bg-warning":"bg-light")">
+                                                                    @item.RemaningDietPackages</div>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                            <h4 class="text-warning">Diyet</h4>
+                                                            <hr style="color: red;">
+                                                            <div class="bg-danger text-white">Tanımlanmamış</div>
+                                                        </div>
+                                                    }
+                                                    @if (item.Pilates != null)
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                            <a href="">
+                                                                <h4 class="text-warning ">Pilates</h4>
+                                                                <hr style="color: red;">
+                                                                <div
+                                                            class=" @(item.RemaningPilatesPackages<1?"bg-warning":"bg-light")">
+                                                                    @item.RemaningPilatesPackages</div>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                            <h4 class="text-warning">Pilates</h4>
+                                                            <hr style="color: red;">
+                                                            <div class="bg-danger  text-white">Tanımlanmamış</div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div class="card-footer">
+                                                    <h5 class="text-muted" style="font-size:12px;"><i
+                                                        class="fas fa-phone-square-alt mx-2"></i>Telefon</h5>
+                                                    <small class="text-muted" style="font-size:10px;">26513151313</small>
+                                                    <hr style="width: 50%; color: red;">
+                                                    <h5 class="text-muted" style="font-size:12px;"><i
+                                                        class="fas fa-pencil-alt mx-2"></i>Mail</h5>
+                                                    <small class="text-muted"
+                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="pilates">
+                                    <div class="row make-flex-row space-around">
+                                        @foreach (var item in Model.Where(i => i.Pilates != null).ToList())
+                                        {
+                                            <div class="card  g-0 shadow  bg-body rounded" style="width:200px;">
+                                                <div class="card-header" style="position: relative;">
+                                                    <p class="h4">Muammer</p>
+                                                    <p class="h4">Karaca</p>
+                                                    <small class="MakeAbsolute"> 15/11/2021</small>
+                                                </div>
+                                                <div class="card-body g-0">
+                                                    <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                        <a href="">
+                                                            <h4 class="text-warning">Diyet</h4>
+                                                            <hr style="color: red;">
+                                                            <div>Kalan 5</div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                        <a href="">
+                                                            <h4 class="text-warning">Pilates</h4>
+                                                            <hr style="color: red;">
+                                                            <div>Kalan 5</div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <h5 class="text-muted" style="font-size:12px;">Telefon</h5>
+                                                    <small class="text-muted" style="font-size:10px;">26513151313</small>
+                                                    <hr style="width: 50%; color: red;">
+                                                    <h5 class="text-muted" style="font-size:12px;">Mail</h5>
+                                                    <small class="text-muted"
+                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="tüm">
+                                    <div class="row make-flex-row space-around">
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:200px;">
+                                            <div class="card-header" style="position: relative;">
+                                                <p class="h4">Muammer</p>
+                                                <p class="h4">Karaca</p>
+                                                <small class="MakeAbsolute"> 15/11/2021</small>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                    <a href="">
+                                                        <h4 class="text-warning">Diyet</h4>
+                                                        <hr style="color: red;">
+                                                        <div>Kalan 5</div>
+                                                    </a>
+                                                </div>
+                                                <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                    <a href="">
+                                                        <h4 class="text-warning">Pilates</h4>
+                                                        <hr style="color: red;">
+                                                        <div>Kalan 5</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <h5 class="text-muted" style="font-size:12px;">Telefon</h5>
+                                                <small class="text-muted" style="font-size:10px;">26513151313</small>
+                                                <hr style="width: 50%; color: red;">
+                                                <h5 class="text-muted" style="font-size:12px;">Mail</h5>
+                                                <small class="text-muted"
+                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
+                                            </div>
+                                        </div>
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:200px;">
+                                            <div class="card-header" style="position: relative;">
+                                                <p class="h4">Muammer</p>
+                                                <p class="h4">Karaca</p>
+                                                <small class="MakeAbsolute"> 15/11/2021</small>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                    <a href="">
+                                                        <h4 class="text-warning">Diyet</h4>
+                                                        <hr style="color: red;">
+                                                        <div>Kalan 5</div>
+                                                    </a>
+                                                </div>
+                                                <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                    <a href="">
+                                                        <h4 class="text-warning">Pilates</h4>
+                                                        <hr style="color: red;">
+                                                        <div>Kalan 5</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <h5 class="text-muted" style="font-size:12px;">Telefon</h5>
+                                                <small class="text-muted" style="font-size:10px;">26513151313</small>
+                                                <hr style="width: 50%; color: red;">
+                                                <h5 class="text-muted" style="font-size:12px;">Mail</h5>
+                                                <small class="text-muted"
+                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
+                                            </div>
+                                        </div>
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:200px;">
+                                            <div class="card-header" style="position: relative;">
+                                                <p class="h4">Muammer</p>
+                                                <p class="h4">Karaca</p>
+                                                <small class="MakeAbsolute"> 15/11/2021</small>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                    <a href="">
+                                                        <h4 class="text-warning">Diyet</h4>
+                                                        <hr style="color: red;">
+                                                        <div>Kalan 5</div>
+                                                    </a>
+                                                </div>
+                                                <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                    <a href="">
+                                                        <h4 class="text-warning">Pilates</h4>
+                                                        <hr style="color: red;">
+                                                        <div>Kalan 5</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <h5 class="text-muted" style="font-size:12px;">Telefon</h5>
+                                                <small class="text-muted" style="font-size:10px;">26513151313</small>
+                                                <hr style="width: 50%; color: red;">
+                                                <h5 class="text-muted" style="font-size:12px;">Mail</h5>
+                                                <small class="text-muted"
+                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="info">
+                                    <div class="col-md-8">
+                                        <form class="form-horizontal" method="POST" asp-controller="admin"
+                                            asp-action="GeneralMesaj">
+                                            <div class="form-group row mt-2">
+                                                <label for="Title" class="col-sm-2 col-form-label">Başlık</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="Title" name="Title"
+                                                        placeholder="Başlık" required minlength="5">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mt-2">
+                                                <label for="Content" class="col-sm-2 col-form-label">İçerik</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" id="Content" name="Content"
+                                                        placeholder="İçerik" required minlength="10"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mt-2">
+                                                <label for="Url" class="col-sm-2 col-form-label">Url</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="Url" name="Url"
+                                                        placeholder="Url" minlength="15">
+                                                </div>
+                                            </div>
+                                            <div class="offset-sm-2 input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="inputGroupSelect01">Renk
+                                                        Secimi</label>
+                                                </div>
+                                                <select class="custom-select" id="inputGroupSelect01"
+                                                    name="TypeOfAlert">
+                                                    <option value="0">Primary</option>
+                                                    <option value="1">Secondary</option>
+                                                    <option value="2">Success</option>
+                                                    <option value="3">Danger</option>
+                                                    <option value="4">Warning</option>
+                                                    <option value="5">İnfo</option>
+                                                    <option value="6">Light</option>
+                                                    <option value="7">Dark</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group row mt-2">
+                                                <div class="offset-sm-2 col-sm-10">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" value="1" name="deneme">Url var mı ?
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mt-2">
+                                                <div class="offset-sm-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-12">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tarih</th>
+                                                    <th>Title</th>
+                                                    <th>Content</th>
+                                                    <th>Sil</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (ViewBag.General != null)
+                                                {
+                                                    @foreach (var item in (List<GeneralMesaj>)ViewBag.General)
+                                                    {
+                                                        <tr>
+                                                            <th>@item.Time</th>
+                                                            <th>@item.Title </th>
+                                                            <th>@item.Content</th>
+                                                            <th><a href="~/admin/RemoveGeneralMesaj/@item.Id"
+                                                            class="btn btn-dark btn-sm">Sil</a></th>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="Recipe">
+                                    <div class="col-md-8">
+                                        <form class="form-horizontal" method="POST" asp-controller="admin"
+                                            asp-action="CreateRecipe">
+                                            <div class="form-group row mt-2">
+                                                <label for="Name" class="col-sm-2 col-form-label">Tarif Adı</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="Name" name="Name"
+                                                        placeholder="Tarif Adı" required minlength="3">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mt-2">
+                                                <label for="Content" class="col-sm-2 col-form-label">İçerik</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" id="Content" name="Content"
+                                                        placeholder="İçerik" required minlength="10"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mt-2">
+                                                <div class="offset-sm-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-danger">Kaydet</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-6">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tarif Adı</th>
+                                                    <th>Tarif İçerik</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (ViewBag.Recipe != null)
+                                                {
+                                                    @foreach (var item in (List<Recipe>)ViewBag.Recipe)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Name</td>
+                                                            <td>@item.Content</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 @section Scripts
 {
-<script>
-
-    var item1 = document.getElementById("item1");
-    var item2 = document.getElementById("item2");
-    var item3 = document.getElementById("item3");
-    var r1 = document.getElementById("r1");
-    var r2 = document.getElementById("r2");
-    var r3 = document.getElementById("r3");
-
-    item1.addEventListener("click", selectedItem1);
-    item2.addEventListener("click", selectedItem2);
-    item3.addEventListener("click", selectedItem3);
-
-    function selectedItem1(e) {
-        var temp = false;
-        console.log("asfaa")
-
-        for (var x of item1.classList) {
-            if (x == "active") {
-                temp = true;
-            }
-        }
-        if (temp == false) {
-            item2.style.background = "none";
-            item3.style.background = "none";
-            r2.style.display = "none";
-            r3.style.display = "none";
-
-
-            r1.style.display = "inline";
-            item1.style.background = "#fff";
-        }
-    }
-    function selectedItem2(e) {
-        var temp = false;
-        console.log("asd");
-
-        for (var x of item2.classList) {
-            console.log("asd");
-            if (x == "active") {
-                temp = true;
-            }
-        }
-        console.log(temp);
-        if (temp == false) {
-            item1.style.background = "none";
-            item3.style.background = "none";
-            r1.style.display = "none";
-            r3.style.display = "none";
-
-            r2.style.display = "inline";
-            item2.style.background = "#fff";
-        }
-    }
-
-
-    function selectedItem3(e) {
-        var temp = false;
-
-        for (var x of item2.classList) {
-            if (x == "active") {
-                temp = true;
-            }
-        }
-        if (temp == false) {
-            item1.style.background = "none";
-            item2.style.background = "none";
-            r2.style.display = "none";
-            r1.style.display = "none";
-
-            r3.style.display = "inline";
-            item3.style.background = "#fff";
-        }
-    }
-</script>
+<script src="~/js/online.js"></script>
 }
