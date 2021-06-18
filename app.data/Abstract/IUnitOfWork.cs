@@ -15,6 +15,12 @@ namespace app.data.Abstract
         ICalendarRepository Calendar { get; }
         IPackageRequestRepository packageRequest{get;}
         IGeneralMsjRepository GeneralMsj{get;}
+        IProductRepository Products { get; }
+        ICategoryRepository Categories { get; }
+        IMyCartRepository MyCart{get;}
+
+        // IOrderRepository Orders{get;}
+        // ICartRepository Carts { get; }
         Task<OprationResult> SaveAsync();
     }
 }

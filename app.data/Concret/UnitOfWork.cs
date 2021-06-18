@@ -20,8 +20,12 @@ namespace app.data.Concret
         private AnamnezFormRepository anamnezFormRepository;
         private CalendarRepository calendarRepository;
         private PackageRequestRepository packageRequestRepository;
-
         private GeneralMsjRepository generalMsjRepository;
+        private MyCartRepository myCartRepository;
+        private ProductRepository productRepository;
+        private CategoryRepository categoryRepository;
+
+
 
         public ICustomerRepository Customers => customerRepository = customerRepository ?? new CustomerRepository(context);
 
@@ -42,6 +46,17 @@ namespace app.data.Concret
         public IPackageRequestRepository packageRequest => packageRequestRepository = packageRequestRepository ?? new PackageRequestRepository(context);
 
         public IGeneralMsjRepository GeneralMsj => generalMsjRepository=generalMsjRepository??new GeneralMsjRepository(context);
+
+        public IProductRepository Products => productRepository=productRepository??new ProductRepository(context);
+
+        public ICategoryRepository Categories => categoryRepository=categoryRepository??new CategoryRepository(context);
+
+        public IMyCartRepository MyCart => myCartRepository=myCartRepository??new MyCartRepository(context);
+
+
+        // public IOrderRepository Orders => throw new NotImplementedException();
+        // public ICartRepository Carts => throw new NotImplementedException();
+
 
         public void Dispose()
         {

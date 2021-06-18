@@ -97,6 +97,12 @@ namespace app.webui
             services.AddScoped<IPackageRequestService, PackageRequestManager>();
             //General Mesaj
             services.AddScoped<IGeneralMsjService,GeneralMsjManager>();
+            //Product
+            services.AddScoped<IProductService,ProductManager>();
+            //Category
+            services.AddScoped<ICategoryService,CategoryManager>();
+            //MyCary
+            services.AddScoped<IMyCartService,MyCartManager>();
             //email
             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
             new SmtpEmailSender(

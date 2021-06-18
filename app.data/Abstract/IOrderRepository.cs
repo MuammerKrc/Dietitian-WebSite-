@@ -5,6 +5,6 @@ namespace app.data.Abstract
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        List<Order> GetOrders(string userID);
+        // List<Order> GetOrders(string userID);
     }
 }

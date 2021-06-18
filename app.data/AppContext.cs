@@ -18,8 +18,12 @@ namespace app.data
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<AnamnezForm> AnamnezForms { get; set; }
         public DbSet<Calendar> Calendars { get; set; }
-        public DbSet<PackageRequest> packageRequests{get;set;}
-        public DbSet<GeneralMesaj> GeneralMesajs{get;set;}
+        public DbSet<PackageRequest> packageRequests { get; set; }
+        public DbSet<GeneralMesaj> GeneralMesajs { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<MyCart> MyCarts{get;set;}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CombineDietMenüRecipeConfiguration());

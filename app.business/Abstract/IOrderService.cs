@@ -5,7 +5,7 @@ namespace app.business.Abstract
 {
     public interface IOrderService
     {
-        void Create(Order entity);
-        List<Order> GetOrders(string userID);
+        // void Create(Order entity);
+        // List<Order> GetOrders(string userID);
     }
 }

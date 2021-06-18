@@ -13,6 +13,7 @@ namespace app.entity
         public string Mail { get; set; }
         public int RemaningDietPackages{get;set;}
         public int RemaningPilatesPackages{get;set;}
+        public List<MyCart> MyCarts{get;set;}
         public Diet Diet{get;set;}
         public Pilates Pilates{get;set;}
     }

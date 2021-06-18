@@ -1,21 +1,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using app.data.Concret;
 using app.entity;
 
 namespace app.business.Abstract
 {
     public interface ICategoryService
     {
-        void Create(Category entity);
-        void Delete(Category entity);
-        void DeleteByID(int id);
-
-        Task<Category> GetByID(int id);
-        Task<List<Category>> GetAll();
-        Task<Category> CreateAsync(Category entity);
-
-        void Update(Category entity);
-        Category GetCategoryWithProductsByID(int categoryID);
-        void DeleteProductFromCategory(int proID,int catID);
+        Task<OprationResult> CreateAsync(Category entity);
+        OprationResult DeleteAsync(Category entity);
+        Task<ReturnedClass<Category>> GetByIdAsync(int id);
+        OprationResult UpdateAsync(Category entity);
+        Task<ReturnedClass<Category>> GetAll();
+        Task<ReturnedClass<Category>> GetByEntityAsync(Category entity);
     }
 }
