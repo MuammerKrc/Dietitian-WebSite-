@@ -5,28 +5,35 @@
         <ul class="nav nav-pills asd">
             <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Genel
                     Bilgilendirme</a></li>
-
-            <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Bilgilerimi
-                    Güncelle</a>
-            </li>
+            @if (Model.Diet != null)
+            {
+                <li class="nav-item"><a class="nav-link" href="~/Online/AnamnezForm">Anamnez Form</a>
+                </li>
+            }
         </ul>
     </div>
     <div class="card-body">
         <div class="tab-content">
             <div class="active tab-pane" id="activity">
                 <div class="post">
-                    <div class="general-information mt-3">
-                        <div class="alert alert-success" role="alert">
+                    @if (Model.Diet != null)
+                    {
+                        if (Model.Diet.AnamnezForm == null)
+                        {
+                            <div class="general-information mt-3">
+                                <div class="alert alert-success" role="alert">
 
-                            <p class="time"><i class="far fa-clock"></i>@DateTime.Now</p>
-                            <p class="display-6">Anamnez Form</p>
-                            <hr>
-                            <p>Sizinle Daha İyi Bir Diet Programı Sürdürebilmek ve Size Özel Bir
-                                Diyet Programı İçin Anmnez Formunu Doldurmanız Gerekmektedir!</p>
+                                    <p class="time"><i class="far fa-clock"></i>@DateTime.Now</p>
+                                    <p class="display-6">Anamnez Form</p>
+                                    <hr>
+                                    <p>Sizinle Daha İyi Bir Diet Programı Sürdürebilmek ve Size Özel Bir
+                                        Diyet Programı İçin Anmnez Formunu Doldurmanız Gerekmektedir!</p>
 
-                            <a href="#" class="btn btn-dark px-5">AnamnezForm</a>
-                        </div>
-                    </div>
+                                    <a href="~/Online/AnamnezForm/" class="btn btn-dark px-5">AnamnezForm</a>
+                                </div>
+                            </div>
+                        }
+                    }
                     <div class="general-information mt-3">
                         <div class="alert alert-success" role="alert">
 

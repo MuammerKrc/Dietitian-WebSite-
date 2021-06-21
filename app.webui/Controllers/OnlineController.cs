@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static app.entity.PackageRequest;
 
 namespace app.webui.Controllers
 {
@@ -26,8 +27,10 @@ namespace app.webui.Controllers
         UserManager<User> usermanager;
         ICalendarService calendarService;
         IPackageRequestService packageService;
-        public OnlineController(ICalendarService _calendarService, UserManager<User> _userManager, ICustomerService _customerService, IRecipeService _recipeService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IAnamnezFormService _anamnezFormService, IDietService _dietService, IPackageRequestService _packageService)
+        IDateRequestService dateRequestService;
+        public OnlineController(IDateRequestService _dateRequestService, ICalendarService _calendarService, UserManager<User> _userManager, ICustomerService _customerService, IRecipeService _recipeService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IAnamnezFormService _anamnezFormService, IDietService _dietService, IPackageRequestService _packageService)
         {
+            dateRequestService = _dateRequestService;
             calendarService = _calendarService;
             packageService = _packageService;
             usermanager = _userManager;
@@ -81,12 +84,40 @@ namespace app.webui.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DietWekklys(int? id)
+        public async Task<IActionResult> DietWekklys(int id)
         {
             try
             {
-                var result = await dietWekklyService.GetByIDWithDietMenü(id);
-                return View(result.value);
+
+                var user = await usermanager.FindByNameAsync(User.Identity.Name);
+                if (user != null)
+                {
+                    //control his own this dietweek
+                    var ownWeek = await customerService.ownWeekControlWithByUserId(user.Id, id);
+                    if (ownWeek == OprationResult.ok)
+                    {
+                        //take this week
+                        var resultWeek = await dietWekklyService.GetByIDWithDietMenü(id);
+                        if (resultWeek.oprationResult == OprationResult.ok)
+                        {
+                            //take all date request
+                            var resultDateRequest = await dateRequestService.GetAll();
+                            if (resultDateRequest.oprationResult == OprationResult.ok)
+                            {
+                                foreach (var item in resultDateRequest.values)
+                                {
+                                    if(item.WeekId==id&&item.typeOfRequest==DateType.Diet)
+                                    {
+                                        ViewBag.control=true;
+                                    }
+                                }
+                            }
+                            return View(resultWeek.value);
+                        }
+
+                    }
+                }
+                return NotFound();
             }
             catch (System.Exception)
             {
@@ -100,21 +131,31 @@ namespace app.webui.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public async Task<IActionResult> AnamnezForm(int Id)
+        public async Task<IActionResult> AnamnezForm()
         {
             try
             {
-                var anamnezRegister = await customerService.InitilazeAnamnezForm(Id);
-                var anamnezForm = await customerService.GetCustomerByIdWithDiet(Id);
-                if (anamnezForm.oprationResult == OprationResult.ok)
+                var user = await usermanager.FindByNameAsync(User.Identity.Name);
+                if (user != null)
                 {
-                    if (anamnezForm.value.Diet.AnamnezForm != null)
+                    var anamnezForm = await customerService.GetCustomerByUserId(user.Id);
+                    if (anamnezForm.oprationResult == OprationResult.ok)
                     {
-                        ViewBag.CustomerId = anamnezForm.value.Id;
-                        return View(anamnezForm.value.Diet.AnamnezForm);
+                        if (anamnezForm.value.Diet.AnamnezForm != null)
+                        {
+                            return View(anamnezForm.value.Diet.AnamnezForm);
+                        }
+                        else
+                        {
+                            return View(new AnamnezForm()
+                            {
+                                DietId = anamnezForm.value.Diet.Id
+                            });
+                        }
                     }
                 }
-                return NotFound();
+                //hata kodu
+                return RedirectToAction("Home");
             }
             catch (System.Exception)
             {
@@ -122,10 +163,26 @@ namespace app.webui.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> AnamnezForm(AnamnezForm model, int otherId)
+        public async Task<IActionResult> AnamnezForm(AnamnezForm model)
         {
-            var result = await anamnezFormService.UpdateAsync(model);
-            return Redirect("/Diet/Index/" + otherId);
+            try
+            {
+
+                if (model.Id == 0)
+                {
+                    var resultCreate = await anamnezFormService.CreateAsync(model);
+                }
+                else
+                {
+                    var resultUpdate = await anamnezFormService.UpdateAsync(model);
+                }
+                return RedirectToAction("Home");
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
         }
 
         [HttpPost]
@@ -135,7 +192,7 @@ namespace app.webui.Controllers
             {
                 PackageRequest p = new PackageRequest()
                 {
-                    PackageName = "Diet",
+                    typeOfRequest = PackageName.Diet,
                     CustomerId = customer,
                     FullName = name,
                     RequestTime = DateTime.Now
@@ -177,4 +234,5 @@ namespace app.webui.Controllers
         }
 
     }
+
 }

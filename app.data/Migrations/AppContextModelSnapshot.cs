@@ -26,35 +26,23 @@ namespace app.data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Alkol")
-                        .HasColumnType("int");
+                    b.Property<float?>("BasenÖlcüsü")
+                        .HasColumnType("real");
 
-                    b.Property<int?>("Coffea")
-                        .HasColumnType("int");
+                    b.Property<float?>("BelÖlcüsü")
+                        .HasColumnType("real");
 
-                    b.Property<int?>("Cola")
-                        .HasColumnType("int");
+                    b.Property<float?>("Boy")
+                        .HasColumnType("real");
 
                     b.Property<int>("DietId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Evening")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<float?>("GögüsÖlcüsü")
+                        .HasColumnType("real");
 
-                    b.Property<int?>("HerbalTea")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Juice")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Snack1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Snack2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Soda")
-                        .HasColumnType("int");
+                    b.Property<float?>("Kilo")
+                        .HasColumnType("real");
 
                     b.Property<string>("Soru1")
                         .HasColumnType("nvarchar(max)");
@@ -80,22 +68,52 @@ namespace app.data.Migrations
                     b.Property<string>("Soru16")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Soru17")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Soru17")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Soru18")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Soru18")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Soru19")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Soru19")
+                        .HasColumnType("int");
 
                     b.Property<string>("Soru2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Soru20")
+                    b.Property<int?>("Soru20")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Soru21")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Soru22")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Soru23")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Soru24")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Soru25")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru26")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru27")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru28")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru29")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Soru3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Soru30")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Soru4")
@@ -116,20 +134,8 @@ namespace app.data.Migrations
                     b.Property<string>("Soru9")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Tea")
-                        .HasColumnType("int");
-
-                    b.Property<string>("morning")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("noon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("snack3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("water")
-                        .HasColumnType("int");
+                    b.Property<float?>("Yas")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -464,6 +470,30 @@ namespace app.data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("app.entity.DateRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RequestTİme")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("WeekId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("typeOfRequest")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("dateRequests");
+                });
+
             modelBuilder.Entity("app.entity.Diet", b =>
                 {
                     b.Property<int>("Id")
@@ -504,8 +534,8 @@ namespace app.data.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            DateEnd = new DateTime(2021, 6, 18, 4, 52, 52, 836, DateTimeKind.Local).AddTicks(5816),
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(4495),
+                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 828, DateTimeKind.Local).AddTicks(1204),
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 828, DateTimeKind.Local).AddTicks(9991),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -515,8 +545,8 @@ namespace app.data.Migrations
                         {
                             Id = 2,
                             CustomerId = 2,
-                            DateEnd = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6025),
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6031),
+                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1859),
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1866),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -526,8 +556,8 @@ namespace app.data.Migrations
                         {
                             Id = 3,
                             CustomerId = 3,
-                            DateEnd = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6033),
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6034),
+                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1869),
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1871),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -537,8 +567,8 @@ namespace app.data.Migrations
                         {
                             Id = 4,
                             CustomerId = 4,
-                            DateEnd = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6036),
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6037),
+                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1872),
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1874),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -548,8 +578,8 @@ namespace app.data.Migrations
                         {
                             Id = 5,
                             CustomerId = 5,
-                            DateEnd = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6038),
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6039),
+                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1876),
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1877),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -559,8 +589,8 @@ namespace app.data.Migrations
                         {
                             Id = 6,
                             CustomerId = 6,
-                            DateEnd = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6041),
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6042),
+                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1878),
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1879),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -570,8 +600,8 @@ namespace app.data.Migrations
                         {
                             Id = 7,
                             CustomerId = 7,
-                            DateEnd = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6043),
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 837, DateTimeKind.Local).AddTicks(6044),
+                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1881),
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1882),
                             Height = 168,
                             StartingBreastSize = 84,
                             StartingWaistline = 90,
@@ -747,6 +777,9 @@ namespace app.data.Migrations
                     b.Property<bool>("GivedDate")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsUpdate")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -770,6 +803,7 @@ namespace app.data.Migrations
                             DietId = 1,
                             DietImplementation = 4,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "1. Hafta"
                         },
                         new
@@ -785,6 +819,7 @@ namespace app.data.Migrations
                             DietId = 1,
                             DietImplementation = 3,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "2. Hafta"
                         },
                         new
@@ -800,6 +835,7 @@ namespace app.data.Migrations
                             DietId = 1,
                             DietImplementation = 2,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "3. Hafta"
                         },
                         new
@@ -815,6 +851,7 @@ namespace app.data.Migrations
                             DietId = 1,
                             DietImplementation = 5,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "4. Hafta"
                         },
                         new
@@ -830,6 +867,7 @@ namespace app.data.Migrations
                             DietId = 2,
                             DietImplementation = 4,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "1. Hafta"
                         },
                         new
@@ -845,6 +883,7 @@ namespace app.data.Migrations
                             DietId = 2,
                             DietImplementation = 3,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "2. Hafta"
                         },
                         new
@@ -860,6 +899,7 @@ namespace app.data.Migrations
                             DietId = 2,
                             DietImplementation = 2,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "3. Hafta"
                         },
                         new
@@ -875,6 +915,7 @@ namespace app.data.Migrations
                             DietId = 2,
                             DietImplementation = 5,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "4. Hafta"
                         },
                         new
@@ -890,6 +931,7 @@ namespace app.data.Migrations
                             DietId = 3,
                             DietImplementation = 4,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "1. Hafta"
                         },
                         new
@@ -905,6 +947,7 @@ namespace app.data.Migrations
                             DietId = 3,
                             DietImplementation = 3,
                             GivedDate = false,
+                            IsUpdate = false,
                             Name = "2. Hafta"
                         });
                 });
@@ -955,14 +998,18 @@ namespace app.data.Migrations
                     b.Property<string>("PaidType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("MyCarts");
                 });
@@ -980,11 +1027,14 @@ namespace app.data.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PackageName")
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RequestTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("typeOfRequest")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1019,43 +1069,43 @@ namespace app.data.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 840, DateTimeKind.Local).AddTicks(8546)
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 832, DateTimeKind.Local).AddTicks(9446)
                         },
                         new
                         {
                             Id = 2,
                             CustomerId = 2,
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 840, DateTimeKind.Local).AddTicks(9114)
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(117)
                         },
                         new
                         {
                             Id = 3,
                             CustomerId = 3,
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 840, DateTimeKind.Local).AddTicks(9118)
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(122)
                         },
                         new
                         {
                             Id = 4,
                             CustomerId = 4,
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 840, DateTimeKind.Local).AddTicks(9120)
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(124)
                         },
                         new
                         {
                             Id = 5,
                             CustomerId = 5,
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 840, DateTimeKind.Local).AddTicks(9121)
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(125)
                         },
                         new
                         {
                             Id = 6,
                             CustomerId = 6,
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 840, DateTimeKind.Local).AddTicks(9122)
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(127)
                         },
                         new
                         {
                             Id = 7,
                             CustomerId = 7,
-                            DateStart = new DateTime(2021, 6, 18, 4, 52, 52, 840, DateTimeKind.Local).AddTicks(9124)
+                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(128)
                         });
                 });
 
@@ -1247,15 +1297,7 @@ namespace app.data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("app.entity.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("customer");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("app.entity.Pilates", b =>

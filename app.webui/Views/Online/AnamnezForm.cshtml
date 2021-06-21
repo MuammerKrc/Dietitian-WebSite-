@@ -1,27 +1,17 @@
+@model AnamnezForm
 @section css
 {
 <style>
-    #grad1 {
-        background-color: #9C27B0;
-        background-image: linear-gradient(120deg, #FF4081, #81D4FA);
+    #heading {
+        text-transform: uppercase;
+        color: #673AB7;
+        font-weight: normal
     }
 
     #msform {
         text-align: center;
         position: relative;
-        margin-top: 20px;
-    }
-
-    #msform fieldset .form-card {
-        background: white;
-        border: 0 none;
-        border-radius: 0px;
-        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-        padding: 20px 40px 30px 40px;
-        box-sizing: border-box;
-        width: 94%;
-        margin: 0 3% 20px 3%;
-        position: relative
+        margin-top: 20px
     }
 
     #msform fieldset {
@@ -35,20 +25,18 @@
         position: relative
     }
 
+    .form-card {
+        text-align: left
+    }
+
     #msform fieldset:not(:first-of-type) {
         display: none
     }
 
-    #msform fieldset .form-card {
-        text-align: left;
-        color: #9E9E9E
-    }
-
     #msform input,
     #msform textarea {
-        padding: 0px 8px 4px 8px;
-        border: none;
-        border-bottom: 1px solid #ccc;
+        padding: 8px 15px 8px 15px;
+        border: 1px solid #ccc;
         border-radius: 0px;
         margin-bottom: 25px;
         margin-top: 2px;
@@ -56,6 +44,7 @@
         box-sizing: border-box;
         font-family: montserrat;
         color: #2C3E50;
+        background-color: #ECEFF1;
         font-size: 16px;
         letter-spacing: 1px
     }
@@ -65,27 +54,26 @@
         -moz-box-shadow: none !important;
         -webkit-box-shadow: none !important;
         box-shadow: none !important;
-        border: none;
-        font-weight: bold;
-        border-bottom: 2px solid skyblue;
+        border: 1px solid #673AB7;
         outline-width: 0
     }
 
     #msform .action-button {
         width: 100px;
-        background: skyblue;
+        background: #673AB7;
         font-weight: bold;
         color: white;
         border: 0 none;
         border-radius: 0px;
         cursor: pointer;
         padding: 10px 5px;
-        margin: 10px 5px
+        margin: 10px 0px 10px 5px;
+        float: right
     }
 
     #msform .action-button:hover,
     #msform .action-button:focus {
-        box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue
+        background-color: #311B92
     }
 
     #msform .action-button-previous {
@@ -97,38 +85,44 @@
         border-radius: 0px;
         cursor: pointer;
         padding: 10px 5px;
-        margin: 10px 5px
+        margin: 10px 5px 10px 0px;
+        float: right
     }
 
     #msform .action-button-previous:hover,
     #msform .action-button-previous:focus {
-        box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
-    }
-
-    select.list-dt {
-        border: none;
-        outline: 0;
-        border-bottom: 1px solid #ccc;
-        padding: 2px 5px 3px 5px;
-        margin: 2px
-    }
-
-    select.list-dt:focus {
-        border-bottom: 2px solid skyblue
+        background-color: #000000
     }
 
     .card {
         z-index: 0;
         border: none;
-        border-radius: 0.5rem;
         position: relative
     }
 
     .fs-title {
         font-size: 25px;
-        color: #2C3E50;
+        color: #673AB7;
+        margin-bottom: 15px;
+        font-weight: normal;
+        text-align: left
+    }
+
+    .purple-text {
+        color: #673AB7;
+        font-weight: normal
+    }
+
+    .steps {
+        font-size: 25px;
+        color: gray;
         margin-bottom: 10px;
-        font-weight: bold;
+        font-weight: normal;
+        text-align: right
+    }
+
+    .fieldlabels {
+        color: gray;
         text-align: left
     }
 
@@ -139,20 +133,21 @@
     }
 
     #progressbar .active {
-        color: #000000
+        color: #673AB7
     }
 
     #progressbar li {
         list-style-type: none;
-        font-size: 12px;
+        font-size: 15px;
         width: 25%;
         float: left;
-        position: relative
+        position: relative;
+        font-weight: 400
     }
 
     #progressbar #account:before {
         font-family: FontAwesome;
-        content: "\f023"
+        content: "\f13e"
     }
 
     #progressbar #personal:before {
@@ -160,9 +155,19 @@
         content: "\f007"
     }
 
+    #progressbar #aaa:before {
+        font-family: FontAwesome;
+        content: "\f007"
+    }
+
+    #progressbar #bbb:before {
+        font-family: FontAwesome;
+        content: "\f007"
+    }
+
     #progressbar #payment:before {
         font-family: FontAwesome;
-        content: "\f09d"
+        content: "\f030"
     }
 
     #progressbar #confirm:before {
@@ -175,7 +180,7 @@
         height: 50px;
         line-height: 45px;
         display: block;
-        font-size: 18px;
+        font-size: 20px;
         color: #ffffff;
         background: lightgray;
         border-radius: 50%;
@@ -196,148 +201,359 @@
 
     #progressbar li.active:before,
     #progressbar li.active:after {
-        background: skyblue
+        background: #673AB7
     }
 
-    .radio-group {
-        position: relative;
-        margin-bottom: 25px
+    .progress {
+        height: 20px
     }
 
-    .radio {
-        display: inline-block;
-        width: 204;
-        height: 104;
-        border-radius: 0;
-        background: lightblue;
-        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-        box-sizing: border-box;
-        cursor: pointer;
-        margin: 8px 2px
-    }
-
-    .radio:hover {
-        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3)
-    }
-
-    .radio.selected {
-        box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
+    .progress-bar {
+        background-color: #673AB7
     }
 
     .fit-image {
         width: 100%;
         object-fit: cover
     }
+
+    .make-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-self: center;
+    }
 </style>
 }
 
 <!-- MultiStep Form -->
-<div class="container-fluid" id="grad1">
-    <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+<div class="container-fluid" style="margin:50px 0 150px;">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h2><strong>Sign Up Your User Account</strong></h2>
-                <p>Fill all form field to go to next step</p>
-                <div class="row">
-                    <div class="col-md-12 mx-0">
-                        <form id="msform">
-                            <!-- progressbar -->
-                            <ul id="progressbar">
-                                <li class="active" id="account"><strong>Account</strong></li>
-                                <li id="personal"><strong>Personal</strong></li>
-                                <li id="payment"><strong>Payment</strong></li>
-                                <li id="confirm"><strong>Finish</strong></li>
-                            </ul> <!-- fieldsets -->
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Account Information</h2>
-                                    <input type="email" name="email" placeholder="Email Id" />
-                                    <input type="text" name="uname" placeholder="UserName" />
-                                    <input type="password" name="pwd" placeholder="Password" />
-                                    <input type="password" name="cpwd" placeholder="Confirm Password" />
-                                </div> <input type="button" name="next" class="next action-button" value="Next Step" />
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Personal Information</h2> <input type="text" name="fname"
-                                        placeholder="First Name" /> <input type="text" name="lname"
-                                        placeholder="Last Name" /> <input type="text" name="phno"
-                                        placeholder="Contact No." /> <input type="text" name="phno_2"
-                                        placeholder="Alternate Contact No." />
-                                </div> <input type="button" name="previous" class="previous action-button-previous"
-                                    value="Previous" /> <input type="button" name="next" class="next action-button"
-                                    value="Next Step" />
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Payment Information</h2>
-                                    <div class="radio-group">
-                                        <div class='radio' data-value="credit"><img
-                                                src="https://i.imgur.com/XzOzVHZ.jpg" width="200px" height="100px">
-                                        </div>
-                                        <div class='radio' data-value="paypal"><img
-                                                src="https://i.imgur.com/jXjwZlj.jpg" width="200px" height="100px">
-                                        </div> <br>
-                                    </div> <label class="pay">Card Holder Name*</label> <input type="text"
-                                        name="holdername" placeholder="" />
-                                    <div class="row">
-                                        <div class="col-9"> <label class="pay">Card Number*</label> <input type="text"
-                                                name="cardno" placeholder="" /> </div>
-                                        <div class="col-3"> <label class="pay">CVC*</label> <input type="password"
-                                                name="cvcpwd" placeholder="***" /> </div>
+                <h2 id="heading">Anamnez Form</h2>
+                <p>Lütfen Tüm Alanları Doldurunuz</p>
+                <form id="msform" action="~/online/AnamnezForm" method="POST">
+
+                    <input type="hidden" name="Id" value="@Model.Id">
+                    <input type="hidden" name="DietId" value="@Model.DietId">
+                    <!-- progressbar -->
+                    <ul id="progressbar">
+                        <li class="active" id="account"><strong>Vücut Analizi</strong></li>
+                        <li id="personal"><strong>Diyet Geçmişi</strong></li>
+                        <li id="aaa"><strong>Hastalıklar</strong></li>
+                        <li id="aaa"><strong>Alışkanlıklar</strong></li>
+                        <li id="aaa"><strong>Özel Durum</strong></li>
+                        <li id="aaa"><strong>Aktivite</strong></li>
+                        <li id="bbb"><strong>Sıvı Tüketimi</strong></li>
+                        <li id="payment"><strong>Beslenme</strong></li>
+                    </ul>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> <br> <!-- fieldsets -->
+                    <fieldset id="11111">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Vücut Analizi</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Adım 1 - 8</h2>
+                                </div>
+                            </div>
+
+                            <label class="fieldlabels">Yaşınız: *</label>
+                            <input type="number" asp-for="Yas" name="Yas" placeholder="Yaşınız"  min="0" step="1" />
+                            <label class="fieldlabels">Boy: *</label>
+                            <input type="number" name="Boy" asp-for="Boy" placeholder="Boyunuz cm cinsinden "  min="0"  step="1"/>
+                            <label class="fieldlabels">Kilo:*</label>
+                            <input type="number" name="Kilo" asp-for="Kilo" placeholder="Kilo kg cinsinden"  min="0" step="1" />
+                            <label class="fieldlabels">Basen Ölcüsü: *</label>
+                            <input type="number" name="BasenÖlcüsü" asp-for="BasenÖlcüsü" placeholder="Basen Ölcüsü cm cinsinden" 
+                                min="0"  step="1"/>
+                            <label class="fieldlabels">Bel Ölcüsü: *</label>
+                            <input type="number" name="BelÖlcüsü" asp-for="BelÖlcüsü" placeholder="Bel Ölcüsü cm cinsinden" 
+                                min="0"  step="1"/>
+                            <label class="fieldlabels">Göğüs Ölcüsü: *</label>
+                            <input type="number" name="GögüsÖlcüsü" asp-for="GögüsÖlcüsü" placeholder="Göğüs Ölcüsü cm cinsinden" 
+                                min="0" step="1"/>
+                            <label class="fieldlabels">BÖLGESEL KİLOLARINIZDAN ŞİKAYETÇİ MİSİNİZ? VARSA ŞİKAYETÇİ
+                                OLDUĞUNUZ BÖLGELER.</label>
+                            <textarea name="Soru1" asp-for="Soru1" cols="30" rows="5"></textarea>
+                        </div>
+                        <input type="button" name="next" class="next action-button" value="Sonraki" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Diyet Geçmişi</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Adım 2 - 8</h2>
+                                </div>
+                            </div>
+
+                            <label class="fieldlabels"> DAHA ÖNCE DİYET PROGRAMI UYGULADINIZ MI? UYGULADIĞINIZ DİYETİ VE
+                                SONUÇLARINI KISACA BİZİMLE PAYLAŞIR MISINIZ?</label>
+                            <textarea name="Soru2" asp-for="Soru2" cols="30"  rows="5"></textarea>
+                            <label class="fieldlabels"> DİYET YAPARKEN SİZİ EN ÇOK ZORLAYAN ŞEYLER NELERDİR?</label>
+                            <textarea name="Soru3" asp-for="Soru3" cols="30" rows="5"></textarea>
+
+                        </div> <input type="button" name="next" class="next action-button" value="Sonraki" /> <input
+                            type="button" name="previous" class="previous action-button-previous" value="Önceki" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Hastalıklar</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Adım 3 - 8</h2>
+                                </div>
+                            </div>
+
+                            <label class="fieldlabels"> KİLO VERMENİZE ENGEL OLAN KRONİK BİR RAHATSIZLIĞINIZ VAR MI
+                                ?</label>
+                            <input type="text" name="Soru4" asp-for="Soru4" />
+                            <label class="fieldlabels"> SÜREKLİ OLARAK KULLANDIĞINIZ İLAÇLAR VAR MI?</label>
+                            <input type="text" name="Soru5" asp-for="Soru5" />
+
+                        </div> <input type="button" name="next" class="next action-button" value="Sonraki" /> <input
+                            type="button" name="previous" class="previous action-button-previous" value="Önceki" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Alışkanlıklar</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Adım 4 - 8</h2>
+                                </div>
+                            </div>
+
+                            <label class="fieldlabels"> GENEL OALRAK KALKIŞ VE YATIŞ SAATLERİNİZİ BELİRTİR
+                                MİSİNİZ?</label>
+                            <input type="text" name="Soru6" asp-for="Soru6" />
+                            <label class="fieldlabels"> VAZGEÇEMEDİĞİNİZ YEMEKLER, BESİNLER </label>
+                            <input type="text" name="Soru7" asp-for="Soru7" />
+                            <label class="fieldlabels"> ASLA YİYEMEDİKLERİM </label>
+                            <input type="text" name="Soru8" asp-for="Soru8" />
+                            <label class="fieldlabels"> SAĞLIĞIMA DOKUNANLAR </label>
+                            <input type="text" name="Soru9"  asp-for="Soru9"/>
+                            <label class="fieldlabels"> GECELERİ UYANIP YEMEK YER MİSİNİZ? </label>
+                            <input type="text" name="Soru10"  asp-for="Soru10"/>
+                            <label class="fieldlabels"> YEMEKLERE EXTRA TUZ EKLER MİSİNİZ? </label>
+                            <input type="text" name="Soru11" asp-for="Soru11"/>
+                            <label class="fieldlabels"> SICAK İÇECEKLERDE NE KADAR ŞEKER KULLANIRSINIZ? </label>
+                            <input type="text" name="Soru12" asp-for="Soru12"/>
+
+                        </div> <input type="button" name="next" class="next action-button" value="Sonraki" /> <input
+                            type="button" name="previous" class="previous action-button-previous" value="Önceki" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Özel Durum</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Adım 5 - 8</h2>
+                                </div>
+                            </div>
+
+                            <label class="fieldlabels"> HAMİLELİK, EMZİRME GİBİ ÖZEL DURUMLARINIZ VAR MI ?</label>
+                            <input type="text" name="Soru13" asp-for="Soru13" />
+                            <label class="fieldlabels"> KAÇ KİLO VERMEK SİZİ MUTLU EDECEKTİR?</label>
+                            <input type="text" name="Soru14" asp-for="Soru14" />
+
+
+                        </div> <input type="button" name="next" class="next action-button" value="Sonraki" /> <input
+                            type="button" name="previous" class="previous action-button-previous" value="Önceki" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Aktivite</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Adım 6 - 8</h2>
+                                </div>
+                            </div>
+
+                            <label class="fieldlabels"> HERHANGİ BİR İŞTE ÇALIŞIYOR MUSUNUZ? İŞİNİZDEN BAHSEDER
+                                MİSİNİZ?(Gün içindeki hareketliliğiniz belirlenmesi için gerekli)</label>
+                            <input type="text" name="Soru15" asp-for="Soru15" />
+                            <label class="fieldlabels"> YAPTIĞINIZ SPOR VARMI? HAFTADA KAÇ GÜN HANGİ SPOR DALI?</label>
+                            <input type="text" name="Soru16" asp-for="Soru16" />
+
+
+                        </div> <input type="button" name="next" class="next action-button" value="Sonraki" /> <input
+                            type="button" name="previous" class="previous action-button-previous" value="Önceki" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Sıvı Tüketimi</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Adım 7 - 8</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="fieldlabels col-7">SU</label>
+                                    <input type="number" name="Soru17" asp-for="Soru17" class="col-5"  min="0" step="1" />
+                                </div>
+                                <div class="col-3">
+                                    <label class="fieldlabels col-7">ÇAY</label>
+                                    <input type="number" name="Soru18" asp-for="Soru18" class="col-5"  min="0"  step="1"/>
+                                </div>
+                                <div class="col-3">
+                                    <label class="fieldlabels col-7">KAHVE</label>
+                                    <input type="number" name="Soru19" asp-for="Soru19" class="col-5" min="0" step="1" />
+                                </div>
+                                <div class="col-3">
+                                    <label class="fieldlabels col-7">SODA</label>
+                                    <input type="number" name="Soru20" asp-for="Soru20" class="col-5"  min="0" step="1" />
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="fieldlabels col-12" style="font-size: 10px!important;">BİTKİ
+                                        ÇAYLARI</label>
+                                    <input type="number" name="Soru21" asp-for="Soru21" class="col-5"  min="0"  step="1"/>
+                                </div>
+                                <div class="col-3">
+                                    <label class="fieldlabels col-12" style="font-size: 10px!important;">ALKOL</label>
+                                    <input type="number" name="Soru22" asp-for="Soru22" class="col-5"  min="0" step="1" />
+                                </div>
+                                <div class="col-3">
+                                    <label class="fieldlabels col-12" style="font-size: 10px!important;">MEYVE
+                                        SUYU</label>
+                                    <input type="number" name="Soru23" asp-for="Soru23" class="col-5"  min="0" step="1"/>
+                                </div>
+                                <div class="col-3">
+                                    <label class="fieldlabels col-12" style="font-size: 10px!important;">GAZLI
+                                        İÇECEKLER</label>
+                                    <input type="number" name="Soru24" asp-for="Soru24" class="col-5"  min="0"  step="1"/>
+                                </div>
+                            </div>
+
+
+                        </div> <input type="button" name="next" class="next action-button" value="Sonraki" /> <input
+                            type="button" name="previous" class="previous action-button-previous" value="Önceki" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Beslenme</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Adım 8 - 8</h2>
+                                </div>
+                            </div>
+                            <label class="fieldlabels">Kahvaltı</label>
+                            <div class="form-control">
+                                <div class="form-group row mt-2">
+                                    <div class="col-auto make-row ">
+                                        <img src="/form/kahvaltı.png" width="150px" height="150px" alt="...">
                                     </div>
-                                    <div class="row">
-                                        <div class="col-3"> <label class="pay">Expiry Date*</label> </div>
-                                        <div class="col-9"> <select class="list-dt" id="month" name="expmonth">
-                                                <option selected>Month</option>
-                                                <option>January</option>
-                                                <option>February</option>
-                                                <option>March</option>
-                                                <option>April</option>
-                                                <option>May</option>
-                                                <option>June</option>
-                                                <option>July</option>
-                                                <option>August</option>
-                                                <option>September</option>
-                                                <option>October</option>
-                                                <option>November</option>
-                                                <option>December</option>
-                                            </select> <select class="list-dt" id="year" name="expyear">
-                                                <option selected>Year</option>
-                                            </select> </div>
-                                    </div>
-                                </div> <input type="button" name="previous" class="previous action-button-previous"
-                                    value="Previous" /> <input type="button" name="make_payment"
-                                    class="next action-button" value="Confirm" />
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title text-center">Success !</h2> <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png"
-                                                class="fit-image"> </div>
-                                    </div> <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-7 text-center">
-                                            <h5>You Have Successfully Signed Up</h5>
-                                        </div>
+                                    <div class="col-sm-8 ">
+                                        <textarea placeholder="Kahvaltı" name="Soru25" asp-for="Soru25" id="" cols="30"
+                                            rows="5"></textarea>
+
                                     </div>
                                 </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
+                            </div>
+                            <label class="fieldlabels">Öğlen</label>
+                            <div class="form-control">
+                                <div class="form-group row mt-2">
+                                    <div class="col-auto make-row ">
+                                        <img src="/form/oglen.png" width="150px" height="150px" alt="...">
+                                    </div>
+                                    <div class="col-sm-8 ">
+                                        <textarea placeholder="Öğlen" name="Soru26" asp-for="Soru26" id="" cols="30" rows="5"></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="fieldlabels">Ara Öğün</label>
+                            <div class="form-control">
+                                <div class="form-group row mt-2">
+                                    <div class="col-auto make-row ">
+                                        <img src="/form/ara1.png" width="150px" height="150px" alt="...">
+                                    </div>
+                                    <div class="col-sm-8 ">
+                                        <textarea placeholder="Ara Öğün" name="Soru27" asp-for="Soru27" id="" cols="30"
+                                            rows="5"></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="fieldlabels">Akşam</label>
+                            <div class="form-control">
+                                <div class="form-group row mt-2">
+                                    <div class="col-auto make-row ">
+                                        <img src="/form/aksam.png" width="150px" height="150px" alt="...">
+                                    </div>
+                                    <div class="col-sm-8 ">
+                                        <textarea placeholder="Akşam" name="Soru28" asp-for="Soru28" id="" cols="30" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="fieldlabels">Ara Öğün: *</label>
+                            <div class="form-control">
+                                <div class="form-group row mt-2">
+                                    <div class="col-auto make-row ">
+                                        <img src="/form/ara2.png" width="150px" height="150px" alt="...">
+                                    </div>
+                                    <div class="col-sm-8 ">
+                                        <textarea placeholder="Ara Öğün" name="Soru29" asp-for="Soru29" id="" cols="30"
+                                            rows="5"></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="action-button">Kaydet</button>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Önceki" />
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>
 </div>
 @section Scripts
 {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <script>
+    var firstPalce = document.getElementById("11111")
+    console.log(firstPalce);
+    var firstbtn = document.querySelector("#for1");
+    console.log(firstbtn);
+
+    function ValueControl() {
+
+    }
     $(document).ready(function () {
+
+
 
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;
+        var current = 1;
+        var steps = $("fieldset").length;
+
+        setProgressBar(current);
 
         $(".next").click(function () {
 
@@ -361,8 +577,9 @@
                     });
                     next_fs.css({ 'opacity': opacity });
                 },
-                duration: 600
+                duration: 500
             });
+            setProgressBar(++current);
         });
 
         $(".previous").click(function () {
@@ -388,14 +605,17 @@
                     });
                     previous_fs.css({ 'opacity': opacity });
                 },
-                duration: 600
+                duration: 500
             });
+            setProgressBar(--current);
         });
 
-        $('.radio-group .radio').click(function () {
-            $(this).parent().find('.radio').removeClass('selected');
-            $(this).addClass('selected');
-        });
+        function setProgressBar(curStep) {
+            var percent = parseFloat(100 / steps) * curStep;
+            percent = percent.toFixed();
+            $(".progress-bar")
+                .css("width", percent + "%")
+        }
 
         $(".submit").click(function () {
             return false;
@@ -403,5 +623,4 @@
 
     });
 </script>
-
 }

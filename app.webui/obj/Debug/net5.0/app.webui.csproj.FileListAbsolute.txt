@@ -1060,7 +1060,6 @@ C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razo
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\DietMenüList.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Diets.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\DietSendAndChange.cshtml.g.cs
-C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\DietWekklys.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\Home.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\MakeCalendar.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs

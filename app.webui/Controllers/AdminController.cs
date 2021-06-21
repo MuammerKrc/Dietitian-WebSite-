@@ -31,9 +31,13 @@ namespace app.webui.Controllers
         private IPackageRequestService packageService;
         private ICalendarService calendarService;
         private IGeneralMsjService generalMsjService;
+        private IProductService productService;
+        private IMyCartService myCartService;
 
-        public AdminController(IGeneralMsjService _generalMsjService, ICalendarService _calendarService, IPackageRequestService _packageService, UserManager<User> _userManager, ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, RoleManager<IdentityRole> _roleManager)
+        public AdminController(IMyCartService _myCartService, IProductService _productService, IGeneralMsjService _generalMsjService, ICalendarService _calendarService, IPackageRequestService _packageService, UserManager<User> _userManager, ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, RoleManager<IdentityRole> _roleManager)
         {
+            myCartService = _myCartService;
+            productService = _productService;
             generalMsjService = _generalMsjService;
             calendarService = _calendarService;
             packageService = _packageService;
@@ -46,7 +50,9 @@ namespace app.webui.Controllers
             dietService = _dietService;
             roleManager = _roleManager;
         }
-        //home
+        //pages 
+        #region Admin Page 
+
         public async Task<IActionResult> Home()
         {
             try
@@ -54,26 +60,26 @@ namespace app.webui.Controllers
                 //Get all Customer
                 var result = await customerService.GetCustomerForHome();
                 //Get General Mesaj
-                var resultGeneralMesaj =await generalMsjService.GetAll();
+                var resultGeneralMesaj = await generalMsjService.GetAll();
                 //All Recipe
-                var resultRecipe =await recipeService.GetAll();
-                if(resultRecipe.oprationResult==OprationResult.ok)
+                var resultRecipe = await recipeService.GetAll();
+                if (resultRecipe.oprationResult == OprationResult.ok)
                 {
-                    ViewBag.Recipe=resultRecipe.values;
+                    ViewBag.Recipe = resultRecipe.values;
                 }
                 else
                 {
                     //hata Raporu Yazılacak
                 }
-                if(resultGeneralMesaj.oprationResult==OprationResult.ok)
+                if (resultGeneralMesaj.oprationResult == OprationResult.ok)
                 {
-                    ViewBag.General =resultGeneralMesaj.values;
+                    ViewBag.General = resultGeneralMesaj.values;
                 }
                 else
                 {
                     //Hata Raporları oluşturulacak
                 }
-                if(result.oprationResult==OprationResult.ok)
+                if (result.oprationResult == OprationResult.ok)
                 {
                     return View(result.values);
                 }
@@ -88,23 +94,201 @@ namespace app.webui.Controllers
                 return View(new List<Customer>());
             }
         }
-        // Index
-        public async Task<IActionResult> CustomerHome()
-        {
-            var returned = await customerService.GetAll();
-            return View(new Customer());
-        }
-        public async Task<IActionResult> CustomerDiet()
-        {
-            var returned = await customerService.GetAll();
-            return View(new Customer());
-        }
-        [HttpPost]
-        public async Task<IActionResult> GeneralMesaj(GeneralMesaj mesaj,int TypeOfAlert,string deneme)
+        public async Task<IActionResult> CustomerHome(int id)
         {
             try
             {
-                List<string> Alert=new List<string>()
+                //get Customer
+                var result = await customerService.GetCustomerForCustomerHome(id);
+                //get Category
+                var resultProduct = await productService.GetAll();
+                if (resultProduct.oprationResult == OprationResult.ok)
+                {
+                    ViewBag.Diet = resultProduct.values.Where(i => i.CategoryId == 1).ToList();
+                    ViewBag.Pilates = resultProduct.values.Where(i => i.CategoryId == 2).ToList();
+                }
+                else
+                {
+                    //hata yazılacak
+                }
+
+                if (result.oprationResult == OprationResult.ok)
+                {
+                    return View(result.value);
+                }
+                //Hata Yazılacak
+                return View(new Customer());
+
+            }
+            catch (System.Exception)
+            {
+                return View(new Customer());
+            }
+
+        }
+        public async Task<IActionResult> CustomerDiet(int customerId)
+        {
+            try
+            {
+                var result = await customerService.GetCustomerForCustomerHome(customerId);
+                if (result.oprationResult == OprationResult.ok)
+                {
+                    if (result.value != null)
+                    {
+                        var TakeRecipe = await recipeService.GetAll();
+                        if (TakeRecipe.oprationResult == OprationResult.ok)
+                        {
+                            ViewBag.AllRecipe = TakeRecipe.values;
+                        }
+                    }
+                    return View(result.value);
+                }
+
+                return View(new Customer());
+            }
+            catch (System.Exception)
+            {
+                return View(new Customer());
+            }
+        }
+        public async Task<IActionResult> CustomerWeek(int id)
+        {
+            try
+            {
+                var result = await dietWekklyService.GetByIDWithDietMenü(id);
+                return View(result.value);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region  PackageDefine
+        [HttpPost]
+        public async Task<IActionResult> UpdateMyCart(MyCart myCart)
+        {
+            try
+            {
+                var result = await myCartService.UpdateAsync(myCart);
+                if (result != OprationResult.ok)
+                {
+                    //hata yazılacak
+                }
+                return Redirect("~/admin/CustomerHome/" + myCart.CustomerId);
+            }
+            catch (System.Exception)
+            {
+                return Redirect("~/admin/CustomerHome/" + myCart.CustomerId);
+
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SellDiet(MyCart myCart, string deneme)
+        {
+
+            try
+            {
+                //mycart Create
+                if (deneme != null)
+                {
+                    myCart.IsPaid = true;
+                }
+                myCart.Time = DateTime.Now;
+                var resultCart = await myCartService.CreateAsync(myCart);
+
+                //CreateDiet Weekly
+                if (resultCart == OprationResult.ok)
+                {
+
+                    DietWekkly D;
+                    var result = await customerService.GetCustomerByIdWithDiet(myCart.CustomerId);
+                    if (result.oprationResult != OprationResult.ok)
+                    {
+                        //hata yazılacak
+                    }
+                    if (result.value.Diet != null)
+                    {
+                        for (var y = 0; y < 4; y++)
+                        {
+                            D = new DietWekkly()
+                            {
+                                Name = $"{result.value.Diet.DietWekklies.Count + y + 1} Hafta",
+                                Active = false,
+                                DietId = result.value.Diet.Id
+                            };
+                            var resultDietWeekly = await dietWekklyService.CreateAsync(D);
+                            if (resultDietWeekly != OprationResult.ok)
+                            {
+                                //Hata Yazılacak
+                            }
+                        }
+                    }
+                }
+                return Redirect("/Admin/CustomerHome/" + myCart.CustomerId);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+
+        [HttpPost]
+
+        public async Task<IActionResult> RegisterDiet(int CustomerId)
+        {
+            try
+            {
+                var result = await customerService.InitilazeDiet(CustomerId);
+                if (result != OprationResult.ok)
+                {
+                    // hata yazılacak
+                }
+                return Redirect("~/Admin/CustomerHome/" + CustomerId);
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> RegisterPilates(int CustomerId)
+        {
+            try
+            {
+                var result = await customerService.InitilazePilates(CustomerId);
+                if (result != OprationResult.ok)
+                {
+                    // hata yazılacak
+                }
+                return Redirect("~/Admin/CustomerHome/" + CustomerId);
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+        }
+
+
+
+
+
+        #endregion 
+
+
+        [HttpPost]
+        public async Task<IActionResult> GeneralMesaj(GeneralMesaj mesaj, int TypeOfAlert, string deneme)
+        {
+            try
+            {
+                List<string> Alert = new List<string>()
                 {
                     "alert-primary",
                     "alert-secondary",
@@ -115,16 +299,21 @@ namespace app.webui.Controllers
                     "alert-light",
                     "alert-dark"
                 };
-                mesaj.AlertType=Alert[TypeOfAlert];
-                if(deneme!=null)
+                mesaj.AlertType = Alert[TypeOfAlert];
+                if (deneme != null)
                 {
-                    mesaj.href=true;
+                    mesaj.href = true;
                 }
-                else{
-                    mesaj.href=false;
+                else
+                {
+                    mesaj.href = false;
                 }
-                mesaj.Time=DateTime.Now.ToShortDateString();
-                var result=await generalMsjService.CreateAsync(mesaj);
+                mesaj.Time = DateTime.Now.ToShortDateString();
+                var result = await generalMsjService.CreateAsync(mesaj);
+                if (result != OprationResult.ok)
+                {
+                    //hata yazılacak
+                }
                 return RedirectToAction("home");
             }
             catch (System.Exception)
@@ -133,16 +322,17 @@ namespace app.webui.Controllers
                 throw;
             }
         }
+
         public async Task<IActionResult> RemoveGeneralMesaj(int id)
         {
             try
             {
-                GeneralMesaj m =new GeneralMesaj()
+                GeneralMesaj m = new GeneralMesaj()
                 {
-                    Id=id
+                    Id = id
                 };
-                var result=await generalMsjService.DeleteAsync(m);
-                if(result==OprationResult.ok)
+                var result = await generalMsjService.DeleteAsync(m);
+                if (result == OprationResult.ok)
                 {
                     // buraya mesaj girilecek
                 }
@@ -150,7 +340,7 @@ namespace app.webui.Controllers
             }
             catch (System.Exception)
             {
-                
+
                 throw;
             }
         }
@@ -159,8 +349,8 @@ namespace app.webui.Controllers
         {
             try
             {
-                var result =await recipeService.CreateAsync(recipe);
-                if(result==OprationResult.ok)
+                var result = await recipeService.CreateAsync(recipe);
+                if (result == OprationResult.ok)
                 {
                     // buraya mesaj girilecek
                 }
@@ -168,39 +358,17 @@ namespace app.webui.Controllers
             }
             catch (System.Exception)
             {
-                
+
                 throw;
             }
         }
-        public IActionResult Deneme3()
+
+        [HttpPost]
+        public IActionResult AddPackage(MyCart m)
         {
-            Console.WriteLine(DateTime.Now.ToShortDateString());
-            return View();
+            return Redirect("~/admin/CustomerHome/" + m.CustomerId);
         }
-        // public async Task<IActionResult> Denemeiki()
-        // {
 
-        //     var result = await mounthService.GetDateInOneMounth(DateTime.Now.Month);
-        //     CalendarModel c = new CalendarModel(new DateTime(), result.value);
-
-        //     return View(c);
-
-        // }
-        // [HttpPost]
-        // public async Task<IActionResult> Denemeiki(DateTime m)
-        // {
-        //     var result = await mounthService.GetDateInOneMounth(m.Month);
-
-        //     CalendarModel c = new CalendarModel(m, result.value);
-
-        //     if (result.value != null)
-        //     {
-        //         System.Console.WriteLine("girdi");
-        //     }
-
-        //     return View(c);
-
-        // }
         [HttpGet]
         public async Task<IActionResult> DietWekklys(int id)
         {
@@ -231,18 +399,25 @@ namespace app.webui.Controllers
 
             DietWekkly D;
             var result = await customerService.GetCustomerByIdWithDiet(id);
-            for (var y = 0; y < 4; y++)
+            if (result.oprationResult != OprationResult.ok)
             {
-                D = new DietWekkly()
-                {
-                    Name = $"{result.value.Diet.DietWekklies.Count + y + 1} Hafta",
-                    DietId = result.value.Diet.Id
-                };
-                await dietWekklyService.CreateAsync(D);
+                //hata yazılacak
             }
-            return Redirect("/Diet/Index/" + id);
+            if (result.value.Diet != null)
+            {
+                for (var y = 0; y < 4; y++)
+                {
+                    D = new DietWekkly()
+                    {
+                        Name = $"{result.value.Diet.DietWekklies.Count + y + 1} Hafta",
+                        Active = false,
+                        DietId = result.value.Diet.Id
+                    };
+                    await dietWekklyService.CreateAsync(D);
+                }
+            }
+            return Redirect("/Admin/CustomerHome/" + id);
         }
-
         public async Task<IActionResult> DietOneWeek(int id)
         {
             DietWekkly D;
@@ -260,18 +435,29 @@ namespace app.webui.Controllers
             return Redirect("/admin/diet/" + id);
         }
 
+        #region  DietSendAndChangeDelete
+
         [HttpGet]
         public async Task<IActionResult> DietSendAndChange(int? id)
         {
-            var result = await dietWekklyService.GetByIDWithDietMenü((int)id);
-            var allRecipe = await recipeService.GetAll();
-            ViewBag.Recipe = allRecipe.values;
+            try
+            {
+                var result = await dietWekklyService.GetByIDWithDietMenü((int)id);
+                var allRecipe = await recipeService.GetAll();
+                ViewBag.Recipe = allRecipe.values;
 
-            return View(result.value);
+                return View(result.value);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> DietSendAndChange(DietWekkly model, int[] recipeIds, IFormFile file, String content, int meal, int btnradio = 1)
+        public async Task<IActionResult> DietSendAndChange(DietWekkly model, int[] recipeIds, IFormFile file, int meal, int btnradio = 1)
         {
             try
             {
@@ -287,8 +473,8 @@ namespace app.webui.Controllers
 
 
                 var d = new DietMenü();
-                string name = file.FileName;
-                string randomName = string.Format($"{Guid.NewGuid()}.{name}");
+                string name = file.FileName.Replace(" ", "-");
+                string randomName = string.Format($"{DateTime.Now.ToShortDateString().Replace("/", "-")}.{name}");
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\diet", randomName);
                 using (var stream = new FileStream(path, FileMode.Create))
                 {
@@ -297,19 +483,17 @@ namespace app.webui.Controllers
                 System.Console.WriteLine(path + "   " + "yol");
                 Attachment attachment = new Attachment($"{path}");
 
-
-
                 if (model.DietMenü.Id == 0)
                 {
                     d = new DietMenü()
                     {
                         Gender = btnradio == 1 ? true : false,
-                        Path = path,
+                        Path = randomName,
                         DietWekklyId = model.Id,
                         TwoMeals = meal == 1 ? true : false,
                         FullName = model.DietMenü.FullName,
                         Weight = model.DietMenü.Weight,
-                        Content = content
+                        Content = model.DietMenü.Content
                     };
                     //create Diet Menü
                     var resultInıtial = await dietMenüService.InitilazeDietMenü(d, recipeIds);
@@ -325,12 +509,12 @@ namespace app.webui.Controllers
                     {
                         Id = model.DietMenü.Id,
                         Gender = btnradio == 1 ? true : false,
-                        Path = path,
+                        Path = randomName,
                         DietWekklyId = model.Id,
                         TwoMeals = meal == 1 ? true : false,
                         FullName = model.DietMenü.FullName,
                         Weight = model.DietMenü.Weight,
-                        Content = content
+                        Content = model.DietMenü.Content
                     };
                     //update Diet Menü
                     var reeult = await dietMenüService.UpdateDietmenü(d, recipeIds);
@@ -342,16 +526,16 @@ namespace app.webui.Controllers
                 // update combine diet and recipe
                 var results = await dietService.UpdateJustRecipe(model.Diet.Id, recipeIds);
 
-                // await emailSender.SendEmailAsync("muammer03karaca@gmail.com", "Haftalık Diyetiniz", $"{content}", attachment);
-                return Redirect("/Diet/DietWekklys/" + model.Id);
+                await emailSender.SendEmailAsync("muammer03karaca@gmail.com", "Haftalık Diyetiniz", $"{model.DietMenü.Content}", attachment);
+                return Redirect("/Admin/CustomerWeek/" + model.Id);
             }
             catch (System.Exception)
             {
 
                 throw;
             }
-
         }
+        #endregion
         public IActionResult Deneme()
         {
             return View();
@@ -397,43 +581,8 @@ namespace app.webui.Controllers
 
             return View(result.values);
         }
-        [HttpPost]
-        // public async Task<IActionResult> MakeCalendar(int dietWekklyId, int duration, DateTime timeOfDates)
-        // {
-        //     int startingHour = (timeOfDates.Hour * 100) + timeOfDates.Minute;
-        //     int finishedHour = startingHour + duration;
-        //     int day = timeOfDates.Day;
-        //     int mounth = timeOfDates.Month;
-        //     string CurrentHour = timeOfDates.ToShortTimeString();
 
-        //     Console.WriteLine(startingHour);
-        //     Console.WriteLine(finishedHour);
-        //     Console.WriteLine(day);
-        //     Console.WriteLine(mounth);
-
-        //     var result = await mounthService.MakeDate(mounth, day, startingHour, finishedHour, dietWekklyId, CurrentHour);
-        //     if (result.oprationResult == OprationResult.Saved)
-        //     {
-        //         var resultOfDietWekkly = await dietWekklyService.UpdateJustDate(dietWekklyId, result.value.CurrentHour);
-        //     }
-        //     return Redirect("/diet/DietWekklys/" + dietWekklyId);
-        // }
-
-
-        [HttpPost]
-        public async Task<IActionResult> RegisterDiet(int CustomerId)
-        {
-            try
-            {
-                var result = await customerService.InitilazeDiet(CustomerId);
-                return Redirect("~/Diet/Index/" + CustomerId);
-            }
-            catch (System.Exception)
-            {
-                return NotFound();
-            }
-        }
-
+        #region  MakeDate
         [HttpPost]
         public async Task<IActionResult> MakeDate(int dietWeekId, int durations, DateTime TimeofDates, string firstname, string lastname)
         {
@@ -445,7 +594,7 @@ namespace app.webui.Controllers
                 int day = TimeofDates.Day;
                 int month = TimeofDates.Month;
                 int year = TimeofDates.Year;
-                string Hour = $"{TimeofDates.Hour}:{TimeofDates.Minute}";
+                string Hour = TimeofDates.TimeOfDay.ToString();
 
                 Calendar c = new Calendar()
                 {
@@ -462,7 +611,7 @@ namespace app.webui.Controllers
                     LastName = lastname
                 };
                 var result = await calendarService.MakeDate(c);
-                return Redirect("~/Diet/DietWekklys/" + dietWeekId);
+                return Redirect("~/Admin/CustomerWeek/" + dietWeekId);
             }
             catch (System.Exception)
             {
@@ -484,7 +633,8 @@ namespace app.webui.Controllers
                 var result = await calendarService.DeleteAsync(c);
 
 
-                return Redirect("~/Diet/DietWekklys/" + dietWeekId);
+                return Redirect("~/Admin/CustomerWeek/" + dietWeekId);
+
             }
             catch (System.Exception)
             {
@@ -505,7 +655,7 @@ namespace app.webui.Controllers
                 int day = TimeofDates.Day;
                 int month = TimeofDates.Month;
                 int year = TimeofDates.Year;
-                string Hour = $"{TimeofDates.Hour}:{TimeofDates.Minute}";
+                string Hour = TimeofDates.TimeOfDay.ToString();
 
                 Calendar c = new Calendar()
                 {
@@ -523,7 +673,7 @@ namespace app.webui.Controllers
                     LastName = lastname
                 };
                 var result = await calendarService.UpdateAsync(c);
-                return Redirect("~/Diet/DietWekklys/" + dietWeekId);
+                return Redirect("~/Admin/CustomerWeek/" + dietWeekId);
             }
             catch (System.Exception)
             {
@@ -531,5 +681,6 @@ namespace app.webui.Controllers
                 throw;
             }
         }
+        #endregion
     }
 }

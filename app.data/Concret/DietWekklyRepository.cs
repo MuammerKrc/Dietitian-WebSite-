@@ -23,6 +23,7 @@ namespace app.data.Concret
                                     
                                     .Include(m=>m.Diet)
                                     .ThenInclude(m=>m.Customer)
+                                    .ThenInclude(m=>m.Pilates)
                                     .AsSplitQuery()
                                     
                                     .Include(m=>m.Calendar)

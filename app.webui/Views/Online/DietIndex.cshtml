@@ -39,6 +39,11 @@
                             <ul class="nav nav-pills asd">
                                 <li class="nav-item"><a class="nav-link active" href="#activity"
                                         data-toggle="tab">Haftalık Diet</a></li>
+                                @if (@Model.Diet != null)
+                                {
+                                    <li class="nav-item"><a class="nav-link" href="~/online/anamnezform">Anamnez Form</a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                         <div class="card-body">
@@ -54,13 +59,37 @@
                                                         {
                                                             @foreach (var item in Model.Diet.DietWekklies)
                                                             {
-                                                                <div class=" make-flex-column center  bg-light mx-2 p-2 box-shadow"
-                                                                         style="min-width: 150px;border-top: 3px solid #ffc107;">
-                                                                <h5 class="card-title text-muted"
-                                                                    style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                        @item.Name</h5>
-                                                                    <a href="HaftalıkDiyet/@item.Id" class="btn btn-primary">Git</a>
-                                                                </div>
+                                                                @if (item.Calendar != null)
+                                                                {
+                                                                    <a href="~/online/DietWekklys/@item.Id">
+                                                                        <div class="m-3 make-flex-column center  bg-dark p-2 box-shadow"
+                                                            style="position: relative; min-width: 150px;border-top:3px solid #ffc107;min-height: 150px;">
+                                                                            <h5 class="card-title  text-white"
+                                                                style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                                @item.Name</h5>
+                                                                        </div>
+                                                                    </a>
+                                                                }
+                                                                else if (item.Active)
+                                                                {
+                                                                    <a href="~/online/DietWekklys/@item.Id">
+                                                                        <div class="m-3 make-flex-column center  bg-danger p-2 box-shadow"
+                                                            style="position: relative; min-width: 150px;border-top:3px solid #ffc107;min-height: 150px;">
+                                                                            <h5 class="card-title text-white"
+                                                                style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                                @item.Name</h5>
+                                                                        </div>
+                                                                    </a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="m-3 make-flex-column center  bg-light p-2 box-shadow"
+                                                        style="position: relative; min-width: 150px;border-top:3px solid #ffc107;min-height: 150px;">
+                                                                        <h5 class="card-title text-muted "
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                            @item.Name</h5>
+                                                                    </div>
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -207,5 +236,5 @@
 </div>
 @section Scripts
 {
-    <script src="~/js/online.js"></script>
+<script src="~/js/online.js"></script>
 }

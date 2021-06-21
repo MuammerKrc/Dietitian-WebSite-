@@ -1,18 +1,92 @@
-<div class="row justify-content-around py-4">
-    <div class="col-12 text-center changeColor">
-        <h1>Online Menü</h1>
-        <hr style="height: 3px;">
+@model Customer
+<!-- Profile Image -->
+<div class="card card-primary card-outline">
+    <div class="card-body box-profile">
+        <div class="text-center">
+            @if (Model.Gender)
+            {
+                <img class="profile-user-img img-fluid " src="~/avatar/avatar2.png" alt="User profile picture">
+            }
+            else
+            {
+                <img class="profile-user-img img-fluid " src="~/avatar/avatar5.png" alt="User profile picture">
+            }
+
+        </div>
+
+        <h3 class="profile-username text-center makeUpperCase">@Model.FirstName @Model.LastName</h3>
+
+        <div class="row make-flex-row space-around my-3">
+                @if(Model.Diet!=null)
+                {
+                    <a href="~/admin/CustomerDiet/?customerId=@Model.Id" class="btn btn-secondary btn-block col-5 col-sm-3 col-md-5"><b>Diet</b></a>
+                }
+                
+                @if(Model.Pilates!=null)
+                {
+                    <a href="#" class="btn btn-secondary btn-block col-5 col-sm-3 col-md-5"><b>Pilates</b></a>
+                }
+        </div>
+
+        <div class="card g-0" style="width:100%;">
+            <h5 class="card-header text-center ">Kalan Paketler</h5>
+            <div class="card-body  make-flex-row space-beetwen">
+                <div class=" make-flex-column center p-2 box-shadow" style="min-width: 150px;  min-height: 125px;">
+            
+                      @if (Model.Diet != null)
+                    {
+                        <h5 class="card-title text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">Kalan
+                            Diet
+                            Adeti</h5>
+                        <p class="card-text " style="font-size:20px;">@Model.RemaningDietPackages</p>
+                    }
+                    else
+                    {
+                        <h5 class="card-title  text-muted">Diet Paketi </h5>
+                        <h5 class="card-title  text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">
+                            Tanımlanmamıştır </h5>
+                        <a href="#" class="btn btn-primary">Diet Tanımla</a>
+                    }
+                   
+                </div>
+                <div class="make-flex-column center p-2 box-shadow" style="min-width: 150px; min-height: 125px;">
+              
+                            @if (Model.Pilates != null)
+                            {
+                            <h5 class="card-title  text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                Kalan Pilates
+                                Adeti</h5>
+                            <p class="card-text" style="font-size:20px;">3</p>
+                            }
+                            else
+                            {
+                                <h5 class="card-title  text-muted">Pilates Paketi </h5>
+                                <h5 class="card-title  text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                    Tanımlanmamıştır </h5>
+                                <a href="#" class="btn btn-primary">Pilates Tanımla</a>
+                            }
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="w-100 mt-3"></div>
-    <div class="col-5 asdasda addHeight makeCenterContent "><a href="~/admin/Home">Ana Sayfa</a></div>
-    <div class="col-5 asdasda addHeight makeCenterContent "><a href="~/admin/AllCustomer">Bütün Müsteriler</a></div>
-    <div class="w-100 mt-3"></div>
-    <div class="col-5 asdasda addHeight makeCenterContent"> <a href="#">Diet Müsterileri</a></div>
-    <div class="col-5 asdasda addHeight makeCenterContent"><a href="#">Pilates</a></div>
-    <div class="w-100 mt-3"></div>
-    <div class="col-5 asdasda addHeight makeCenterContent"><a href="~/diet/Callendar">Takvim</a></div>
-    <div class="col-5 asdasda addHeight makeCenterContent"><a href="~/admin/DietMenüList">Tüm Tarifler</a></div>
-    <div class="w-100 mt-3"></div>
-    <div class="col-5 asdasda addHeight makeCenterContent"><a href="~/RoleAndUser/UserList">Kullanıcılar</a></div>
-    <div class="col-5 asdasda addHeight makeCenterContent"><a href="~/RoleAndUser/RoleList">Role</a></div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+<!-- About Me Box -->
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">İletişim Bilgileri</h3>
+    </div>
+
+    <div class="card-body">
+        <strong><i class="fas fa-phone-square-alt mx-2"></i> Telefon</strong>
+        <p class="text-muted">@(Model.PhoneNumber==null?"Telefon Girilmemiştir":Model.PhoneNumber)
+        </p>
+        <hr>
+        <strong><i class="fas fa-pencil-alt mx-2"></i> Email</strong>
+        <p class="text-muted">@(Model.Mail==null?"Mail Gİrilmemiştir":Model.Mail)</p>
+        <hr>
+    </div>
 </div>

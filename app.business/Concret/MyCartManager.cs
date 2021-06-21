@@ -11,11 +11,27 @@ namespace app.business.Concret
         private readonly IUnitOfWork work;
         public MyCartManager(IUnitOfWork _work)
         {
-            work=_work;
+            work = _work;
         }
-        public Task<OprationResult> CreateAsync(MyCart entity)
+        public async Task<OprationResult> CreateAsync(MyCart entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result = await work.MyCart.CreateAsync(entity);
+                if (result == OprationResult.ok)
+                {
+                    var SaveResult = await work.SaveAsync();
+                    if (SaveResult == OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
 
         public OprationResult DeleteAsync(MyCart entity)
@@ -38,9 +54,25 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
-        public OprationResult UpdateAsync(MyCart entity)
+        public async Task<OprationResult> UpdateAsync(MyCart entity)
         {
-            throw new System.NotImplementedException();
+           try
+           {
+               var result =work.MyCart.UpdateAsync(entity);
+               if(result==OprationResult.ok)
+               {
+                   var SaveResult =await work.SaveAsync();
+                   if(SaveResult==OprationResult.Saved)
+                   {
+                       return OprationResult.ok;
+                   }
+               }
+                return OprationResult.canceled;
+           }
+           catch (System.Exception)
+           {
+                return OprationResult.canceled;
+           }
         }
     }
 }

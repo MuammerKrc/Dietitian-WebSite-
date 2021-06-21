@@ -56,6 +56,7 @@ namespace app.webui
                 options.Lockout.AllowedForNewUsers = true;
 
                 //User
+                options.User.AllowedUserNameCharacters+="üıö";
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
@@ -103,6 +104,8 @@ namespace app.webui
             services.AddScoped<ICategoryService,CategoryManager>();
             //MyCary
             services.AddScoped<IMyCartService,MyCartManager>();
+            //DateRequest
+            services.AddScoped<IDateRequestService,DateRequestManager>();
             //email
             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
             new SmtpEmailSender(
@@ -126,6 +129,12 @@ namespace app.webui
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "node_modules/bootstrap/dist")),
                 RequestPath = "/modules"
+            });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "node_modules/chart.js")),
+                RequestPath = "/charjs"
             });
 
             if (env.IsDevelopment())
@@ -156,6 +165,7 @@ namespace app.webui
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
             });
+            SeedIdentity.Seed(userManager, role,configuration).Wait();
         }
     }
 }

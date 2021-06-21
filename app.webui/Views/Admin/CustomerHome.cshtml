@@ -2,11 +2,161 @@
 
 @section css{
 <link rel="stylesheet" href="~/css/online.css">
+<link rel="stylesheet" href="~/css/Modal.css">
+
+<style>
+    #makePointer:hover {
+        cursor: pointer;
+    }
+</style>
 }
 
-
 <div class="content-wrapper" style="margin-top: 50px;">
+    @* modal for defined Diet*@
+    <div id="modalDefinedforDiet" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Diet Paket Tanımı</h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" asp-controller="admin" asp-action="RegisterDiet" method="POST">
+                    <div class="form-group row mt-2">
+                        <label for="Name" class="col-sm-2 col-form-label">Adı</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" readonly value="Diet Tanımla">
+                        </div>
+                    </div>
+                    <input class="modelId" type="hidden" name="CustomerId" value="@Model.Id">
+                    <button type="submit" class="offset-sm-2 btn btn-primary col-3 col-sm-2 mt-4">Tanımla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    @* modal for defined Pilates*@
+    <div id="modalDefinedforPilates" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Pilates Paket Tanımı</h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="~/admin/RegisterPilates" method="POST">
+                    <div class="form-group row mt-2">
+                        <label for="Name" class="col-sm-2 col-form-label">Adı</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" readonly value="Pilates Tanımla">
+                        </div>
+                    </div>
+                    <input class="modelId" type="hidden" name="CustomerId" value="@Model.Id">
+                    <button type="submit" class="offset-sm-2 btn btn-primary col-3 col-sm-2 mt-4">Tanımla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    @* modal for Dietpackage *@
+    <div id="DietPackageSell" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Diet Paket Satışı</h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" asp-controller="admin" asp-action="SellDiet" method="POST">
+                    <div class="form-group row mt-2">
+                        <label for="Name" class="col-sm-2 col-form-label">Adı</label>
+                        <div class="col-sm-10">
+                            <input class="forName" type="text" id="Name" name="ProductName" class="form-control"
+                                readonly>
+                        </div>
+                    </div>
 
+                    <div class="form-group row mt-2">
+                        <label for="Price" class="col-sm-2 col-form-label">Fiyat</label>
+                        <div class="col-sm-10">
+                            <input class="forPrice" type="number" name="Price" class="form-control" min="200"
+                                placeholder="price" required>
+                        </div>
+                    </div>
+                    <div class="offset-sm-2 input-group my-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Ödeme
+                                Yöntemi</label>
+                        </div>
+                        <select class="custom-select mt-2" id="inputGroupSelect01" name="PaidType">
+                            <option value="Belirtilmedi">Belirtilmedi</option>
+                            <option value="Elden">Elden</option>
+                            <option value="Eft">Eft</option>
+                        </select>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <div class="offset-sm-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="1" name="deneme">Ödendi mi?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="modelId" type="hidden" name="CustomerId" value="@Model.Id">
+                    <button type="submit" class="offset-sm-2 btn btn-primary col-3 col-sm-2 mt-4">Paket Tanımla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    @* modal for Pilatespackage *@
+
+    <div id="PilatesPackageSell" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Pilates Paket Satışı</h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" asp-controller="admin" asp-action="AddPackage" method="POST">
+                    <div class="form-group row mt-2">
+                        <label for="Name" class="col-sm-2 col-form-label">Adı</label>
+                        <div class="col-sm-10">
+                            <input class="forName" type="text" id="Name" name="Name" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-2">
+                        <label for="Price" class="col-sm-2 col-form-label">Fiyat</label>
+                        <div class="col-sm-10">
+                            <input class="forPrice" type="number" name="Price" class="form-control" min="200"
+                                placeholder="price" required>
+                        </div>
+                    </div>
+                    <div class="offset-sm-2 input-group my-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Ödeme
+                                Yöntemi</label>
+                        </div>
+                        <select class="custom-select mt-2" id="inputGroupSelect01" name="PaidType">
+                            <option value="Belirtilmedi">Belirtilmedi</option>
+                            <option value="Elden">Elden</option>
+                            <option value="Eft">Eft</option>
+                        </select>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <div class="offset-sm-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="1" name="deneme">Ödendi mi?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="modelId" type="hidden" name="CustomerId" value="@Model.Id">
+                    <input class="forProductID" type="hidden" name="ProductId">
+                    <button type="submit" class="offset-sm-2 btn btn-primary col-3 col-sm-2 mt-4">Paket Tanımla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @* main content *@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -28,7 +178,7 @@
                 <div class="col-md-3">
 
                     <!-- Customer Navbar -->
-                    @await Html.PartialAsync("_CustomerNavbar",Model)
+                    @await Html.PartialAsync("_AdminNavbar",Model)
                     <!-- Customer Navbar -->
 
                 </div>
@@ -37,13 +187,192 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills asd">
-                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Bilgileri Güncelle</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#Package" data-toggle="tab">Paket
+                                        Tanımla</a></li>
                                 </li>
+
+                                <li class="nav-item"><a class="nav-link " href="#PassedPaid" data-toggle="tab">Ödeme
+                                        Geçmişi</a></li>
+                                </li>
+
+                                <li class="nav-item"><a class="nav-link " href="#activity" data-toggle="tab">Bilgileri
+                                        Güncelle</a></li>
+                                </li>
+
                             </ul>
                         </div>
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class="active tab-pane" id="activity">
+                                <div class="active tab-pane" id="Package">
+                                    <div class="row make-flex-row space-around">
+
+                                        <div class="card  g-0 shadow  bg-body rounded mt-2 mx-1" style="width:360px;">
+                                            <div class="card-header"
+                                                style="position: relative;  background-color:rgba(32, 39, 49,0.5)">
+                                                <a href="~/admin/CustomerHome/@Model.Id">
+                                                    <p class="h4 text-white">Diyet</p>
+                                                    <p class="h4  text-white">Paketleri</p>
+                                                </a>
+                                                <small class="MakeAbsolute  text-white"> 15/11/2021</small>
+                                            </div>
+                                            <div id="makePointer" class="card-body g-0 make-column-space-around "
+                                                style="min-height: 250px;">
+                                                @if (Model.Diet != null)
+                                                {
+                                                    if (ViewBag.Diet != null)
+                                                    {
+                                                        @foreach (var item in (List<Product>)ViewBag.Diet)
+                                                        {
+                                                            <div class="forModal card-title Bilgile text-center  p-2 "
+                                                    onclick="sellPackageDiet(this)" style="position: relative;">
+                                                                <h4 class="productName text-warning">@item.Name</h4>
+                                                                <hr style="color: red;">
+                                                                <div class="price">
+                                                                    @item.Price &#8378</div>
+                                                                <div class="productss" style="display: none;">@item.Id</div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;" onclick="definePackageDiet(this)">
+                                                        <h4 class="text-warning">Diyet</h4>
+                                                        <hr style="color: red;">
+                                                        <div class="bg-danger text-white">Tanımlanmamış</div>
+                                                        <form action="#">
+                                                            <button class="btn btn-warning col-6">Tanımla</button>
+                                                        </form>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="card  g-0 shadow  bg-body rounded mt-2 mx-1" style="width:360px;">
+                                            <div class="card-header"
+                                                style="position: relative;  background-color:rgba(32, 39, 49,0.5)">
+                                                <a href="~/admin/CustomerHome/@Model.Id">
+                                                    <p class="h4 text-white">Pilates</p>
+                                                    <p class="h4  text-white">Paketleri</p>
+                                                </a>
+                                                <small class="MakeAbsolute  text-white"> 15/11/2021</small>
+                                            </div>
+                                            <div id="makePointer" class="card-body g-0 make-column-space-around"
+                                                style="min-height: 250px;">
+                                                @if (Model.Pilates != null)
+                                                {
+                                                    if (ViewBag.Pilates != null)
+                                                    {
+                                                        @foreach (var item in (List<Product>)ViewBag.Pilates)
+                                                        {
+                                                            <div class="forModal card-title Bilgile text-center  p-2 "
+                                                    onclick="sellPackagePilates(this)" style="position: relative;">
+                                                                <h4 class="productName text-warning">@item.Name</h4>
+                                                                <hr style="color: red;">
+                                                                <div class="price">
+                                                                    @item.Price &#8378</div>
+                                                                <div class="productss" style="display: none;">@item.Id</div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;" onclick="definePackagePilates(this)">
+                                                        <h4 class="text-warning">Pilates</h4>
+                                                        <hr style="color: red;">
+                                                        <div class="bg-danger text-white">Tanımlanmamış</div>
+                                                        <form action="#">
+                                                            <input type="hidden" value="@Model.Id" name="Id">
+                                                            <button class="btn btn-warning col-6">Tanımla</button>
+                                                        </form>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="PassedPaid">
+                                    <div class="row">
+                                        <Table class="Table table-hover table-primary">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>Ürün Adı</th>
+                                                    <th>Fiyat</th>
+                                                    <th>Tarih</th>
+                                                    <th>Ödeme Yöntemi</th>
+                                                    <th>Ödeme Durumu</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.MyCarts != null)
+                                                {
+                                                    @if (Model.MyCarts.Count > 0)
+                                                    {
+                                                        @foreach (var item in Model.MyCarts)
+                                                        {
+                                                            <form action="~/admin/UpdateMyCart" method="POST">
+
+                                                                <tr class="@(item.IsPaid==true?"":"bg-warning")">
+                                                                    <td><input asp-for="@item.ProductName" class="form-control"
+                                                                placeholder="Adı" name="ProductName" required readonly></td>
+                                                                    <td><input asp-for="@item.Price" class="form-control"
+                                                                placeholder="Fiyat" name="Price" min="200"></td>
+                                                                    <td><input asp-for="@item.Time" class="form-control"
+                                                                placeholder="Tarih" name="Time" readonly></td>
+                                                                    <td>
+                                                                        <div class="input-group my-3">
+                                                                            <div class="input-group-prepend">
+                                                                                <label class="input-group-text"
+                                                                        for="inputGroupSelect01">Ödeme
+                                                                                    Yöntemi</label>
+                                                                            </div>
+                                                                            <select class="custom-select mt-2"
+                                                                    id="inputGroupSelect01" asp-for="@item.PaidType"
+                                                                    name="PaidType">
+                                                                                <option value="Belirtilmedi">Belirtilmedi</option>
+                                                                                <option value="Elden">Elden</option>
+                                                                                <option value="Eft">Eft</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group row mt-2">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="checkbox">
+                                                                                    <label>
+                                                                                        <input type="checkbox"
+                                                                                asp-for="@item.IsPaid" name="IsPaid">
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="submit"
+                                                                class="btn btn-primary">Kaydet</button>
+                                                                    </td>
+                                                                </tr>
+                                                                <input type="hidden" name="CustomerId" value="@item.CustomerId">
+                                                                <input type="hidden" name="Id" value="@item.Id">
+                                                            </form>
+
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="alert alert-danger">
+                                                        <h3>Daha Önce Bir Ürün Satın Alinmadı</h3>
+                                                    </div>
+                                                }
+                                            </tbody>
+                                        </Table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="activity">
                                     <form class="form-horizontal" method="POST">
                                         <h4 class="h2">Bilgilerimi Güncelle</h4>
                                         <hr>
@@ -109,9 +438,6 @@
                                     </form>
                                 </div>
 
-                                <div class="tab-pane" id="settings">
-
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -125,4 +451,49 @@
 @section Scripts
 {
 <script src="~/js/online.js"></script>
+<script>
+    // dietDefine
+    var modalDefinedforDiet = document.getElementById("modalDefinedforDiet");
+    function definePackageDiet(e) {
+        modalDefinedforDiet.style.display = "block";
+    }
+    //PilatesDefine
+    var modalDefinedforPilates = document.getElementById("modalDefinedforPilates");
+    function definePackagePilates(e) {
+        modalDefinedforPilates.style.display = "block";
+    }
+    //DietSell
+    var ModalSellDiet = document.getElementById("DietPackageSell");
+    function sellPackageDiet(e) {
+        ModalSellDiet.getElementsByClassName("forName")[0].value = e.getElementsByClassName("productName")[0].innerHTML;
+        ModalSellDiet.getElementsByClassName("forPrice")[0].value = parseInt(e.getElementsByClassName("price")[0].innerHTML);
+        ModalSellDiet.style.display = "block";
+    }
+    //PilatesSell
+    var ModalSellPilates = document.getElementById("PilatesPackageSell");
+    function sellPackagePilates(e) {
+        ModalSellPilates.getElementsByClassName("forName")[0].value = e.getElementsByClassName("productName")[0].innerHTML;
+        ModalSellPilates.getElementsByClassName("forPrice")[0].value = parseInt(e.getElementsByClassName("price")[0].innerHTML);
+        ModalSellPilates.style.display = "block";
+    }
+
+    //General Setting
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function () {
+        modalDefinedforDiet.style.display = "none";
+        modalDefinedforPilates.style.display = "none";
+        ModalSellDiet.style.display = "none";
+        ModalSellPilates.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modalDefinedforDiet || event.target == modalDefinedforPilates || event.target == ModalSellDiet || event.target == ModalSellPilates) {
+            modalDefinedforDiet.style.display = "none";
+            modalDefinedforPilates.style.display = "none";
+            ModalSellDiet.style.display = "none";
+            ModalSellPilates.style.display = "none";
+        }
+    }
+</script>
 }

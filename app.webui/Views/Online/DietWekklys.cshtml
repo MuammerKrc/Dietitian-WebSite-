@@ -1,6 +1,11 @@
 @model DietWekkly
 @{
-    Customer c =Model.Diet.Customer;
+    Customer c = Model.Diet.Customer;
+    string name="";
+    if(Model.Diet.Customer.FirstName!=null &&Model.Diet.Customer.LastName!=null)
+    {
+        name =Model.Diet.Customer.FirstName+" "+Model.Diet.Customer.LastName;
+    }
 }
 
 @section css{
@@ -34,7 +39,7 @@
                 <div class="col-md-3">
                     <!-- Partial View -->
                     @await Html.PartialAsync("_CustomerNavbar",c)
-                        <!-- Partial View -->
+                    <!-- Partial View -->
 
                 </div>
                 <div class="col-md-9">
@@ -42,38 +47,38 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="activity">
-                                    <div class="row make-flex-row space-around">
+                                      <div class="row make-flex-row space-around">
 
                                         <div class="card  g-0 shadow  bg-body rounded" style="width:360px;">
                                             <div class="card-header text-center">
-                                                <p class="h2">5.Hafta Diyeti</p>
+                                                <p class="h2">@Model.Name Diyeti</p>
                                                 <hr>
                                             </div>
                                             <div class="card-body g-0">
-                                                <div class="row make-flex-row center" style="min-height: 200px;">
-                                                    <div class="col-4">
-                                                        <a href="#">
-                                                            <img src="https://www.dropbox.com/s/5xp7sy21sqb6jm4/ImageCap.jpg?raw=1"
-                                                                class="card-img-top" alt="...">
-                                                        </a>
+                                                @if (Model.DietMenü!=null)
+                                                {
+                                                    <div class="row make-flex-row center" style="min-height: 200px;">
+                                                        <div class="col-4">
+                                                            <a href="/diet/@Model.DietMenü.Path">
+                                                                <img src="/img/Model1.png" class="card-img-top" alt="...">
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <p class="card-text text-center">
+                                                                @Model.DietMenü.Content
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-8">
-                                                        <p class="card-text">Some quick example text to build on the
-                                                            card
-                                                            title and
-                                                            make up the bulk
-                                                            of the card's content. Lorem ipsum dolor sit amet
-                                                            consectetur
-                                                            adipisicing elit. Vitae, modi. Enim odio asperiores eius a
-                                                            at
-                                                            voluptas,
-                                                            optio sapiente nostrum ex, quaerat reprehenderit fugiat
-                                                            rerum
-                                                            provident
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row make-flex-row center" style="min-height: 200px;">
 
+                                                        <div class="col-12 text-center">
+                                                            <p class="h3">Diyet Gönderilmedi</p>
+                                                        </div>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                         <div class="card  g-0 shadow  bg-body rounded" style="width:360px;">
@@ -83,21 +88,47 @@
                                             </div>
                                             <div class="card-body g-0">
                                                 <div class="row make-flex-column center" style="min-height: 200px;">
-                                                    @* @if (false)
+
+                                                    @if (Model.Calendar != null)
                                                     {
-                                                        <p class="text-center">Randevu Talebinde Bulunmak İçin Lütfe
-                                                            Aşağıdaki Butona Tıklayınız
-                                                        </p>
-                                                        <a href="#" class="btn btn-warning col-6">Randevu Talebi</a>
+                                                         <p class="card-title text-center h1 p-3 text-white bg-dark">
+                                                            @(Model.Calendar.CurrentDay+"/"+Model.Calendar.CurrentMounth+"/"+Model.Calendar.CurrentYear+" "+Model.Calendar.CurrentHour)</p>
+                                                        
+                                                        <a href="#" class="btn btn-danger  mt-5 col-6">Randevu
+                                                            iptal Talep</a>
+
+                                                    }
+                                                    else if(ViewBag.Control!=null)
+                                                    {
+                                                        if((Boolean)ViewBag.Control)
+                                                        {
+                                                            <div class="alert alert-success">Talebiniz Alınmıştır. En Kısa Zamanda Size Geri Dönüş Sağlanacaktır</div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p class="text-center h3">Randevu Talebiniz Yok 
+                                                            </p>
+                                                            <form method="POST" action="#">
+                                                                <input type="hidden" name="WeekId" value="@Model.Id">
+                                                                <input type="hiiden" name="FullName" value="@name">
+                                                            <button type="submit" class="btn btn-warning mt-5 col-5"> Randevu Oluştur</button>
+
+                                                            </form>
+                                                        }
                                                     }
                                                     else
                                                     {
-                                                        <p class="card-title text-center h1 p-3 bg-dark text-white">
-                                                            16-15-2021</p>
-                                                        <p class="card-text  text-center">Randevu İptali İçin Lütfen Butona
-                                                            Tıklayınız</p>
-                                                        <a href="#" class="btn btn-warning col-6">Randevu Talebi</a>
-                                                    } *@
+                                                       <p class="text-center h3">Randevu Talebiniz Yok 
+                                                        </p>
+                                                        <form method="POST" action="#">
+
+                                                                <input type="hidden" name="WeekId" value="@Model.Id">
+                                                                <input type="hiiden" name="FullName" value="@name">
+                                                            <button type="submit" class="btn btn-warning mt-5 col-5"> Randevu Oluştur</button>
+
+                                                            </form>
+                                                        }
+                                                    }
                                                 </div>
 
                                             </div>
@@ -176,70 +207,56 @@
                                     </form>
                                 </div>
 
-                                <div class="tab-pane" id="settings">
-                                    <form class="form-horizontal">
-                                        <div class="form-group row mt-2">
-                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputName"
-                                                    placeholder="Name">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputEmail"
-                                                    placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputName2"
-                                                    placeholder="Name">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <label for="inputExperience"
-                                                class="col-sm-2 col-form-label">Experience</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" id="inputExperience"
-                                                    placeholder="Experience"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputSkills"
-                                                    placeholder="Skills">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> I agree to the <a href="#">terms and
-                                                            conditions</a>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <canvas id="myChart" width="400" height="400"></canvas>
+
     </section>
 </div>
+
 @section Scripts
 {
-    <script src="~/js/online.js"></script>
+<script src="~/js/online.js"></script>
+<script src="/charjs/dist/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 }

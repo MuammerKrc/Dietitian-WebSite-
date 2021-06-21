@@ -19,6 +19,7 @@ namespace app.data
         public DbSet<AnamnezForm> AnamnezForms { get; set; }
         public DbSet<Calendar> Calendars { get; set; }
         public DbSet<PackageRequest> packageRequests { get; set; }
+        public DbSet<DateRequest> dateRequests{get;set;}
         public DbSet<GeneralMesaj> GeneralMesajs { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }

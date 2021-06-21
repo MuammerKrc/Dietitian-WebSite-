@@ -13,42 +13,29 @@ namespace app.business.Concret
         {
             work = _work;
         }
-        public Task<OprationResult> CreateAsync(AnamnezForm entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<ReturnedClass<AnamnezForm>> CreateWithRuturned(AnamnezForm anamnez)
+        public async Task<OprationResult> CreateAsync(AnamnezForm entity)
         {
             try
             {
-                if (anamnez == null)
+                var result =await work.AnamnezForm.CreateAsync(entity);
+                if(result==OprationResult.ok)
                 {
-                    return new ReturnedClass<AnamnezForm>(OprationResult.canceled);
+                    var SaveResult =await work.SaveAsync();
+                    if(SaveResult==OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
                 }
-                var result = await work.AnamnezForm.CreateWithRuturned(anamnez);
-
-                if (!ManagerHelper.OperationControl(result.oprationResult))
-                {
-                    result.oprationResult = OprationResult.canceled;
-                    return result;
-                }
-
-                var SaveResult = await work.SaveAsync();
-                if (!ManagerHelper.OperationControl(SaveResult))
-                {
-                    result.oprationResult = OprationResult.canceled;
-                    return result;
-                }
-
-                result.oprationResult = OprationResult.ok;
-                return result;
+                return OprationResult.canceled;
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<AnamnezForm>(OprationResult.canceled);
+                
+                throw;
             }
         }
+
+        
 
         public OprationResult DeleteAsync(AnamnezForm entity)
         {
@@ -76,12 +63,12 @@ namespace app.business.Concret
             try
             {
                 var DataResult = work.AnamnezForm.UpdateAsync(entity);
-                if (!ManagerHelper.OperationControl(DataResult))
+                if(DataResult!=OprationResult.ok)
                 {
                     return OprationResult.canceled;
                 }
                 var SaveResult = await work.SaveAsync();
-                if (!ManagerHelper.OperationControl(SaveResult))
+                if(SaveResult!=OprationResult.Saved)
                 {
                     return OprationResult.canceled;
                 }

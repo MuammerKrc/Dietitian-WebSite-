@@ -18,8 +18,11 @@ namespace app.business.Abstract
         Task<OprationResult> InitilazeCustomer(Customer customer);
         Task<ReturnedClass<Customer>> GetCustomerByUserId(string UserId);
         Task<OprationResult> InitilazeDiet(int customerId);
+        Task<OprationResult> InitilazePilates(int customerId);
         Task<OprationResult> InitilazeAnamnezForm(int DietId);
         Task<OprationResult> ReduceDietPackage(int customerId);
         Task<ReturnedClass<Customer>> GetCustomerForHome();
+        Task<ReturnedClass<Customer>> GetCustomerForCustomerHome(int id);
+        Task<OprationResult> ownWeekControlWithByUserId(string userId,int weekId);
     }
 }

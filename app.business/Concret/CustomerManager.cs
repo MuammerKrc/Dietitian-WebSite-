@@ -147,6 +147,19 @@ namespace app.business.Concret
             return work.Customers.GetCustomerDietCount(id);
         }
 
+        public async Task<ReturnedClass<Customer>> GetCustomerForCustomerHome(int id)
+        {
+            try
+            {
+                var result =await work.Customers.GetCustomerForCustomerHome(id);
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<Customer>(OprationResult.canceled);                
+            }
+        }
+
         public async Task<ReturnedClass<Customer>> GetCustomerForHome()
         {
             try
@@ -248,6 +261,48 @@ namespace app.business.Concret
                 return OprationResult.canceled;
             }
         }
+         public async Task<OprationResult> InitilazePilates(int customerId)
+        {
+            try
+            {
+                var resultCustomer = await work.Customers.GetByIdAsync(customerId);
+                if (resultCustomer.oprationResult == OprationResult.ok)
+                {
+                    Pilates p = new Pilates()
+                    {
+                        CustomerId = resultCustomer.value.Id
+                    };
+                    var result = await work.Piates.CreateAsync(p);
+                    if (result == OprationResult.ok)
+                    {
+                        var saveResult = await work.SaveAsync();
+                        if (saveResult == OprationResult.Saved)
+                        {
+                            return OprationResult.ok;
+                        }
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<OprationResult> ownWeekControlWithByUserId(string userId,int weekId)
+        {
+            try
+            {
+                var OwnWeekResult =await work.Customers.ownWeekControlWithByUserId(userId,weekId);
+                return OwnWeekResult;
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+        }
 
         public async Task<OprationResult> ReduceDietPackage(int customerId)
         {
@@ -278,7 +333,7 @@ namespace app.business.Concret
 
         public Task<OprationResult> UpdateAsync(Customer entity)
         {
-            throw new System.NotImplementedException();
+           throw new System.NotImplementedException();
         }
     }
 }

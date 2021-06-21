@@ -167,7 +167,7 @@ namespace app.webui.Controllers
                         userId = user.Id,
                         token = code
                     });
-                    await emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız.", $"lütfen email hesabınızı onaylamak için linke <a href='http://localhost:5000{url}'>tıklayınız.</a>");
+                    // await emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız.", $"lütfen email hesabınızı onaylamak için linke <a href='http://localhost:5000{url}'>tıklayınız.</a>");
                     return RedirectToAction("Login", "Account");
                 }
                 ModelState.AddModelError("", "Bilinmeyen bir nden oldu lütfen tekrar deneyiniz");

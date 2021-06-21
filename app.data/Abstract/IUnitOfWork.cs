@@ -18,6 +18,7 @@ namespace app.data.Abstract
         IProductRepository Products { get; }
         ICategoryRepository Categories { get; }
         IMyCartRepository MyCart{get;}
+        IDateRequestRepository DateRequest{get;}
 
         // IOrderRepository Orders{get;}
         // ICartRepository Carts { get; }

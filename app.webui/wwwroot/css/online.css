@@ -26,10 +26,17 @@
     flex-direction: column;
 }
 
+.make-column-space-around{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .space-around {
     justify-content: space-around;
     align-items: flex-start;
 }
+
 
 .space-beetwen {
     justify-content: space-between;

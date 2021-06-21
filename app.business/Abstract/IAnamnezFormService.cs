@@ -12,7 +12,6 @@ namespace app.business.Abstract
         Task<OprationResult> UpdateAsync(AnamnezForm entity);
         Task<ReturnedClass<AnamnezForm>> GetAll();
         Task<ReturnedClass<AnamnezForm>> GetByEntityAsync(AnamnezForm entity);
-        Task<ReturnedClass<AnamnezForm>> CreateWithRuturned(AnamnezForm anamnez);
 
     }
 }

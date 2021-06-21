@@ -11,6 +11,7 @@ namespace app.data.Abstract
         Task<ReturnedClass<Customer>> GetByUserId(string userId);
         Task<OprationResult> updateDietPackages(int quantity,int customerId);
         Task<ReturnedClass<Customer>> GetCustomerForHome();
-
+        Task<ReturnedClass<Customer>> GetCustomerForCustomerHome(int id);
+        Task<OprationResult> ownWeekControlWithByUserId(string userId,int weekId);
     }
 }

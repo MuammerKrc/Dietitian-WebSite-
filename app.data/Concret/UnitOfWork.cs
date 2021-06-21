@@ -24,6 +24,7 @@ namespace app.data.Concret
         private MyCartRepository myCartRepository;
         private ProductRepository productRepository;
         private CategoryRepository categoryRepository;
+        private DateRequestRepository dateRequestRepository;
 
 
 
@@ -52,6 +53,8 @@ namespace app.data.Concret
         public ICategoryRepository Categories => categoryRepository=categoryRepository??new CategoryRepository(context);
 
         public IMyCartRepository MyCart => myCartRepository=myCartRepository??new MyCartRepository(context);
+
+        public IDateRequestRepository DateRequest => dateRequestRepository=dateRequestRepository??new DateRequestRepository(context);
 
 
         // public IOrderRepository Orders => throw new NotImplementedException();

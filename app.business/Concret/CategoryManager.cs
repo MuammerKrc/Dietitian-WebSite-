@@ -25,9 +25,17 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
-        public Task<ReturnedClass<Category>> GetAll()
+        public async Task<ReturnedClass<Category>> GetAll()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result =await work.Categories.GetAll();
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<Category>(OprationResult.canceled);                
+            }
         }
 
         public Task<ReturnedClass<Category>> GetByEntityAsync(Category entity)

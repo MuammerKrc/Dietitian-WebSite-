@@ -13,9 +13,25 @@ namespace app.business.Concret
         {
             work=_work;
         }
-        public Task<OprationResult> CreateAsync(Pilates entity)
+        public  async Task<OprationResult> CreateAsync(Pilates entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var reult =await work.Piates.CreateAsync(entity);
+                if(reult==OprationResult.ok)
+                {
+                    var SaveResult=await work.SaveAsync();
+                    if(SaveResult==OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
 
         public OprationResult DeleteAsync(Pilates entity)

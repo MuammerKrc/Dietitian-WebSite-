@@ -16,6 +16,7 @@ namespace app.entity
         public Diet Diet { get; set; }
         public DietMenü DietMenü { get; set; }
         public bool Active { get; set; }
+        public bool IsUpdate { get; set; }
         public bool GivedDate { get; set; }
         public string DateTime { get; set; }
         public Calendar Calendar { get; set; }

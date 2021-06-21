@@ -9,7 +9,7 @@ namespace app.business.Abstract
         Task<OprationResult> CreateAsync(MyCart entity);
         OprationResult DeleteAsync(MyCart entity);
         Task<ReturnedClass<MyCart>> GetByIdAsync(int id);
-        OprationResult UpdateAsync(MyCart entity);
+        Task<OprationResult> UpdateAsync(MyCart entity);
         Task<ReturnedClass<MyCart>> GetAll();
         Task<ReturnedClass<MyCart>> GetByEntityAsync(MyCart entity);
     }
