@@ -114,7 +114,6 @@ namespace app.webui.Controllers
                             }
                             return View(resultWeek.value);
                         }
-
                     }
                 }
                 return NotFound();
@@ -186,17 +185,10 @@ namespace app.webui.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DietPackage(string name, int customer)
+        public async Task<IActionResult> DietPackage(PackageRequest p)
         {
             try
             {
-                PackageRequest p = new PackageRequest()
-                {
-                    typeOfRequest = PackageName.Diet,
-                    CustomerId = customer,
-                    FullName = name,
-                    RequestTime = DateTime.Now
-                };
                 var result = await packageService.CreateAsync(p);
                 return RedirectToAction("Home", "Diet");
             }
@@ -232,7 +224,29 @@ namespace app.webui.Controllers
         {
             return View();
         }
+        
+        #region  DateRequest
+        public async Task<IActionResult> dateRequestDiet(DateRequest date)
+        {
+            try
+            {
+                date.RequestTİme=DateTime.Now;
+                date.typeOfRequest=DateType.Diet;
+                var resultCreate=await dateRequestService.CreateAsync(date);
+                if(resultCreate!=OprationResult.ok)
+                {
 
+                }
+                return Redirect("~/Online/DietWekklys/"+date.WeekId);
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+        } 
+
+        #endregion
     }
 
 }

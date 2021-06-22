@@ -110,7 +110,7 @@
                                                             </p>
                                                             <form method="POST" action="#">
                                                                 <input type="hidden" name="WeekId" value="@Model.Id">
-                                                                <input type="hiiden" name="FullName" value="@name">
+                                                                <input type="hidden" name="FullName" value="@name">
                                                             <button type="submit" class="btn btn-warning mt-5 col-5"> Randevu Oluştur</button>
 
                                                             </form>
@@ -120,14 +120,16 @@
                                                     {
                                                        <p class="text-center h3">Randevu Talebiniz Yok 
                                                         </p>
-                                                        <form method="POST" action="#">
+                                                        <form method="POST" action="~/online/dateRequestDiet">
 
-                                                                <input type="hidden" name="WeekId" value="@Model.Id">
-                                                                <input type="hiiden" name="FullName" value="@name">
-                                                            <button type="submit" class="btn btn-warning mt-5 col-5"> Randevu Oluştur</button>
+                                                            <input type="hidden" name="WeekId" value="@Model.Id">
+                                                            <input type="hidden" name="FullName" value="@name">
 
-                                                            </form>
-                                                        }
+                                                            <div class="row center">
+                                                                <button type="submit" class="btn btn-warning mt-5 col-5"> Randevu Oluştur</button>
+                                                            </div>
+                                                        </form>
+                                                        
                                                     }
                                                 </div>
 

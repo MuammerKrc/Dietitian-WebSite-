@@ -22,6 +22,10 @@ namespace app.data.Concret
                                     .Where(m=>m.Id==id)
                                     
                                     .Include(m=>m.Diet)
+                                    .ThenInclude(m=>m.AnamnezForm)
+                                    .AsSplitQuery()                                    
+
+                                    .Include(m=>m.Diet)
                                     .ThenInclude(m=>m.Customer)
                                     .ThenInclude(m=>m.Pilates)
                                     .AsSplitQuery()

@@ -13,7 +13,10 @@ namespace app.entity
     }
     public enum PackageName
     {
-        Diet = 1,
-        Pilates = 2
+        OnlineDiet = 1,
+        
+        YüzyüzeDiet = 2,
+        OnlinePilates=3,
+        YüzyüzePilates
     }
 }

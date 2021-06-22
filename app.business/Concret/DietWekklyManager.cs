@@ -48,15 +48,15 @@ namespace app.business.Concret
             return await work.DietWekkly.GetByIdAsync(id);
         }
 
-        public async Task<ReturnedClass<DietWekkly>> GetByIDWithDietMenü(int? id)
+        public async Task<ReturnedClass<DietWekkly>> GetByIDWithDietMenü(int id)
         {
-            if (id == null || id == 0)
+            if (id == 0)
             {
                 return new ReturnedClass<DietWekkly>(OprationResult.NotFound);
             }
             try
             {
-                var result = await work.DietWekkly.GetByIDWithDietMenü((int)id);
+                var result = await work.DietWekkly.GetByIDWithDietMenü(id);
                 result.oprationResult = OprationResult.ok;
                 return result;
             }

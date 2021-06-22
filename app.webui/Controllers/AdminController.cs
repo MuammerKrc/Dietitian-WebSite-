@@ -463,7 +463,7 @@ namespace app.webui.Controllers
             {
                 if (recipeIds == null)
                 {
-                    var resultsa = await dietWekklyService.GetByIDWithDietMenü(model.DietId);
+                    var resultsa = await dietWekklyService.GetByIDWithDietMenü((int)model.DietId);
                     var allRecipe = await recipeService.GetAll();
                     ViewBag.Recipe = allRecipe.values;
 

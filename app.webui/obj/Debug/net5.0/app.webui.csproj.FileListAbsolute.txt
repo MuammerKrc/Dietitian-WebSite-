@@ -1092,3 +1092,4 @@ C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razo
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\CustomerHome.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\CustomerWeek.cshtml.g.cs
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Admin\CustomerDiet.cshtml.g.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_9\app.webui\obj\Debug\net5.0\Razor\Views\Home\Package.cshtml.g.cs

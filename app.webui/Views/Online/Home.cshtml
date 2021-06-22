@@ -35,7 +35,142 @@
                 <div class="col-md-9">
 
                     <!-- Customer Home -->
-                    @await Html.PartialAsync("_CustomerHome",Model)
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills asd">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Genel
+                                        Bilgilendirme</a></li>
+                                @if (Model.Diet != null)
+                                {
+                                    <li class="nav-item"><a class="nav-link" href="~/Online/AnamnezForm">Anamnez Form</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <div class="post">
+                                        @if (Model.Diet != null)
+                                        {
+                                            if (Model.Diet.AnamnezForm == null)
+                                            {
+                                                <div class="general-information mt-3">
+                                                    <div class="alert alert-success" role="alert">
+
+                                                        <p class="time"><i class="far fa-clock"></i>@DateTime.Now</p>
+                                                        <p class="display-6">Anamnez Form</p>
+                                                        <hr>
+                                                        <p>Sizinle Daha İyi Bir Diet Programı Sürdürebilmek ve Size Özel Bir
+                                                            Diyet Programı İçin Anmnez Formunu Doldurmanız Gerekmektedir!</p>
+
+                                                        <a href="~/Online/AnamnezForm/"
+                                                    class="btn btn-dark px-5">AnamnezForm</a>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                        <div class="general-information mt-3">
+                                            <div class="alert alert-success" role="alert">
+
+                                                <p class="time"><i class="far fa-clock"></i>12/05/2021</p>
+                                                <p class="display-6">Diyet ile ilgili bilgilendirme </p>
+                                                <hr>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+                                                    eius
+                                                    aliquam est adipisci enim ducimus itaque voluptatem eligendi ratione
+                                                    aspernatur laudantium vel magnam necessitatibus asperiores, hic illo
+                                                    sint quas praesentium!</p>
+
+                                                <a href="#" class="btn btn-dark px-5">Sayfa</a>
+                                            </div>
+                                        </div>
+                                        <div class="general-information mt-3">
+                                            <div class="alert alert-secondary" role="alert">
+
+                                                <p class="time"><i class="far fa-clock"></i>12/05/2021</p>
+                                                <p class="display-6">Pilates ile ilgili Bilgilendirme</p>
+                                                <hr>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+                                                    eius
+                                                    aliquam est adipisci enim ducimus itaque voluptatem eligendi ratione
+                                                    aspernatur laudantium vel magnam necessitatibus asperiores, hic illo
+                                                    sint quas praesentium!</p>
+
+                                                <a href="#" class="btn btn-dark px-5">Sayfa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="settings">
+                                    <form class="form-horizontal" method="POST">
+                                        <h4 class="h2">Bilgilerimi Güncelle</h4>
+                                        <hr>
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                                        <div class="form-group row mt-2">
+                                            <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="FirstName" class="form-control" placeholder="Adı"
+                                                    required>
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="LastName" class="form-control" placeholder="Soyadı"
+                                                    required>
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label asp-for="Mail" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Mail" class="form-control" placeholder="Email Adresi"
+                                                    required>
+                                                <span asp-validation-for="Mail" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label asp-for="PhoneNumber" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="PhoneNumber" class="form-control"
+                                                    placeholder="Telefon No" required>
+                                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mt-2">
+                                            <label class="col-sm-2 col-form-label">Cinsiyet</label>
+                                            <div class="btn-group col-5" role="group"
+                                                aria-label="Basic radio toggle button group">
+                                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                                                    autocomplete="off" autocomplete="off" value="1"
+                                                    @(Model.Gender?"checked":"")>
+                                                <label class="btn btn-outline-primary" for="btnradio1">Kadın</label>
+
+                                                <input type="radio" class="btn-check" value="2" name="btnradio"
+                                                    id="btnradio2" @(Model.Gender?"":"checked") autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="btnradio2">Erkek</label>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="@Model.UserId" name="UserId">
+                                        <input type="hidden" value="@Model.RemaningDietPackages"
+                                            name="RemaningDietPackages">
+                                        <input type="hidden" value="@Model.RemaningPilatesPackages"
+                                            name="RemaningPilatesPackages">
+                                        <input type="hidden" value="@Model.Id" name="Id">
+                                        <div class="form-group row mt-2">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Kaydet</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Customer Home -->
 
                 </div>
@@ -46,5 +181,5 @@
 
 @section Scripts
 {
-    <script src="~/js/online.js"></script>
+<script src="~/js/online.js"></script>
 }

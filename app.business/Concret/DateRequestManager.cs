@@ -13,9 +13,25 @@ namespace app.business.Concret
         {
             work = _unitOfWork;
         }
-        public Task<OprationResult> CreateAsync(DateRequest entity)
+        public async Task<OprationResult> CreateAsync(DateRequest entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var CreateResult = await work.DateRequest.CreateAsync(entity);
+                if (CreateResult == OprationResult.ok)
+                {
+                    var SaveResult = await work.SaveAsync();
+                    if (SaveResult == OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
 
         public OprationResult DeleteAsync(DateRequest entity)
@@ -27,11 +43,11 @@ namespace app.business.Concret
         {
             try
             {
-                var result =await work.DateRequest.GetAll();
+                var result = await work.DateRequest.GetAll();
                 return result;
             }
             catch (System.Exception)
-            {   
+            {
                 return new ReturnedClass<DateRequest>(OprationResult.canceled);
             }
         }
