@@ -190,11 +190,11 @@ namespace app.webui.Controllers
             try
             {
                 var result = await packageService.CreateAsync(p);
-                return RedirectToAction("Home", "Diet");
+                return RedirectToAction("Package", "Home");
             }
             catch (System.Exception)
             {
-                return RedirectToAction("Home", "Diet");
+                return RedirectToAction("Package", "Home");
             }
         }
         public IActionResult PilatesPackage(int CustomerId)

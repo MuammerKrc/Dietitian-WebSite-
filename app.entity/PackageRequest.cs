@@ -14,9 +14,8 @@ namespace app.entity
     public enum PackageName
     {
         OnlineDiet = 1,
-        
         YüzyüzeDiet = 2,
         OnlinePilates=3,
-        YüzyüzePilates
+        YüzyüzePilates=4
     }
 }

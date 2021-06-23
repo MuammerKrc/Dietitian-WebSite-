@@ -1,22 +1,37 @@
 @model Customer
 @{
-    string Mail=null;
-    string tel=null;
-    string Name=null;
-    if(Model.Mail!=null)
+    string Mail = null;
+    string tel = null;
+    string Name = null;
+    bool t1 = false;
+    if (Model != null)
     {
-        Mail=Model.Mail;
-    }
-    if(Model.PhoneNumber!=null)
-    {
-        tel=Model.PhoneNumber;
-    }
-    if(Model.FirstName!=null &&Model.LastName!=null)
-    {
-        Name=Model.FirstName+" "+Model.LastName;
-    }
-}
 
+        if (Model.Mail != null)
+        {
+            Mail = Model.Mail;
+        }
+        if (Model.PhoneNumber != null)
+        {
+            tel = Model.PhoneNumber;
+        }
+        if (Model.FirstName != null && Model.LastName != null)
+        {
+            Name = Model.FirstName + " " + Model.LastName;
+        }
+        if (ViewBag.AllRequest != null)
+        {
+            foreach (var item in (List<PackageRequest>)ViewBag.AllRequest)
+            {
+                if ((item.typeOfRequest) == PackageName.OnlineDiet)
+                {
+                    t1 = true;
+                }
+            }
+        }
+    }
+
+}
 @section css
 {
 <link rel="stylesheet" href="/css/package.css">
@@ -32,7 +47,6 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-around;
-        justify-content: ;
     }
 
     .cardx-body {
@@ -129,37 +143,40 @@
     </div>
 </section>
 
-<div class="modal fade" id="sendRequest" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel"
+@if (Model != null)
+{
+    <div class="modal fade" id="sendRequest" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="membershipFormLabel">Online Diyet</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="membership-form webform" method="POST" action="~/online/DietPackage" role="form">
-                    <input type="text" class="form-control" name="FullName" placeholder="Adınız" value="@Name" required>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="membershipFormLabel">Online Diyet</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="membership-form webform" method="POST" action="~/online/DietPackage" role="form">
+                        <input type="text" class="form-control" name="FullName" placeholder="Adınız" value="@Name" required>
 
-                    <input type="email" class="form-control" name="email" value="@Mail" required>
+                        <input type="email" class="form-control" name="email" value="@Mail" required>
 
-                    <input type="tel" class="form-control" name="PhoneNumber" placeholder="0555-555-5555" value="@tel"
+                        <input type="tel" class="form-control" name="PhoneNumber" placeholder="0555-555-5555" value="@tel"
                         pattern="[0-9]{11}" required>
 
-                    <textarea class="form-control" rows="3" name="cf-message" placeholder="İçerik"></textarea>
-                    <input type="hidden" name="RequestTime" value="@DateTime.Now">
-                    <input type="hidden" value="@Model.Id" name="CustomerId">
-                    <input type="hidden" value="@PackageName.OnlineDiet" name="typeOfRequest">
-                    <button type="submit" class="form-control" id="submit-button" name="submit">Mesaj
-                        Gönder</button>
-                </form>
-            </div>
+                        <textarea class="form-control" rows="3" name="cf-message" placeholder="İçerik"></textarea>
+                        <input type="hidden" name="RequestTime" value="@DateTime.Now">
+                        <input type="hidden" value="@Model.Id" name="CustomerId">
+                        <input type="hidden" value="@PackageName.OnlineDiet" name="typeOfRequest">
+                        <button type="submit" class="form-control" id="submit-button" name="submit">İstek Gönder</button>
+                    </form>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
+}
+
 
 
 <!-- ABOUT -->
@@ -198,13 +215,22 @@
                         </div>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <form action="#" method="POST">
+                            if (t1)
+                            {
                                 <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300"
-                            data-toggle="modal" data-target="#sendRequest">Ertelemeyin Gelin Başlayalım</a>
-                            </form>
+                           >Talebiniz Başrılı</a>
+                            }
+                            else
+                            {
+                                <form action="#" method="POST">
+                                    <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300"
+                                data-toggle="modal" data-target="#sendRequest">Ertelemeyin Gelin Başlayalım</a>
+                                </form>
+                            }
                         }
                         else
                         {
+
                             <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300"
                             data-toggle="modal" data-target="#membershipForm">Ertelemeyin Gelin Başlayalım</a>
                         }
@@ -434,10 +460,7 @@
                 </div>
             </div>
         </div>
-
-
         <div class="modal-footer"></div>
-
     </div>
 </div>
 @section Scripts

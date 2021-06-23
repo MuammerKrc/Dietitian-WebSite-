@@ -222,83 +222,6 @@ namespace app.data.Migrations
                     b.HasIndex("DietMenüId");
 
                     b.ToTable("CombineDietMenüRecipe");
-
-                    b.HasData(
-                        new
-                        {
-                            RecipeId = 1,
-                            DietMenüId = 1
-                        },
-                        new
-                        {
-                            RecipeId = 2,
-                            DietMenüId = 1
-                        },
-                        new
-                        {
-                            RecipeId = 4,
-                            DietMenüId = 2
-                        },
-                        new
-                        {
-                            RecipeId = 1,
-                            DietMenüId = 3
-                        },
-                        new
-                        {
-                            RecipeId = 6,
-                            DietMenüId = 4
-                        },
-                        new
-                        {
-                            RecipeId = 4,
-                            DietMenüId = 5
-                        },
-                        new
-                        {
-                            RecipeId = 7,
-                            DietMenüId = 5
-                        },
-                        new
-                        {
-                            RecipeId = 5,
-                            DietMenüId = 5
-                        },
-                        new
-                        {
-                            RecipeId = 5,
-                            DietMenüId = 6
-                        },
-                        new
-                        {
-                            RecipeId = 7,
-                            DietMenüId = 6
-                        },
-                        new
-                        {
-                            RecipeId = 6,
-                            DietMenüId = 7
-                        },
-                        new
-                        {
-                            RecipeId = 4,
-                            DietMenüId = 8
-                        },
-                        new
-                        {
-                            RecipeId = 3,
-                            DietMenüId = 8
-                        },
-                        new
-                        {
-                            RecipeId = 1,
-                            DietMenüId = 9
-                        },
-                        new
-                        {
-                            RecipeId = 2,
-                            DietMenüId = 10
-                        });
                 });
 
             modelBuilder.Entity("app.entity.CombineDietRecipe", b =>
@@ -314,38 +237,6 @@ namespace app.data.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("CombineDietRecipe");
-
-                    b.HasData(
-                        new
-                        {
-                            DietId = 1,
-                            RecipeId = 1
-                        },
-                        new
-                        {
-                            DietId = 1,
-                            RecipeId = 2
-                        },
-                        new
-                        {
-                            DietId = 1,
-                            RecipeId = 3
-                        },
-                        new
-                        {
-                            DietId = 2,
-                            RecipeId = 4
-                        },
-                        new
-                        {
-                            DietId = 2,
-                            RecipeId = 1
-                        },
-                        new
-                        {
-                            DietId = 2,
-                            RecipeId = 2
-                        });
                 });
 
             modelBuilder.Entity("app.entity.Customer", b =>
@@ -504,23 +395,8 @@ namespace app.data.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateEnd")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateStart")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StartingBreastSize")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StartingWaistline")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StartingWeight")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -528,85 +404,6 @@ namespace app.data.Migrations
                         .IsUnique();
 
                     b.ToTable("Diets");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CustomerId = 1,
-                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 828, DateTimeKind.Local).AddTicks(1204),
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 828, DateTimeKind.Local).AddTicks(9991),
-                            Height = 168,
-                            StartingBreastSize = 84,
-                            StartingWaistline = 90,
-                            StartingWeight = 80
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CustomerId = 2,
-                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1859),
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1866),
-                            Height = 168,
-                            StartingBreastSize = 84,
-                            StartingWaistline = 90,
-                            StartingWeight = 80
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CustomerId = 3,
-                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1869),
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1871),
-                            Height = 168,
-                            StartingBreastSize = 84,
-                            StartingWaistline = 90,
-                            StartingWeight = 80
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CustomerId = 4,
-                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1872),
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1874),
-                            Height = 168,
-                            StartingBreastSize = 84,
-                            StartingWaistline = 90,
-                            StartingWeight = 80
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CustomerId = 5,
-                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1876),
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1877),
-                            Height = 168,
-                            StartingBreastSize = 84,
-                            StartingWaistline = 90,
-                            StartingWeight = 80
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CustomerId = 6,
-                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1878),
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1879),
-                            Height = 168,
-                            StartingBreastSize = 84,
-                            StartingWaistline = 90,
-                            StartingWeight = 80
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CustomerId = 7,
-                            DateEnd = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1881),
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 829, DateTimeKind.Local).AddTicks(1882),
-                            Height = 168,
-                            StartingBreastSize = 84,
-                            StartingWaistline = 90,
-                            StartingWeight = 80
-                        });
                 });
 
             modelBuilder.Entity("app.entity.DietMenü", b =>
@@ -643,98 +440,6 @@ namespace app.data.Migrations
                         .IsUnique();
 
                     b.ToTable("DietMenüs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DietWekklyId = 1,
-                            FullName = "Muammer Karaca",
-                            Gender = false,
-                            TwoMeals = false,
-                            Weight = 80
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DietWekklyId = 2,
-                            FullName = "Sinem Karaca",
-                            Gender = true,
-                            TwoMeals = false,
-                            Weight = 80
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DietWekklyId = 3,
-                            FullName = "Muammer Karaca",
-                            Gender = false,
-                            TwoMeals = false,
-                            Weight = 65
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DietWekklyId = 4,
-                            FullName = "Sinem Karaca",
-                            Gender = true,
-                            TwoMeals = false,
-                            Weight = 75
-                        },
-                        new
-                        {
-                            Id = 5,
-                            DietWekklyId = 5,
-                            FullName = "Muammer Karaca",
-                            Gender = true,
-                            TwoMeals = true,
-                            Weight = 80
-                        },
-                        new
-                        {
-                            Id = 6,
-                            DietWekklyId = 6,
-                            FullName = "Dilek Karaca",
-                            Gender = false,
-                            TwoMeals = true,
-                            Weight = 60
-                        },
-                        new
-                        {
-                            Id = 7,
-                            DietWekklyId = 7,
-                            FullName = "Sercan Karaca",
-                            Gender = false,
-                            TwoMeals = true,
-                            Weight = 65
-                        },
-                        new
-                        {
-                            Id = 8,
-                            DietWekklyId = 8,
-                            FullName = "Muammer Karaca",
-                            Gender = true,
-                            TwoMeals = false,
-                            Weight = 80
-                        },
-                        new
-                        {
-                            Id = 9,
-                            DietWekklyId = 9,
-                            FullName = "Muammer Karaca",
-                            Gender = true,
-                            TwoMeals = true,
-                            Weight = 70
-                        },
-                        new
-                        {
-                            Id = 10,
-                            DietWekklyId = 10,
-                            FullName = "Sercan Karaca",
-                            Gender = true,
-                            TwoMeals = false,
-                            Weight = 80
-                        });
                 });
 
             modelBuilder.Entity("app.entity.DietWekkly", b =>
@@ -747,35 +452,32 @@ namespace app.data.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<int>("AvgNmbrOfSteps")
-                        .HasColumnType("int");
-
-                    b.Property<double>("AvgWater")
-                        .HasColumnType("float");
-
-                    b.Property<int>("CurrentBreastSize")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CurrentWaistline")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CurrentWeight")
-                        .HasColumnType("int");
-
                     b.Property<string>("DateTime")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Detox")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("DietId")
+                    b.Property<int>("DietId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DietImplementation")
-                        .HasColumnType("int");
+                    b.Property<float?>("Dietuyumluluk")
+                        .HasColumnType("real");
 
                     b.Property<bool>("GivedDate")
                         .HasColumnType("bit");
+
+                    b.Property<float?>("GüncelBel")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("GüncelGögüs")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("GüncelKalca")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("GüncelKilo")
+                        .HasColumnType("real");
 
                     b.Property<bool>("IsUpdate")
                         .HasColumnType("bit");
@@ -783,173 +485,17 @@ namespace app.data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ortSu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ortalamaAdim")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DietId");
 
                     b.ToTable("DietWekklies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Active = true,
-                            AvgNmbrOfSteps = 2500,
-                            AvgWater = 2.5,
-                            CurrentBreastSize = 70,
-                            CurrentWaistline = 80,
-                            CurrentWeight = 80,
-                            Detox = true,
-                            DietId = 1,
-                            DietImplementation = 4,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "1. Hafta"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Active = true,
-                            AvgNmbrOfSteps = 2700,
-                            AvgWater = 2.0,
-                            CurrentBreastSize = 68,
-                            CurrentWaistline = 79,
-                            CurrentWeight = 78,
-                            Detox = true,
-                            DietId = 1,
-                            DietImplementation = 3,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "2. Hafta"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Active = true,
-                            AvgNmbrOfSteps = 2300,
-                            AvgWater = 3.0,
-                            CurrentBreastSize = 67,
-                            CurrentWaistline = 76,
-                            CurrentWeight = 75,
-                            Detox = true,
-                            DietId = 1,
-                            DietImplementation = 2,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "3. Hafta"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Active = true,
-                            AvgNmbrOfSteps = 200,
-                            AvgWater = 2.0,
-                            CurrentBreastSize = 65,
-                            CurrentWaistline = 75,
-                            CurrentWeight = 60,
-                            Detox = true,
-                            DietId = 1,
-                            DietImplementation = 5,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "4. Hafta"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Active = false,
-                            AvgNmbrOfSteps = 2500,
-                            AvgWater = 2.5,
-                            CurrentBreastSize = 70,
-                            CurrentWaistline = 80,
-                            CurrentWeight = 80,
-                            Detox = true,
-                            DietId = 2,
-                            DietImplementation = 4,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "1. Hafta"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Active = false,
-                            AvgNmbrOfSteps = 2700,
-                            AvgWater = 2.0,
-                            CurrentBreastSize = 68,
-                            CurrentWaistline = 79,
-                            CurrentWeight = 78,
-                            Detox = true,
-                            DietId = 2,
-                            DietImplementation = 3,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "2. Hafta"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Active = false,
-                            AvgNmbrOfSteps = 2300,
-                            AvgWater = 3.0,
-                            CurrentBreastSize = 67,
-                            CurrentWaistline = 76,
-                            CurrentWeight = 75,
-                            Detox = true,
-                            DietId = 2,
-                            DietImplementation = 2,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "3. Hafta"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Active = false,
-                            AvgNmbrOfSteps = 200,
-                            AvgWater = 2.0,
-                            CurrentBreastSize = 65,
-                            CurrentWaistline = 75,
-                            CurrentWeight = 60,
-                            Detox = true,
-                            DietId = 2,
-                            DietImplementation = 5,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "4. Hafta"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Active = false,
-                            AvgNmbrOfSteps = 2500,
-                            AvgWater = 2.5,
-                            CurrentBreastSize = 70,
-                            CurrentWaistline = 80,
-                            CurrentWeight = 80,
-                            Detox = true,
-                            DietId = 3,
-                            DietImplementation = 4,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "1. Hafta"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Active = false,
-                            AvgNmbrOfSteps = 2700,
-                            AvgWater = 2.0,
-                            CurrentBreastSize = 68,
-                            CurrentWaistline = 79,
-                            CurrentWeight = 78,
-                            Detox = true,
-                            DietId = 3,
-                            DietImplementation = 3,
-                            GivedDate = false,
-                            IsUpdate = false,
-                            Name = "2. Hafta"
-                        });
                 });
 
             modelBuilder.Entity("app.entity.GeneralMesaj", b =>
@@ -1063,50 +609,6 @@ namespace app.data.Migrations
                         .IsUnique();
 
                     b.ToTable("Pilateis");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CustomerId = 1,
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 832, DateTimeKind.Local).AddTicks(9446)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CustomerId = 2,
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(117)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CustomerId = 3,
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(122)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CustomerId = 4,
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(124)
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CustomerId = 5,
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(125)
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CustomerId = 6,
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(127)
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CustomerId = 7,
-                            DateStart = new DateTime(2021, 6, 21, 0, 45, 26, 833, DateTimeKind.Local).AddTicks(128)
-                        });
                 });
 
             modelBuilder.Entity("app.entity.Product", b =>
@@ -1284,7 +786,9 @@ namespace app.data.Migrations
                 {
                     b.HasOne("app.entity.Diet", "Diet")
                         .WithMany("DietWekklies")
-                        .HasForeignKey("DietId");
+                        .HasForeignKey("DietId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Diet");
                 });

@@ -2,6 +2,16 @@
 @section css{
 <link rel="stylesheet" href="~/css/online.css">
 }
+@{
+    AnamnezForm a = null;
+    if (Model.Diet != null)
+    {
+        if (Model.Diet.AnamnezForm != null)
+        {
+            a = Model.Diet.AnamnezForm;
+        }
+    }
+}
 
 
 <div class="content-wrapper" style="margin-top: 50px;">
@@ -114,58 +124,83 @@
                                     <div class="post ">
                                         <div class="general-information mt-3">
                                             <div class="card g-0" style="width:100%; border:none;">
+                                                @if (a != null)
+                                                {
+                                                    <div class="card-body  make-flex-row center">
+                                                        <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 125px;">
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Başlagıç Kilo</h5>
+                                                            <p class="card-text " style="font-size:20px;">@a.Kilo </p>
+                                                            <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Güncel Kilo</h5>
+                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                        </div>
 
-                                                <div class="card-body  make-flex-row center">
-                                                    <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        <div class=" make-flex-column center mx-3 p-2 box-shadow"
                                                         style="min-width: 125px;">
-                                                        <h5 class="card-title text-muted"
+                                                            <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                            Başlagıç kilo</h5>
-                                                        <p class="card-text " style="font-size:20px;">65</p>
-                                                        <i class="fas fa-arrow-down " style="color: red;"></i>
-                                                        <h5 class="card-title text-muted"
+                                                                Başlangıç BDK</h5>
+                                                            <p class="card-text " style="font-size:20px;">65</p>
+                                                            <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                            Güncel kilo</h5>
-                                                        <p class="card-text " style="font-size:20px;">50</p>
-                                                    </div>
-                                                    <div class=" make-flex-column center mx-3 p-2 box-shadow"
-                                                        style="min-width: 125px;">
-                                                        <h5 class="card-title text-muted"
-                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                            Başlagıç kilo</h5>
-                                                        <p class="card-text " style="font-size:20px;">65</p>
-                                                        <i class="fas fa-arrow-down " style="color: red;"></i>
-                                                        <h5 class="card-title text-muted"
-                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                            Güncel kilo</h5>
-                                                        <p class="card-text " style="font-size:20px;">50</p>
-                                                    </div>
-                                                    <div class=" make-flex-column center mx-3 p-2 box-shadow"
-                                                        style="min-width: 125px;">
-                                                        <h5 class="card-title text-muted"
-                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                            Başlagıç kilo</h5>
-                                                        <p class="card-text " style="font-size:20px;">65</p>
-                                                        <i class="fas fa-arrow-down " style="color: red;"></i>
-                                                        <h5 class="card-title text-muted"
-                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                            Güncel kilo</h5>
-                                                        <p class="card-text " style="font-size:20px;">50</p>
-                                                    </div>
-                                                    <div class=" make-flex-column center mx-3 p-2 box-shadow"
-                                                        style="min-width: 125px;">
-                                                        <h5 class="card-title text-muted"
-                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                            Başlagıç kilo</h5>
-                                                        <p class="card-text " style="font-size:20px;">65</p>
-                                                        <i class="fas fa-arrow-down " style="color: red;"></i>
-                                                        <h5 class="card-title text-muted"
-                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                            Güncel kilo</h5>
-                                                        <p class="card-text " style="font-size:20px;">50</p>
-                                                    </div>
+                                                                Güncel BDK</h5>
+                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                        </div>
 
-                                                </div>
+                                                        <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 125px;">
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Başlagıç Basen Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">@a.BasenÖlcüsü</p>
+                                                            <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Güncel Basen Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                        </div>
+
+                                                        <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 125px;">
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Başlagıç Bel Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">@a.BelÖlcüsü</p>
+                                                            <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Güncel Bel Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                        </div>
+
+                                                        <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 125px;">
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Başlagıç Gögüs Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">@a.GögüsÖlcüsü</p>
+                                                            <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Güncel Gögüs Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                        </div>
+
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="alert alert-danger">
+                                                        <h2>Lütfen Anamnez Formunuzu Doldurunuz</h2>
+                                                    </div>
+                                                }
+
                                             </div>
                                         </div>
                                     </div>

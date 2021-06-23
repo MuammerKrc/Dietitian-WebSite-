@@ -16,11 +16,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_9\\app.entity\\app.entity.csproj",
+      "projectUniqueName": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_10\\app.entity\\app.entity.csproj",
       "projectName": "app.entity",
-      "projectPath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_9\\app.entity\\app.entity.csproj",
+      "projectPath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_10\\app.entity\\app.entity.csproj",
       "packagesPath": "C:\\Users\\muamm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_9\\app.entity\\obj\\",
+      "outputPath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_10\\app.entity\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

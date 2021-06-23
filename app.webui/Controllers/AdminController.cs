@@ -63,6 +63,21 @@ namespace app.webui.Controllers
                 var resultGeneralMesaj = await generalMsjService.GetAll();
                 //All Recipe
                 var resultRecipe = await recipeService.GetAll();
+                //All Package Request
+                var ResultPackageRequest = await packageService.GetAll();
+                //All Date Request
+
+                if (ResultPackageRequest.oprationResult == OprationResult.ok)
+                {
+                    if (ResultPackageRequest.values.Count > 0)
+                    {
+                        ViewBag.AllPackageRequest = ResultPackageRequest.values;
+                    }
+                }
+                else
+                {
+                    //hata raporu
+                }
                 if (resultRecipe.oprationResult == OprationResult.ok)
                 {
                     ViewBag.Recipe = resultRecipe.values;
@@ -98,6 +113,8 @@ namespace app.webui.Controllers
         {
             try
             {
+                var ReducePackage = await customerService.ReduceDietPackage(id);
+
                 //get Customer
                 var result = await customerService.GetCustomerForCustomerHome(id);
                 //get Category
@@ -217,7 +234,7 @@ namespace app.webui.Controllers
                         {
                             D = new DietWekkly()
                             {
-                                Name = $"{result.value.Diet.DietWekklies.Count + y + 1} Hafta",
+                                Name = $"{result.value.Diet.DietWekklies.Count + y + 1}. Hafta",
                                 Active = false,
                                 DietId = result.value.Diet.Id
                             };
@@ -277,12 +294,27 @@ namespace app.webui.Controllers
         }
 
 
+        #endregion
 
+        #region Recipe And General Mesaj Request
+        public async Task<IActionResult> DeletePackageRequest(int id)
+        {
+            try
+            {
+                var result = await packageService.GetByIdAsync(id);
+                if (result.value != null)
+                {
+                    var resultDelete = await packageService.DeleteAsync(result.value);
+                }
+                //hata yazılacak
+                return RedirectToAction("Home");
+            }
+            catch (System.Exception)
+            {
 
-
-        #endregion 
-
-
+                throw;
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> GeneralMesaj(GeneralMesaj mesaj, int TypeOfAlert, string deneme)
         {
@@ -362,6 +394,9 @@ namespace app.webui.Controllers
                 throw;
             }
         }
+        #endregion
+
+
 
         [HttpPost]
         public IActionResult AddPackage(MyCart m)

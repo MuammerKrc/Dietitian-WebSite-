@@ -34,9 +34,27 @@ namespace app.business.Concret
             }
         }
 
-        public OprationResult DeleteAsync(PackageRequest entity)
+        public async Task<OprationResult> DeleteAsync(PackageRequest entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result =work.packageRequest.DeleteAsync(entity);
+                if(result==OprationResult.ok)
+                {
+                    var saveResult =await work.SaveAsync();
+                    if(saveResult==OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+
+                }   
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
         }
 
         public async Task<ReturnedClass<PackageRequest>> GetAll()
@@ -63,14 +81,36 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
-        public Task<ReturnedClass<PackageRequest>> GetByIdAsync(int id)
+        public async Task<ReturnedClass<PackageRequest>> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result =await work.packageRequest.GetByIdAsync(id);
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<PackageRequest>(OprationResult.canceled);                
+            }
         }
 
         public OprationResult UpdateAsync(PackageRequest entity)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task<ReturnedClass<PackageRequest>> GetByCustomerId(int id)
+        {
+            try
+            {
+                var reuslt =await  work.packageRequest.GetByCustomerId(id);
+                return reuslt;
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
         }
     }
 }
