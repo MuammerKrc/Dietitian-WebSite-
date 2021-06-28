@@ -20,13 +20,11 @@ namespace app.data.Concret
                 var result = await appContext.PilatesWeeks
                                     .Where(m => m.Id == id)
                                     .Include(m => m.calendar)
-                                    .AsSplitQuery()
 
                                     .Include(m => m.Pilates)
                                     .ThenInclude(m => m.Customer)
                                     .ThenInclude(m => m.Diet)
                                     .ThenInclude(m => m.AnamnezForm)
-                                    .AsSplitQuery()
 
                                     .AsNoTracking()
                                     .SingleOrDefaultAsync();

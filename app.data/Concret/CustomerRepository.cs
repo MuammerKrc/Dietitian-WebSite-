@@ -22,20 +22,16 @@ namespace app.data.Concret
                                 .Include(m => m.Diet)
                                 .ThenInclude(m => m.DietWekklies)
                                 .ThenInclude(i => i.Calendar)
-                                .AsSplitQuery()
 
                                 .Include(m => m.Diet)
                                 .ThenInclude(m => m.CombineDietRecipes)
-                                .AsSplitQuery()
 
                                 .Include(m => m.Diet)
                                 .ThenInclude(m => m.AnamnezForm)
-                                .AsSplitQuery()
 
                                 .Include(m => m.Pilates)
                                 .ThenInclude(m => m.PilatesWeeks)
                                 .ThenInclude(m => m.calendar)
-                                .AsSplitQuery()
 
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync();
@@ -61,21 +57,17 @@ namespace app.data.Concret
                                                 .Include(i => i.Diet)
                                                 .ThenInclude(i => i.DietWekklies)
                                                 .ThenInclude(i => i.Calendar)
-                                                .AsSplitQuery()
 
                                                 .Include(m => m.Diet)
                                                 .ThenInclude(m => m.CombineDietRecipes)
-                                                .AsSplitQuery()
 
 
                                                 .Include(m => m.Diet)
                                                 .ThenInclude(m => m.AnamnezForm)
-                                                .AsSplitQuery()
 
                                                 .Include(m => m.Pilates)
                                                 .ThenInclude(m => m.PilatesWeeks)
                                                 .ThenInclude(m => m.calendar)
-                                                .AsSplitQuery()
 
                                                 .AsNoTracking()
                                                 .FirstOrDefaultAsync();
@@ -137,10 +129,8 @@ namespace app.data.Concret
             {
                 var result = await appContext.Customers
                                             .Include(m => m.Pilates)
-                                            .AsSplitQuery()
 
                                             .Include(m => m.Diet)
-                                            .AsSplitQuery()
                                             .AsNoTracking()
                                             .ToListAsync();
                 return new ReturnedClass<Customer>(OprationResult.ok, _values: result);
@@ -159,23 +149,18 @@ namespace app.data.Concret
                                                     .Include(m => m.Diet)
                                                     .ThenInclude(m => m.DietWekklies)
                                                     .ThenInclude(i => i.Calendar)
-                                                    .AsSplitQuery()
 
                                                     .Include(m => m.Diet)
                                                     .ThenInclude(m => m.AnamnezForm)
-                                                    .AsSplitQuery()
 
                                                     .Include(m => m.Diet)
                                                     .ThenInclude(m => m.CombineDietRecipes)
-                                                    .AsSplitQuery()
 
                                                     .Include(m => m.Pilates)
                                                     .ThenInclude(m => m.PilatesWeeks)
                                                     .ThenInclude(m => m.calendar)
-                                                    .AsSplitQuery()
 
                                                     .Include(m => m.MyCarts)
-                                                    .AsSplitQuery()
 
                                                     .AsNoTracking()
                                                     .FirstOrDefaultAsync();

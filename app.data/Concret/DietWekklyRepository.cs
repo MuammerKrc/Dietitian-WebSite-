@@ -23,19 +23,15 @@ namespace app.data.Concret
 
                                     .Include(m => m.Diet)
                                     .ThenInclude(m => m.AnamnezForm)
-                                    .AsSplitQuery()
 
                                     .Include(m => m.Diet)
                                     .ThenInclude(m => m.Customer)
                                     .ThenInclude(m => m.Pilates)
-                                    .AsSplitQuery()
 
                                     .Include(m => m.Calendar)
-                                    .AsSplitQuery()
 
                                     .Include(m => m.DietMenü)
                                     .ThenInclude(m => m.CombineDietMenüRecipes)
-                                    .AsSplitQuery()
 
                                     .AsNoTracking()
                                     .SingleOrDefaultAsync();

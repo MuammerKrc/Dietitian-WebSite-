@@ -1,0 +1,9 @@
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\bin\Debug\netcoreapp3.1\app.entity.deps.json
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\bin\Debug\netcoreapp3.1\app.entity.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\bin\Debug\netcoreapp3.1\app.entity.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\obj\Debug\netcoreapp3.1\app.entity.AssemblyInfoInputs.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\obj\Debug\netcoreapp3.1\app.entity.AssemblyInfo.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\obj\Debug\netcoreapp3.1\app.entity.csproj.CoreCompileInputs.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\obj\Debug\netcoreapp3.1\app.entity.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\obj\Debug\netcoreapp3.1\app.entity.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.entity\obj\Debug\netcoreapp3.1\app.entity.csprojAssemblyReference.cache

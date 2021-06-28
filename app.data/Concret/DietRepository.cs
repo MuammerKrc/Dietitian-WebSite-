@@ -41,7 +41,6 @@ namespace app.data.Concret
                 var result = await appContext.Diets
                                             .Where(i => i.Id == DietId)
                                             .Include(m => m.AnamnezForm)
-                                            .AsSplitQuery()
                                             .AsNoTracking()
                                             .SingleOrDefaultAsync();
 
@@ -67,7 +66,6 @@ namespace app.data.Concret
                 var result = await appContext.Diets.Where(i => i.Id == DietId)
                                                 .Include(m => m.CombineDietRecipes)
                                                 .ThenInclude(m => m.Recipe)
-                                                .AsSplitQuery()
                                                 .SingleOrDefaultAsync();
 
                 if (result != null)
@@ -131,7 +129,6 @@ namespace app.data.Concret
                  var result = await appContext.Diets
                                             .Where(i => i.Id == DietId)
                                             .Include(m => m.AnamnezForm)
-                                            .AsSplitQuery()
                                             .AsNoTracking()
                                             .SingleOrDefaultAsync();
 

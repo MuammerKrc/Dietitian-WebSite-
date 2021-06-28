@@ -1,0 +1,15 @@
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\obj\Debug\netcoreapp3.1\app.data.AssemblyInfoInputs.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\obj\Debug\netcoreapp3.1\app.data.AssemblyInfo.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\obj\Debug\netcoreapp3.1\app.data.csproj.CoreCompileInputs.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\bin\Debug\netcoreapp3.1\app.data.deps.json
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\bin\Debug\netcoreapp3.1\app.data.runtimeconfig.json
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\bin\Debug\netcoreapp3.1\app.data.runtimeconfig.dev.json
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\bin\Debug\netcoreapp3.1\app.data.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\bin\Debug\netcoreapp3.1\app.data.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\bin\Debug\netcoreapp3.1\app.entity.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\bin\Debug\netcoreapp3.1\app.entity.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\obj\Debug\netcoreapp3.1\app.data.csproj.CopyComplete
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\obj\Debug\netcoreapp3.1\app.data.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\obj\Debug\netcoreapp3.1\app.data.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\obj\Debug\netcoreapp3.1\app.data.genruntimeconfig.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.data\obj\Debug\netcoreapp3.1\app.data.csprojAssemblyReference.cache

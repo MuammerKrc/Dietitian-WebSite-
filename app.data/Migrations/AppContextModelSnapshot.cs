@@ -15,8 +15,8 @@ namespace app.data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("app.entity.AnamnezForm", b =>
@@ -742,8 +742,6 @@ namespace app.data.Migrations
                         .HasForeignKey("app.entity.AnamnezForm", "DietId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Diet");
                 });
 
             modelBuilder.Entity("app.entity.Calendar", b =>
@@ -755,10 +753,6 @@ namespace app.data.Migrations
                     b.HasOne("app.entity.PilatesWeek", "PilatesWeek")
                         .WithOne("calendar")
                         .HasForeignKey("app.entity.Calendar", "PilatesWeekId");
-
-                    b.Navigation("DietWekkly");
-
-                    b.Navigation("PilatesWeek");
                 });
 
             modelBuilder.Entity("app.entity.CombineDietMenüRecipe", b =>
@@ -774,10 +768,6 @@ namespace app.data.Migrations
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("DietMenü");
-
-                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("app.entity.CombineDietRecipe", b =>
@@ -793,10 +783,6 @@ namespace app.data.Migrations
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Diet");
-
-                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("app.entity.Diet", b =>
@@ -806,8 +792,6 @@ namespace app.data.Migrations
                         .HasForeignKey("app.entity.Diet", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("app.entity.DietMenü", b =>
@@ -817,8 +801,6 @@ namespace app.data.Migrations
                         .HasForeignKey("app.entity.DietMenü", "DietWekklyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("DietWekkly");
                 });
 
             modelBuilder.Entity("app.entity.DietWekkly", b =>
@@ -828,8 +810,6 @@ namespace app.data.Migrations
                         .HasForeignKey("DietId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Diet");
                 });
 
             modelBuilder.Entity("app.entity.MyCart", b =>
@@ -839,8 +819,6 @@ namespace app.data.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("customer");
                 });
 
             modelBuilder.Entity("app.entity.Pilates", b =>
@@ -850,8 +828,6 @@ namespace app.data.Migrations
                         .HasForeignKey("app.entity.Pilates", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("app.entity.PilatesWeek", b =>
@@ -861,8 +837,6 @@ namespace app.data.Migrations
                         .HasForeignKey("PilatesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Pilates");
                 });
 
             modelBuilder.Entity("app.entity.Product", b =>
@@ -872,60 +846,6 @@ namespace app.data.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("app.entity.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("app.entity.Customer", b =>
-                {
-                    b.Navigation("Diet");
-
-                    b.Navigation("MyCarts");
-
-                    b.Navigation("Pilates");
-                });
-
-            modelBuilder.Entity("app.entity.Diet", b =>
-                {
-                    b.Navigation("AnamnezForm");
-
-                    b.Navigation("CombineDietRecipes");
-
-                    b.Navigation("DietWekklies");
-                });
-
-            modelBuilder.Entity("app.entity.DietMenü", b =>
-                {
-                    b.Navigation("CombineDietMenüRecipes");
-                });
-
-            modelBuilder.Entity("app.entity.DietWekkly", b =>
-                {
-                    b.Navigation("Calendar");
-
-                    b.Navigation("DietMenü");
-                });
-
-            modelBuilder.Entity("app.entity.Pilates", b =>
-                {
-                    b.Navigation("PilatesWeeks");
-                });
-
-            modelBuilder.Entity("app.entity.PilatesWeek", b =>
-                {
-                    b.Navigation("calendar");
-                });
-
-            modelBuilder.Entity("app.entity.Recipe", b =>
-                {
-                    b.Navigation("CombineDietMenüRecipes");
-
-                    b.Navigation("CombineDietRecipes");
                 });
 #pragma warning restore 612, 618
         }
