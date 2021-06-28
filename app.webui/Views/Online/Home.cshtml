@@ -70,36 +70,26 @@
                                                 </div>
                                             }
                                         }
-                                        <div class="general-information mt-3">
-                                            <div class="alert alert-success" role="alert">
 
-                                                <p class="time"><i class="far fa-clock"></i>12/05/2021</p>
-                                                <p class="display-6">Diyet ile ilgili bilgilendirme </p>
-                                                <hr>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-                                                    eius
-                                                    aliquam est adipisci enim ducimus itaque voluptatem eligendi ratione
-                                                    aspernatur laudantium vel magnam necessitatibus asperiores, hic illo
-                                                    sint quas praesentium!</p>
+                                        @if (ViewBag.GeneralMsj != null)
+                                        {
+                                            foreach (var item in (List<GeneralMesaj>)ViewBag.GeneralMsj)
+                                            {
+                                                <div class="general-information mt-3">
+                                                    <div class="alert @item.AlertType" role="alert">
 
-                                                <a href="#" class="btn btn-dark px-5">Sayfa</a>
-                                            </div>
-                                        </div>
-                                        <div class="general-information mt-3">
-                                            <div class="alert alert-secondary" role="alert">
-
-                                                <p class="time"><i class="far fa-clock"></i>12/05/2021</p>
-                                                <p class="display-6">Pilates ile ilgili Bilgilendirme</p>
-                                                <hr>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-                                                    eius
-                                                    aliquam est adipisci enim ducimus itaque voluptatem eligendi ratione
-                                                    aspernatur laudantium vel magnam necessitatibus asperiores, hic illo
-                                                    sint quas praesentium!</p>
-
-                                                <a href="#" class="btn btn-dark px-5">Sayfa</a>
-                                            </div>
-                                        </div>
+                                                        <p class="time"><i class="far fa-clock"></i>@item.Time</p>
+                                                        <p class="display-6">@item.Title </p>
+                                                        <hr>
+                                                        <p>@item.Content</p>
+                                                        @if (item.href)
+                                                        {
+                                                            <a href="@item.Url" class="btn btn-dark px-5">Sayfa</a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
                                     </div>
                                 </div>
 
@@ -182,4 +172,5 @@
 @section Scripts
 {
 <script src="~/js/online.js"></script>
+
 }

@@ -2,6 +2,7 @@
 
 @section css{
 <link rel="stylesheet" href="~/css/online.css">
+    
 }
 
 
@@ -44,41 +45,64 @@
                                 <a href="~/RoleAndUser/RoleList"
                                     class="btn btn-secondary btn-block col-5 col-sm-3 my-2 col-md-5"><b>Rolleme</b></a>
                             </div>
-                            <div class="card g-0" style="width:100%;">
-                                <h5 class="card-header text-center ">Randevu Talebi</h5>
-                                <div class="card-body  make-flex-row space-beetwen">
-                                    <table class="table table-hover table-light" style="font-size: 10px;">
-                                        <thead>
-                                            <tr>
-                                                <th>İstek</th>
-                                                <th>Adı</th>
-                                                <th>Tarih</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Diet</th>
-                                                <td>Muammer Karaca</td>
-                                                <td>15/16/2021</td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm">Git</button>
-                                                    <button class="btn btn-danger btn-sm">Sil</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Diet</th>
-                                                <td>Muammer Karaca</td>
-                                                <td>15/16/2021</td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm">Git</button>
-                                                    <button class="btn btn-danger btn-sm">Sil</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            @if (ViewBag.AllDateRequest != null)
+                            {
+                                <div class="card g-0" style="width:100%;">
+                                    <h5 class="card-header text-center ">Randevu Talebi</h5>
+                                    <div class="card-body  make-flex-row space-beetwen">
+                                        <table class="table table-hover table-light" style="font-size: 10px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>İstek</th>
+                                                    <th>Adı</th>
+                                                    <th>Tarih</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in (List<DateRequest>)ViewBag.AllDateRequest)
+                                                {
+                                                    <tr>
+                                                        <td>@item.typeOfRequest.ToString()</td>
+                                                        <td>@item.FullName</td>
+                                                        <td>@item.RequestTİme</td>
+                                                        <td>
+                                                            @if (item.typeOfRequest == DateType.Diet)
+                                                            {
+                                                                <a href="~/admin/CustomerWeek/@item.WeekId"
+                                                        class="btn btn-success btn-sm">Git</a>
+                                                                <a href="~/admin/RemoveDateRequest/@item.Id"
+                                                        class="btn btn-danger btn-sm">Sil</a>
+                                                            }
+                                                            else if (item.typeOfRequest == DateType.Pilates)
+                                                            {
+                                                                <a href="~/admin/CustomerPilatesWeek/@item.WeekId"
+                                                        class="btn btn-success btn-sm">Git</a>
+                                                                <a href="~/admin/RemoveDateRequest/@item.Id"
+                                                        class="btn btn-danger btn-sm">Sil</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="#"
+                                                        class="btn btn-success btn-sm">Bilinmiyor</a>
+                                                                <a href="~/admin/RemoveDateRequest/@item.Id"
+                                                        class="btn btn-danger btn-sm">Sil</a>
+                                                            }
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-success">
+                                    Randevu İsteği Bulunmamaktadır
+                                </div>
+                            }
                             @if (ViewBag.AllPackageRequest != null)
                             {
                                 <div class="card g-0" style="width:100%;">
@@ -150,19 +174,19 @@
                                     <div class="form-group row my-2">
                                         <label for="inputName" class="col-sm-2 col-form-label">Adı</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                            <input  type="text" onkeyup="ForName(this)" class="form-control"  placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="form-group row my-2">
                                         <label for="inputName" class="col-sm-2 col-form-label">Telefon</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                            <input type="number" onkeyup="ForTel(this)" class="form-control" placeholder="telefon">
                                         </div>
                                     </div>
                                     <div class="form-group row my-2">
                                         <label for="inputName" class="col-sm-2 col-form-label">Mail</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                            <input type="email" onkeyup="forMail(this)" class="form-control"  placeholder="email">
                                         </div>
                                     </div>
                                     <hr>
@@ -170,21 +194,21 @@
                                     <div class="row make-flex-row space-around">
                                         @foreach (var item in Model.Where(i => i.Diet != null).ToList())
                                         {
-                                            <div class="card  g-0 shadow  bg-body rounded mt-2 mx-1" style="width:200px;">
+                                            if(item.Diet.Active)
+                                            {
+                                                      <div id="AllClassSearch" class="card  g-0 shadow  bg-body rounded mt-2 mx-1" style="width:200px;">
                                                 <div class="card-header"
                                                 style="position: relative;  background-color:rgba(32, 39, 49,0.5)">
                                                     <a href="~/admin/CustomerHome/@item.Id">
-                                                        <p class="h4 text-white">@item.FirstName</p>
-                                                        <p class="h4  text-white">@item.LastName</p>
+                                                        <p  class="NameSearch h4 text-white text-center">@item.FirstName <br> @item.LastName </p>
                                                     </a>
-                                                    <small class="MakeAbsolute  text-white"> 15/11/2021</small>
                                                 </div>
                                                 <div class="card-body g-0">
                                                     @if (item.Diet != null)
                                                     {
                                                         <div class="card-title Bilgile text-center  p-2 "
                                                     style="position: relative;">
-                                                            <a href="~/admin/CustomerDiet/@item.Id">
+                                                            <a href="~/admin/CustomerDiet/?customerId=@item.Id">
                                                                 <h4 class="text-warning">Diyet</h4>
                                                                 <hr style="color: red;">
                                                                 <div
@@ -206,7 +230,7 @@
                                                     {
                                                         <div class="card-title Bilgile text-center  p-2"
                                                     style="position: relative;">
-                                                            <a href="">
+                                                            <a href="~/admin/CustomerPilates/?customerId=@item.Id">
                                                                 <h4 class="text-warning ">Pilates</h4>
                                                                 <hr style="color: red;">
                                                                 <div
@@ -228,160 +252,201 @@
                                                 <div class="card-footer">
                                                     <h5 class="text-muted" style="font-size:12px;"><i
                                                         class="fas fa-phone-square-alt mx-2"></i>Telefon</h5>
-                                                    <small class="text-muted" style="font-size:10px;">26513151313</small>
+                                                    <small class="telSearch text-muted" style="font-size:10px;">@(item.PhoneNumber==null?"Telefon Girilmemiştir":item.PhoneNumber)</small>
                                                     <hr style="width: 50%; color: red;">
-                                                    <h5 class="text-muted" style="font-size:12px;"><i
+                                                    <h5 class=" text-muted" style="font-size:12px;"><i
                                                         class="fas fa-pencil-alt mx-2"></i>Mail</h5>
-                                                    <small class="text-muted"
-                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
+                                                    <small class="mailSearch text-muted"
+                                                    style="font-size:10px;">@(item.Mail==null?"Mail Gİrilmemiştir":item.Mail)</small>
                                                 </div>
                                             </div>
+                                            }
                                         }
                                     </div>
                                 </div>
 
                                 <div class="tab-pane" id="pilates">
+                                       <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Adı</label>
+                                        <div class="col-sm-10">
+                                            <input  type="text" onkeyup="ForName(this)" class="form-control"  placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Telefon</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" onkeyup="ForTel(this)" class="form-control" placeholder="telefon">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Mail</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" onkeyup="forMail(this)" class="form-control"  placeholder="email">
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div class="row make-flex-row space-around">
                                         @foreach (var item in Model.Where(i => i.Pilates != null).ToList())
                                         {
-                                            <div class="card  g-0 shadow  bg-body rounded" style="width:200px;">
-                                                <div class="card-header" style="position: relative;">
-                                                    <p class="h4">Muammer</p>
-                                                    <p class="h4">Karaca</p>
-                                                    <small class="MakeAbsolute"> 15/11/2021</small>
+                                            if(item.Pilates.Active)
+                                            {   
+                                                        <div id="AllClassSearch" class="card  g-0 shadow  bg-body rounded mt-2 mx-1" style="width:200px;">
+                                                <div class="card-header"
+                                                style="position: relative;  background-color:rgba(32, 39, 49,0.5)">
+                                                    <a href="~/admin/CustomerHome/@item.Id">
+                                                        <p  class="NameSearch h4 text-white text-center">@item.FirstName <br> @item.LastName </p>
+                                                    </a>
                                                 </div>
                                                 <div class="card-body g-0">
-                                                    <div class="card-title Bilgile text-center  p-2"
+                                                    @if (item.Diet != null)
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2 "
                                                     style="position: relative;">
-                                                        <a href="">
+                                                            <a href="~/admin/CustomerDiet/?customerId=@item.Id">
+                                                                <h4 class="text-warning">Diyet</h4>
+                                                                <hr style="color: red;">
+                                                                <div
+                                                            class=" @(item.RemaningDietPackages<1?"bg-warning":"bg-light")">
+                                                                    @item.RemaningDietPackages</div>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
                                                             <h4 class="text-warning">Diyet</h4>
                                                             <hr style="color: red;">
-                                                            <div>Kalan 5</div>
-                                                        </a>
-                                                    </div>
-                                                    <div class="card-title Bilgile text-center  p-2"
+                                                            <div class="bg-danger text-white">Tanımlanmamış</div>
+                                                        </div>
+                                                    }
+                                                    @if (item.Pilates != null)
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
                                                     style="position: relative;">
-                                                        <a href="">
+                                                            <a href="~/admin/CustomerPilates/?customerId=@item.Id">
+                                                                <h4 class="text-warning ">Pilates</h4>
+                                                                <hr style="color: red;">
+                                                                <div
+                                                            class=" @(item.RemaningPilatesPackages<1?"bg-warning":"bg-light")">
+                                                                    @item.RemaningPilatesPackages</div>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
                                                             <h4 class="text-warning">Pilates</h4>
                                                             <hr style="color: red;">
-                                                            <div>Kalan 5</div>
-                                                        </a>
-                                                    </div>
+                                                            <div class="bg-danger  text-white">Tanımlanmamış</div>
+                                                        </div>
+                                                    }
                                                 </div>
                                                 <div class="card-footer">
-                                                    <h5 class="text-muted" style="font-size:12px;">Telefon</h5>
-                                                    <small class="text-muted" style="font-size:10px;">26513151313</small>
+                                                    <h5 class="text-muted" style="font-size:12px;"><i
+                                                        class="fas fa-phone-square-alt mx-2"></i>Telefon</h5>
+                                                    <small class="telSearch text-muted" style="font-size:10px;">@(item.PhoneNumber==null?"Telefon Girilmemiştir":item.PhoneNumber)</small>
                                                     <hr style="width: 50%; color: red;">
-                                                    <h5 class="text-muted" style="font-size:12px;">Mail</h5>
-                                                    <small class="text-muted"
-                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
+                                                    <h5 class=" text-muted" style="font-size:12px;"><i
+                                                        class="fas fa-pencil-alt mx-2"></i>Mail</h5>
+                                                    <small class="mailSearch text-muted"
+                                                    style="font-size:10px;">@(item.Mail==null?"Mail Gİrilmemiştir":item.Mail)</small>
                                                 </div>
                                             </div>
+                                            }
                                         }
                                     </div>
                                 </div>
 
                                 <div class="tab-pane" id="tüm">
+                                     <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Adı</label>
+                                        <div class="col-sm-10">
+                                            <input  type="text" onkeyup="ForName(this)" class="form-control"  placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Telefon</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" onkeyup="ForTel(this)" class="form-control" placeholder="telefon">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Mail</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" onkeyup="forMail(this)" class="form-control"  placeholder="email">
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div class="row make-flex-row space-around">
-                                        <div class="card  g-0 shadow  bg-body rounded" style="width:200px;">
-                                            <div class="card-header" style="position: relative;">
-                                                <p class="h4">Muammer</p>
-                                                <p class="h4">Karaca</p>
-                                                <small class="MakeAbsolute"> 15/11/2021</small>
-                                            </div>
-                                            <div class="card-body g-0">
-                                                <div class="card-title Bilgile text-center  p-2"
-                                                    style="position: relative;">
-                                                    <a href="">
-                                                        <h4 class="text-warning">Diyet</h4>
-                                                        <hr style="color: red;">
-                                                        <div>Kalan 5</div>
+                                         @foreach (var item in Model)
+                                        {
+                                             <div id="AllClassSearch" class="card  g-0 shadow  bg-body rounded mt-2 mx-1" style="width:200px;">
+                                                <div class="card-header"
+                                                style="position: relative;  background-color:rgba(32, 39, 49,0.5)">
+                                                    <a href="~/admin/CustomerHome/@item.Id">
+                                                        <p  class="NameSearch h4 text-white text-center">@item.FirstName <br> @item.LastName </p>
                                                     </a>
                                                 </div>
-                                                <div class="card-title Bilgile text-center  p-2"
+                                                <div class="card-body g-0">
+                                                    @if (item.Diet != null)
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2 "
                                                     style="position: relative;">
-                                                    <a href="">
-                                                        <h4 class="text-warning">Pilates</h4>
-                                                        <hr style="color: red;">
-                                                        <div>Kalan 5</div>
-                                                    </a>
+                                                            <a href="~/admin/CustomerDiet/?customerId=@item.Id">
+                                                                <h4 class="text-warning">Diyet</h4>
+                                                                <hr style="color: red;">
+                                                                <div
+                                                            class=" @(item.RemaningDietPackages<1?"bg-warning":"bg-light")">
+                                                                    @item.RemaningDietPackages</div>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                            <h4 class="text-warning">Diyet</h4>
+                                                            <hr style="color: red;">
+                                                            <div class="bg-danger text-white">Tanımlanmamış</div>
+                                                        </div>
+                                                    }
+                                                    @if (item.Pilates != null)
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                            <a href="~/admin/CustomerPilates/?customerId=@item.Id">
+                                                                <h4 class="text-warning ">Pilates</h4>
+                                                                <hr style="color: red;">
+                                                                <div
+                                                            class=" @(item.RemaningPilatesPackages<1?"bg-warning":"bg-light")">
+                                                                    @item.RemaningPilatesPackages</div>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="card-title Bilgile text-center  p-2"
+                                                    style="position: relative;">
+                                                            <h4 class="text-warning">Pilates</h4>
+                                                            <hr style="color: red;">
+                                                            <div class="bg-danger  text-white">Tanımlanmamış</div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div class="card-footer">
+                                                    <h5 class="text-muted" style="font-size:12px;"><i
+                                                        class="fas fa-phone-square-alt mx-2"></i>Telefon</h5>
+                                                    <small class="telSearch text-muted" style="font-size:10px;">@(item.PhoneNumber==null?"Telefon Girilmemiştir":item.PhoneNumber)</small>
+                                                    <hr style="width: 50%; color: red;">
+                                                    <h5 class=" text-muted" style="font-size:12px;"><i
+                                                        class="fas fa-pencil-alt mx-2"></i>Mail</h5>
+                                                    <small class="mailSearch text-muted"
+                                                    style="font-size:10px;">@(item.Mail==null?"Mail Gİrilmemiştir":item.Mail)</small>
                                                 </div>
                                             </div>
-                                            <div class="card-footer">
-                                                <h5 class="text-muted" style="font-size:12px;">Telefon</h5>
-                                                <small class="text-muted" style="font-size:10px;">26513151313</small>
-                                                <hr style="width: 50%; color: red;">
-                                                <h5 class="text-muted" style="font-size:12px;">Mail</h5>
-                                                <small class="text-muted"
-                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
-                                            </div>
-                                        </div>
-                                        <div class="card  g-0 shadow  bg-body rounded" style="width:200px;">
-                                            <div class="card-header" style="position: relative;">
-                                                <p class="h4">Muammer</p>
-                                                <p class="h4">Karaca</p>
-                                                <small class="MakeAbsolute"> 15/11/2021</small>
-                                            </div>
-                                            <div class="card-body g-0">
-                                                <div class="card-title Bilgile text-center  p-2"
-                                                    style="position: relative;">
-                                                    <a href="">
-                                                        <h4 class="text-warning">Diyet</h4>
-                                                        <hr style="color: red;">
-                                                        <div>Kalan 5</div>
-                                                    </a>
-                                                </div>
-                                                <div class="card-title Bilgile text-center  p-2"
-                                                    style="position: relative;">
-                                                    <a href="">
-                                                        <h4 class="text-warning">Pilates</h4>
-                                                        <hr style="color: red;">
-                                                        <div>Kalan 5</div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer">
-                                                <h5 class="text-muted" style="font-size:12px;">Telefon</h5>
-                                                <small class="text-muted" style="font-size:10px;">26513151313</small>
-                                                <hr style="width: 50%; color: red;">
-                                                <h5 class="text-muted" style="font-size:12px;">Mail</h5>
-                                                <small class="text-muted"
-                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
-                                            </div>
-                                        </div>
-                                        <div class="card  g-0 shadow  bg-body rounded" style="width:200px;">
-                                            <div class="card-header" style="position: relative;">
-                                                <p class="h4">Muammer</p>
-                                                <p class="h4">Karaca</p>
-                                                <small class="MakeAbsolute"> 15/11/2021</small>
-                                            </div>
-                                            <div class="card-body g-0">
-                                                <div class="card-title Bilgile text-center  p-2"
-                                                    style="position: relative;">
-                                                    <a href="">
-                                                        <h4 class="text-warning">Diyet</h4>
-                                                        <hr style="color: red;">
-                                                        <div>Kalan 5</div>
-                                                    </a>
-                                                </div>
-                                                <div class="card-title Bilgile text-center  p-2"
-                                                    style="position: relative;">
-                                                    <a href="">
-                                                        <h4 class="text-warning">Pilates</h4>
-                                                        <hr style="color: red;">
-                                                        <div>Kalan 5</div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer">
-                                                <h5 class="text-muted" style="font-size:12px;">Telefon</h5>
-                                                <small class="text-muted" style="font-size:10px;">26513151313</small>
-                                                <hr style="width: 50%; color: red;">
-                                                <h5 class="text-muted" style="font-size:12px;">Mail</h5>
-                                                <small class="text-muted"
-                                                    style="font-size:10px;">muammer03karaca@gmail.com</small>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
 
@@ -532,4 +597,78 @@
 @section Scripts
 {
 <script src="~/js/online.js"></script>
+<script>
+    document.onload
+    {
+        var GetAllCard=document.querySelectorAll("#AllClassSearch");
+        
+        function ForName(e)
+        {
+            for(var k=0;k<GetAllCard.length;k++)
+            {
+                if(e.value.length>0)
+                {
+                    if((GetAllCard[k].getElementsByClassName("NameSearch")[0].innerHTML).toLowerCase().includes(e.value.toLowerCase()))
+                    {
+                        GetAllCard[k].style.display="initial";
+                    }
+                    else
+                    {
+                        GetAllCard[k].style.display="none";
+                    }
+                }
+                else
+                {
+                    GetAllCard[k].style.display="initial";
+                }
+            }
+        }
+
+        function ForTel(e)
+        {
+            for(var k=0;k<GetAllCard.length;k++)
+            {
+                if(e.value.length>0)
+                {
+                    if((GetAllCard[k].getElementsByClassName("telSearch")[0].innerHTML).toLowerCase().includes(e.value.toLowerCase()))
+                    {
+                        GetAllCard[k].style.display="initial";
+                    }
+                    else
+                    {
+                        GetAllCard[k].style.display="none";
+                    }
+                }
+                else
+                {
+                    GetAllCard[k].style.display="initial";
+                }
+            }
+        }
+        function forMail(e)
+        {
+            for(var k=0;k<GetAllCard.length;k++)
+            {
+                if(e.value.length>0)
+                {
+                    if((GetAllCard[k].getElementsByClassName("mailSearch")[0].innerHTML).toLowerCase().includes(e.value.toLowerCase()))
+                    {
+                        GetAllCard[k].style.display="initial";
+                    }
+                    else
+                    {
+                        GetAllCard[k].style.display="none";
+                    }
+                }
+                else
+                {
+                    GetAllCard[k].style.display="initial";
+                }
+            }
+        }
+    }
+   
+    
+    
+</script>
 }

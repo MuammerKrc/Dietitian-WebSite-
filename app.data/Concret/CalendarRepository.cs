@@ -28,7 +28,8 @@ namespace app.data.Concret
                     {
                         foreach (var item in result)
                         {
-                            if (((item.StartingHour < c.StartingHour && item.FinishedHour > c.StartingHour) || (item.StartingHour < c.FinishedHour && item.FinishedHour > c.FinishedHour)))
+
+                            if (((item.StartingHour < c.StartingHour && item.FinishedHour > c.StartingHour && c.Traning == item.Traning) || (item.StartingHour < c.FinishedHour && item.FinishedHour > c.FinishedHour && c.Traning == item.Traning)))
                             {
                                 temp = true;
                                 break;
@@ -54,10 +55,10 @@ namespace app.data.Concret
             {
                 var result = appContext.Calendars.Where(i => i.CurrentYear == Time.Year).AsQueryable();
 
-                result=result.Where(i=>i.CurrentMounth==Time.Month).AsQueryable();
-                result=result.Where(i=>i.CurrentDay==Time.Day);
+                result = result.Where(i => i.CurrentMounth == Time.Month).AsQueryable();
+                result = result.Where(i => i.CurrentDay == Time.Day);
 
-                var k=await result.ToListAsync();
+                var k = await result.ToListAsync();
 
 
                 return new ReturnedClass<Calendar>(OprationResult.ok, _values: k);

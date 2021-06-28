@@ -167,6 +167,9 @@ namespace app.data.Migrations
                     b.Property<int>("CurrentYear")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateTimeOfDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("DietWekklyId")
                         .HasColumnType("int");
 
@@ -179,17 +182,24 @@ namespace app.data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PilatesWeekId")
+                        .HasColumnType("int");
+
                     b.Property<int>("StartingHour")
                         .HasColumnType("int");
 
-                    b.Property<string>("Traning")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Traning")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DietWekklyId")
                         .IsUnique()
                         .HasFilter("[DietWekklyId] IS NOT NULL");
+
+                    b.HasIndex("PilatesWeekId")
+                        .IsUnique()
+                        .HasFilter("[PilatesWeekId] IS NOT NULL");
 
                     b.ToTable("Calendars");
                 });
@@ -392,11 +402,11 @@ namespace app.data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("DateStart")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -461,23 +471,26 @@ namespace app.data.Migrations
                     b.Property<int>("DietId")
                         .HasColumnType("int");
 
-                    b.Property<float?>("Dietuyumluluk")
-                        .HasColumnType("real");
+                    b.Property<int>("Dietuyumluluk")
+                        .HasColumnType("int");
 
                     b.Property<bool>("GivedDate")
                         .HasColumnType("bit");
 
-                    b.Property<float?>("GüncelBel")
+                    b.Property<float>("GüncelBel")
                         .HasColumnType("real");
 
-                    b.Property<float?>("GüncelGögüs")
+                    b.Property<float>("GüncelGögüs")
                         .HasColumnType("real");
 
-                    b.Property<float?>("GüncelKalca")
+                    b.Property<float>("GüncelKalca")
                         .HasColumnType("real");
 
-                    b.Property<float?>("GüncelKilo")
+                    b.Property<float>("GüncelKilo")
                         .HasColumnType("real");
+
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsUpdate")
                         .HasColumnType("bit");
@@ -594,14 +607,11 @@ namespace app.data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("DateStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -609,6 +619,29 @@ namespace app.data.Migrations
                         .IsUnique();
 
                     b.ToTable("Pilateis");
+                });
+
+            modelBuilder.Entity("app.entity.PilatesWeek", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PilatesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PilatesId");
+
+                    b.ToTable("PilatesWeeks");
                 });
 
             modelBuilder.Entity("app.entity.Product", b =>
@@ -719,7 +752,13 @@ namespace app.data.Migrations
                         .WithOne("Calendar")
                         .HasForeignKey("app.entity.Calendar", "DietWekklyId");
 
+                    b.HasOne("app.entity.PilatesWeek", "PilatesWeek")
+                        .WithOne("calendar")
+                        .HasForeignKey("app.entity.Calendar", "PilatesWeekId");
+
                     b.Navigation("DietWekkly");
+
+                    b.Navigation("PilatesWeek");
                 });
 
             modelBuilder.Entity("app.entity.CombineDietMenüRecipe", b =>
@@ -815,6 +854,17 @@ namespace app.data.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("app.entity.PilatesWeek", b =>
+                {
+                    b.HasOne("app.entity.Pilates", "Pilates")
+                        .WithMany("PilatesWeeks")
+                        .HasForeignKey("PilatesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pilates");
+                });
+
             modelBuilder.Entity("app.entity.Product", b =>
                 {
                     b.HasOne("app.entity.Category", "Category")
@@ -859,6 +909,16 @@ namespace app.data.Migrations
                     b.Navigation("Calendar");
 
                     b.Navigation("DietMenü");
+                });
+
+            modelBuilder.Entity("app.entity.Pilates", b =>
+                {
+                    b.Navigation("PilatesWeeks");
+                });
+
+            modelBuilder.Entity("app.entity.PilatesWeek", b =>
+                {
+                    b.Navigation("calendar");
                 });
 
             modelBuilder.Entity("app.entity.Recipe", b =>

@@ -17,23 +17,25 @@
         <h3 class="profile-username text-center makeUpperCase">@Model.FirstName @Model.LastName</h3>
 
         <div class="row make-flex-row space-around my-3">
-                @if(Model.Diet!=null)
-                {
-                    <a href="~/admin/CustomerDiet/?customerId=@Model.Id" class="btn btn-secondary btn-block col-5 col-sm-3 col-md-5"><b>Diet</b></a>
-                }
-                
-                @if(Model.Pilates!=null)
-                {
-                    <a href="#" class="btn btn-secondary btn-block col-5 col-sm-3 col-md-5"><b>Pilates</b></a>
-                }
+            @if (Model.Diet != null)
+            {
+                <a href="~/admin/CustomerDiet/?customerId=@Model.Id"
+                class="btn btn-secondary btn-block col-5 col-sm-3 col-md-5"><b>Diet</b></a>
+            }
+
+            @if (Model.Pilates != null)
+            {
+                <a href="~/admin/CustomerPilates/?customerId=@Model.Id"
+                class="btn btn-secondary btn-block col-5 col-sm-3 col-md-5"><b>Pilates</b></a>
+            }
         </div>
 
         <div class="card g-0" style="width:100%;">
             <h5 class="card-header text-center ">Kalan Paketler</h5>
             <div class="card-body  make-flex-row space-beetwen">
                 <div class=" make-flex-column center p-2 box-shadow" style="min-width: 150px;  min-height: 125px;">
-            
-                      @if (Model.Diet != null)
+
+                    @if (Model.Diet != null)
                     {
                         <h5 class="card-title text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">Kalan
                             Diet
@@ -45,26 +47,24 @@
                         <h5 class="card-title  text-muted">Diet Paketi </h5>
                         <h5 class="card-title  text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">
                             Tanımlanmamıştır </h5>
-                        <a href="#" class="btn btn-primary">Diet Tanımla</a>
                     }
-                   
+
                 </div>
                 <div class="make-flex-column center p-2 box-shadow" style="min-width: 150px; min-height: 125px;">
-              
-                            @if (Model.Pilates != null)
-                            {
-                            <h5 class="card-title  text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                Kalan Pilates
-                                Adeti</h5>
-                            <p class="card-text" style="font-size:20px;">3</p>
-                            }
-                            else
-                            {
-                                <h5 class="card-title  text-muted">Pilates Paketi </h5>
-                                <h5 class="card-title  text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                    Tanımlanmamıştır </h5>
-                                <a href="#" class="btn btn-primary">Pilates Tanımla</a>
-                            }
+
+                    @if (Model.Pilates != null)
+                    {
+                        <h5 class="card-title  text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">
+                            Kalan Pilates
+                            Adeti</h5>
+                        <p class="card-text" style="font-size:20px;">@Model.RemaningPilatesPackages</p>
+                    }
+                    else
+                    {
+                        <h5 class="card-title  text-muted">Pilates Paketi </h5>
+                        <h5 class="card-title  text-muted" style="border-bottom: 2px solid black; padding-bottom:12px;">
+                            Tanımlanmamıştır </h5>
+                    }
                 </div>
             </div>
         </div>

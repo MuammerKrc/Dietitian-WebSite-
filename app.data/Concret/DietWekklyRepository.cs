@@ -10,7 +10,7 @@ namespace app.data.Concret
     {
         public DietWekklyRepository(AppContext _context) : base(_context)
         {
-            
+
         }
         private AppContext appContext { get { return context as AppContext; } }
 
@@ -18,65 +18,28 @@ namespace app.data.Concret
         {
             try
             {
-                var result =await appContext.DietWekklies
-                                    .Where(m=>m.Id==id)
-                                    
-                                    .Include(m=>m.Diet)
-                                    .ThenInclude(m=>m.AnamnezForm)
-                                    .AsSplitQuery()                                    
+                var result = await appContext.DietWekklies
+                                    .Where(m => m.Id == id)
 
-                                    .Include(m=>m.Diet)
-                                    .ThenInclude(m=>m.Customer)
-                                    .ThenInclude(m=>m.Pilates)
-                                    .AsSplitQuery()
-                                    
-                                    .Include(m=>m.Calendar)
+                                    .Include(m => m.Diet)
+                                    .ThenInclude(m => m.AnamnezForm)
                                     .AsSplitQuery()
 
-                                    .Include(m=>m.DietMenü)
-                                    .ThenInclude(m=>m.CombineDietMenüRecipes)
+                                    .Include(m => m.Diet)
+                                    .ThenInclude(m => m.Customer)
+                                    .ThenInclude(m => m.Pilates)
+                                    .AsSplitQuery()
+
+                                    .Include(m => m.Calendar)
+                                    .AsSplitQuery()
+
+                                    .Include(m => m.DietMenü)
+                                    .ThenInclude(m => m.CombineDietMenüRecipes)
                                     .AsSplitQuery()
 
                                     .AsNoTracking()
                                     .SingleOrDefaultAsync();
-                return new ReturnedClass<DietWekkly>(OprationResult.ok,_value:result);
-            }
-            catch (System.Exception)
-            {
-                return new ReturnedClass<DietWekkly>(OprationResult.canceled);                
-            }
-        }
-
-        public async Task<OprationResult> MakeActive(int weekId)
-        {
-           try
-           {
-               var cmd="Update DietWekklies set Active=@p0 where Id=@p1";
-               var result =await appContext.Database.ExecuteSqlRawAsync(cmd,1,weekId);
-               if(result==1)
-               {
-                   return OprationResult.ok;
-               }
-               return OprationResult.canceled;
-           }
-           catch (System.Exception)
-           {
-                return OprationResult.canceled;
-           }
-        }
-
-        public async Task<ReturnedClass<DietWekkly>> UpdateJustDate(int dietWeekId, string CurrentHour)
-        {
-            try
-            {
-                var result =await appContext.DietWekklies
-                                            .FirstOrDefaultAsync(i=>i.Active);
-                if(result!=null)
-                {
-                    result.DateTime=CurrentHour;
-                    result.GivedDate=true;
-                }
-                return new ReturnedClass<DietWekkly>(OprationResult.ok,result);
+                return new ReturnedClass<DietWekkly>(OprationResult.ok, _value: result);
             }
             catch (System.Exception)
             {
@@ -84,24 +47,97 @@ namespace app.data.Concret
             }
         }
 
-        public async Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid)
+        public async Task<OprationResult> MakeActive(int weekId)
         {
             try
             {
-                var result =await appContext.DietWekklies
-                                            .Where(i=>i.Id==dietWeekId)
-                                            .Include(m=>m.DietMenü)
-                                            .FirstOrDefaultAsync();
-                
-                if(result!=null)
+                var cmd = "Update DietWekklies set Active=@p0 where Id=@p1";
+                var result = await appContext.Database.ExecuteSqlRawAsync(cmd, 1, weekId);
+                if (result == 1)
                 {
-                    
+                    return OprationResult.ok;
                 }
-                return new ReturnedClass<DietWekkly>(OprationResult.ok,_value:result);
+                return OprationResult.canceled;
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<DietWekkly>(OprationResult.canceled);                
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<OprationResult> makeIsDone(int weekId)
+        {
+            try
+            {
+                var cmd = "Update DietWekklies set IsDone=1 where Id=@p0";
+                var result = await appContext.Database.ExecuteSqlRawAsync(cmd, weekId);
+                if (result == 1)
+                {
+                    return OprationResult.ok;
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<OprationResult> makeNotDone(int weekId)
+        {
+            try
+            {
+                var cmd = "Update DietWekklies set IsDone=0 where Id=@p0";
+                var result = await appContext.Database.ExecuteSqlRawAsync(cmd, weekId);
+                if (result == 1)
+                {
+                    return OprationResult.ok;
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<ReturnedClass<DietWekkly>> UpdateJustDate(int dietWeekId, string CurrentHour)
+        {
+            try
+            {
+                var result = await appContext.DietWekklies
+                                            .FirstOrDefaultAsync(i => i.Active);
+                if (result != null)
+                {
+                    result.DateTime = CurrentHour;
+                    result.GivedDate = true;
+                }
+                return new ReturnedClass<DietWekkly>(OprationResult.ok, result);
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<DietWekkly>(OprationResult.canceled);
+            }
+        }
+
+        public async Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId, int dietid)
+        {
+            try
+            {
+                var result = await appContext.DietWekklies
+                                            .Where(i => i.Id == dietWeekId)
+                                            .Include(m => m.DietMenü)
+                                            .FirstOrDefaultAsync();
+
+                if (result != null)
+                {
+
+                }
+                return new ReturnedClass<DietWekkly>(OprationResult.ok, _value: result);
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<DietWekkly>(OprationResult.canceled);
             }
         }
     }

@@ -18,7 +18,7 @@
                             <label asp-for="DietMenü.FullName" class="col-sm-2 col-form-label"></label>
                             <div class="col-sm-10">
                                 <input asp-for="DietMenü.FullName" class="form-control" value="@names" required>
-                                <span asp-validation-for="DietMenü.FullName" class="text-danger" ></span>
+                                <span asp-validation-for="DietMenü.FullName" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -57,8 +57,7 @@
                         <div class="form-group row mt-3">
                             <label asp-for="DietMenü.Weight" class="col-sm-2 col-form-label"></label>
                             <div class="col-sm-10">
-                                @* <input asp-for="DietMenü.Weight" class="form-control"
-                                    value="@Model.Diet.StartingWeight"> *@
+                                <input asp-for="DietMenü.Weight" class="form-control">
                                 <span asp-validation-for="DietMenü.Weight" class="text-danger"></span>
 
                             </div>

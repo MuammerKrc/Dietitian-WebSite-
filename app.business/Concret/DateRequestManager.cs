@@ -34,9 +34,25 @@ namespace app.business.Concret
             }
         }
 
-        public OprationResult DeleteAsync(DateRequest entity)
+        public async Task<OprationResult> DeleteAsync(DateRequest entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var reuslt =work.DateRequest.DeleteAsync(entity);
+                if(reuslt==OprationResult.ok)
+                {
+                    var saveResult =await work.SaveAsync();
+                    if(saveResult==OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
 
         public async Task<ReturnedClass<DateRequest>> GetAll()

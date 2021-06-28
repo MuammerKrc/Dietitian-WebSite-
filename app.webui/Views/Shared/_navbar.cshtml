@@ -45,23 +45,19 @@
                 {
                     <li class="nav-item">
                         <a asp-controller="account" asp-action="logout" class="nav-link">
-                            @User.Identity.Name
+                            @User.Identity.Name 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a asp-controller="account" asp-action="logout" class="nav-link">Logout</a>
+                        <a asp-controller="account" asp-action="logout" class="nav-link">Çıkış</a>
                     </li>
                 }
                 else
                 {
                     <li class="nav-item">
-                        <a href="/account/login" class="nav-link">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/account/register" class="nav-link">Register</a>
+                        <a href="/account/login" class="nav-link">Giriş Yap</a>
                     </li>
                 }
-
             </ul>
 
         </div>

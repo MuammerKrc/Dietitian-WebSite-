@@ -2,6 +2,7 @@
 
 @{
     Customer c = Model.Diet.Customer;
+    
 }
 
 @section css{
@@ -40,13 +41,15 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1> Diyet</h1>
+                        <h1>@Model.Name Diyeti</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="~/Online/Home">AnaSayfa</a></li>
-                            <li class="breadcrumb-item active"><a href="~/Online/DietIndex">Diyet</a></li>
-                            <li class="breadcrumb-item active text-danger">Haftalık Diyet</li>
+                            <li class="breadcrumb-item"><a href="~/admin/Home">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="~/admin/CustomerHome/@Model.Diet.Customer.Id">Müsteri</a></li>
+                        <li class="breadcrumb-item "><a href="~/admin/CustomerDiet/?customerId=@Model.Diet.Customer.Id">Diyet</a></li>
+                        <li class="breadcrumb-item text-danger">@Model.Name Diyeti</li>
+
                         </ol>
                     </div>
                 </div>
@@ -124,7 +127,7 @@
                                                                 <label for="DateTime"
                                                                 class="col-sm-2 col-form-label">Tarih</label>
                                                                 <div class="col-sm-10">
-                                                                    <input type="datetime-local" step="10" class="form-control"
+                                                                    <input type="datetime-local"  class="form-control"
                                                                     id="DateTime" name="TimeofDates" required>
                                                                 </div>
                                                             </div>
@@ -138,6 +141,7 @@
                                                             </div>
                                                             <input type="hidden" value="@Model.Diet.Customer.FirstName"
                                                             name="firstname">
+                                                            <input type="hidden" name="customerId" value="@Model.Diet.Customer.Id">
                                                             <input type="hidden" value="@Model.Diet.Customer.LastName"
                                                             name="lastname">
                                                             <input type="hidden" name="dietWeekId" value="@Model.Id">
@@ -174,6 +178,7 @@
                                                             name="firstname">
                                                             <input type="hidden" value="@Model.Diet.Customer.LastName"
                                                             name="lastname">
+                                                            <input type="hidden" name="customerId" value="@Model.Diet.Customer.Id">
                                                             <input type="hidden" name="dietWeekId" value="@Model.Id">
                                                             <input type="hidden" name="DateId" value="@Model.Calendar.Id">
                                                             <div class="row center ">
@@ -182,7 +187,7 @@
 
                                                             </div>
                                                         </Form>
-                                                        <a href="#" class="btn btn-danger  mt-3 col-6">Randevu
+                                                        <a href="~/admin/RemoveDateDiet?dietWeekId=@Model.Id&DateId=@Model.Calendar.Id&customerId=@Model.Diet.Customer.Id" class="btn btn-danger  mt-3 col-6">Randevu
                                                             Sil</a>
                                                     }
                                                 </div>
@@ -202,22 +207,22 @@
                                         Bilgilendirme</a></li>
                             </ul>
                         </div>
-                        <div class="card-body">
+                          <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="activity">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" method="POST" action="~/online/UpdateDietWeekly">
                                         <div class=" make-flex-column-center row">
-                                            <label for="inputName" class="col-12 col-form-label text-center mb-2"><h4 class="h3">Diet Uyumluluk</h4></label>
+                                            <label for="aas" class="col-12 col-form-label text-center mb-2"><h4 class="h3">Diet Uyumluluk</h4></label>
                                             <div class="aaaaa form-group col-md-8 mt-2">
                                                 <div id="sssss">
-                                                    <p>1</p>
-                                                    <p>2</p>
-                                                    <p>3</p>
-                                                    <p>4</p>
-                                                    <p>5</p>
+                                                    <p style="color: #A90306;">1</p>
+                                                    <p style="color:#D96704;">2</p>
+                                                    <p style="color:#EFCF06" >3</p>
+                                                    <p style="color:#5A9613">4</p>
+                                                    <p style="color:#023600;">5</p>
                                                     </div>
                                                     <div class="row mt-3">
-                                                        <input type="range" name="ass" id="aas" value="@Model.Dietuyumluluk" min="1" max="5" step="1">
+                                                        <input type="range" name="Dietuyumluluk" id="aas" value="@Model.Dietuyumluluk" min="1" max="5" step="1">
                                                     </div>
                                             </div>
                                         </div>
@@ -225,13 +230,14 @@
                                             <label for="inputName" class="col-12 col-form-label text-center mb-2"><h4 class="h3">Ortalama Su Tüketimi</h4></label>
                                             <div class="aaaaa form-group col-md-8 mt-2">
                                                 <div id="sssss">
-                                                    <p>0-1L</p>
-                                                    <p>1L-2L</p>
-                                                    <p>2L-3L</p>
-                                                    <p>3L +</p>
+                                                    <p style="color: #A90306;">0-1L</p>
+                                                    <p style="color:#D96704;">1L-2L</p>
+                                                    <p style="color:#EFCF06">2L-2.5L</p>
+                                                    <p style="color:#5A9613">2.5L-3L</p>
+                                                    <p style="color:#023600;">3L+</p>
                                                     </div>
                                                     <div class="row mt-3">
-                                                        <input type="range" name="ass"  value="@Model.ortSu" id="aas" min="1" max="4" step="1">
+                                                        <input type="range" name="ortSu"  value="@Model.ortSu" id="aas" min="1" max="5" step="1">
                                                     </div>
                                             </div>
                                         </div>
@@ -240,13 +246,14 @@
                                             <label for="inputName" class="col-12 col-form-label text-center mb-2"><h4 class="h3">Ortalama Adım Sayısı</h4></label>
                                             <div class="aaaaa form-group col-md-8 mt-2">
                                                 <div id="sssss">
-                                                    <p>0-3000</p>
-                                                    <p>3000-6000</p>
-                                                    <p>6000-10000</p>
-                                                    <p>10000 +</p>
+                                                    <p style="color: #A90306;">0-3000</p>
+                                                    <p style="color:#D96704;">3000-5000</p>
+                                                    <p style="color:#EFCF06">5000-7000</p>
+                                                    <p style="color:#5A9613">7000-10000</p>
+                                                    <p style="color:#023600;">10000 +</p>
                                                     </div>
                                                     <div class="row mt-3">
-                                                        <input type="range" name="ass" value="@Model.ortalamaAdim" id="aas" min="1" max="4" step="1">
+                                                        <input type="range" name="ortalamaAdim" value="@Model.ortalamaAdim" id="aas" min="1" max="5" step="1">
                                                     </div>
                                             </div>
                                         </div>
@@ -254,7 +261,7 @@
                                             <label for="inputName" class="col-12 col-form-label text-center"><h4 class="h3">Güncel Kilo</h4></label>
                                             <div class="form-group col-md-5 col-lg-8 mt-2">
                                                 <div class="col-sm-12">
-                                                    <input type="number" class="form-control" value="@Model.GüncelKilo" id="inputName" step="0.1"
+                                                    <input type="number" class="form-control" name="GüncelKilo" value="@Model.GüncelKilo" id="inputName" step="0.1"
                                                             placeholder="Güncel Kilo">
                                                 </div>
                                             </div>
@@ -264,7 +271,7 @@
                                             <label for="inputName" class="col-12 col-form-label text-center"><h4 class="h3">Güncel Bel</h4></label>
                                             <div class="form-group col-md-5 col-lg-8 mt-2">
                                                 <div class="col-sm-12">
-                                                    <input type="number" class="form-control" value="@Model.GüncelBel" id="inputName" step="0.1"
+                                                    <input type="number" class="form-control"  name="GüncelBel" value="@Model.GüncelBel" id="inputName" step="0.01"
                                                             placeholder="Güncel Bel">
                                                 </div>
                                             </div>
@@ -274,7 +281,7 @@
                                             <label for="inputName" class="col-12 col-form-label text-center"><h4 class="h3">Güncel Göğüs</h4></label>
                                             <div class="form-group col-md-5 col-lg-8 mt-2">
                                                 <div class="col-sm-12">
-                                                    <input type="number" class="form-control" value="@Model.GüncelGögüs" id="inputName" step="0.1"
+                                                    <input type="number" class="form-control" name="GüncelGögüs" value="@Model.GüncelGögüs" id="inputName" step="0.01"
                                                             placeholder="Güncel Göğüs">
                                                 </div>
                                             </div>
@@ -284,15 +291,19 @@
                                             <label for="inputName" class="col-12 col-form-label text-center" ><h4 class="h3">Güncel Kalça</h4></label>
                                             <div class="form-group col-md-5 col-lg-8 mt-2">
                                                 <div class="col-sm-12">
-                                                    <input type="number" class="form-control" value="@Model.GüncelKalca" id="inputName" step="0.1"
+                                                    <input type="number" class="form-control" name="GüncelKalca"  value="@Model.GüncelKalca" id="inputName" step="0.01"
                                                             placeholder="Güncel Kalça">
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <input type="hidden" value="@Model.DietId" name="DietId">
+                                        <input type="hidden" value="@Model.Id" name="Id">
+                                        <input type="hidden" value="@Model.Name" name="Name">
+                                        @Html.HiddenFor(i=>i.GivedDate,Model.GivedDate)
+                                        @Html.HiddenFor(i=>i.Active,Model.Active)
                                         <div class=" make-flex-column-center row">
                                                 <button type="submit" class="col-3 mt-2 btn btn-dark">Kaydet</button>
-                                           
                                         </div>
                                     </form>
                                 </div>

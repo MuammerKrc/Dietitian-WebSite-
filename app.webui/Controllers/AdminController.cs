@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 
 namespace app.webui.Controllers
 {
@@ -33,9 +34,15 @@ namespace app.webui.Controllers
         private IGeneralMsjService generalMsjService;
         private IProductService productService;
         private IMyCartService myCartService;
+        private IPilatesWeekService PilatesWeekService;
+        private IDateRequestService dateRequestService;
+        private IPilatesService pilatesService;
 
-        public AdminController(IMyCartService _myCartService, IProductService _productService, IGeneralMsjService _generalMsjService, ICalendarService _calendarService, IPackageRequestService _packageService, UserManager<User> _userManager, ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, RoleManager<IdentityRole> _roleManager)
+        public AdminController(IPilatesService _pilatesService,IDateRequestService _dateRequestService, IPilatesWeekService _pilatesWeekService, IMyCartService _myCartService, IProductService _productService, IGeneralMsjService _generalMsjService, ICalendarService _calendarService, IPackageRequestService _packageService, UserManager<User> _userManager, ICustomerService _customerService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IRecipeService _recipeService, IDietMenüService _dietMenüService, IDietService _dietService, RoleManager<IdentityRole> _roleManager)
         {
+            pilatesService=_pilatesService;
+            dateRequestService = _dateRequestService;
+            PilatesWeekService = _pilatesWeekService;
             myCartService = _myCartService;
             productService = _productService;
             generalMsjService = _generalMsjService;
@@ -66,6 +73,7 @@ namespace app.webui.Controllers
                 //All Package Request
                 var ResultPackageRequest = await packageService.GetAll();
                 //All Date Request
+                var RusultDateRequest = await dateRequestService.GetAll();
 
                 if (ResultPackageRequest.oprationResult == OprationResult.ok)
                 {
@@ -94,6 +102,13 @@ namespace app.webui.Controllers
                 {
                     //Hata Raporları oluşturulacak
                 }
+                if (RusultDateRequest.oprationResult == OprationResult.ok)
+                {
+                    if (RusultDateRequest.values.Count > 0)
+                    {
+                        ViewBag.AllDateRequest = RusultDateRequest.values;
+                    }
+                }
                 if (result.oprationResult == OprationResult.ok)
                 {
                     return View(result.values);
@@ -113,7 +128,7 @@ namespace app.webui.Controllers
         {
             try
             {
-                var ReducePackage = await customerService.ReduceDietPackage(id);
+                // var ReducePackage = await customerService.ReduceDietPackage(id);
 
                 //get Customer
                 var result = await customerService.GetCustomerForCustomerHome(id);
@@ -152,6 +167,87 @@ namespace app.webui.Controllers
                 {
                     if (result.value != null)
                     {
+                        if (result.value.Diet.AnamnezForm != null)
+                        {
+                            AnamnezForm a = result.value.Diet.AnamnezForm;
+                            List<TableInfo> table = new List<TableInfo>();
+                            table.AddRange(result.value.Diet.DietWekklies.Where(i => i.Active).OrderBy(i => i.Id).Select(i => new TableInfo()
+                            {
+                                Name = i.Name,
+                                Adım = i.ortalamaAdim,
+                                Diet = i.Dietuyumluluk,
+                                Su = i.ortSu,
+                                Kilo = i.GüncelKilo,
+                                BasenÖlcüsü = i.GüncelKalca,
+                                GögüsÖlcüsü = i.GüncelGögüs,
+                                BelÖlcüsü = i.GüncelBel
+                            }));
+                            foreach (var item in table)
+                            {
+                                if ((item.Adım + item.Diet + item.Su) != 0)
+                                {
+                                    float t = item.Adım + item.Diet + item.Su;
+                                    float k = t / 3;
+                                    float y = MathF.Round(k, 1);
+                                    item.WeekOrt = y;
+                                }
+                                if (a.Boy != null)
+                                {
+                                    if (a.Boy > 0 && item.Kilo > 0)
+                                    {
+                                        float kilos = item.Kilo * 10000;
+                                        float boy = (float)a.Boy * (float)a.Boy;
+                                        float bksaa = kilos / boy;
+                                        item.Bki = MathF.Round(bksaa, 2);
+                                    }
+                                    if (a.Kilo != null)
+                                    {
+                                        if (a.Kilo > 0)
+                                        {
+                                            float kilos = (float)a.Kilo * 10000;
+                                            float boy = (float)a.Boy * (float)a.Boy;
+                                            float bksaa = kilos / boy;
+                                            item.baslangicBki = MathF.Round(bksaa, 2);
+                                        }
+                                    }
+                                }
+                                if (a.Kilo != null)
+                                {
+                                    if (a.Kilo > 0 && item.Kilo > 0)
+                                    {
+                                        item.KiloDegisim = MathF.Round((float)a.Kilo - item.Kilo, 2);
+                                    }
+                                }
+                                if (a.BelÖlcüsü != null)
+                                {
+                                    if (a.BelÖlcüsü > 0 && item.BelÖlcüsü > 0)
+                                    {
+                                        item.belDegisim = MathF.Round((float)a.BelÖlcüsü - item.BelÖlcüsü, 2);
+                                    }
+                                }
+                                if (a.GögüsÖlcüsü != null)
+                                {
+                                    if (a.GögüsÖlcüsü > 0 && item.GögüsÖlcüsü > 0)
+                                    {
+                                        item.gögüsDegisim = MathF.Round((float)a.GögüsÖlcüsü - item.GögüsÖlcüsü, 2);
+                                    }
+                                }
+                                if (a.BasenÖlcüsü != null)
+                                {
+                                    if (a.BasenÖlcüsü > 0 && item.BasenÖlcüsü > 0)
+                                    {
+                                        item.basenDegisim = MathF.Round((float)a.BasenÖlcüsü - item.BasenÖlcüsü, 2);
+                                    }
+                                }
+                                if (item.baslangicBki > 0 && item.Bki > 0)
+                                {
+                                    item.bkiDegisim = MathF.Round((float)item.baslangicBki - item.Bki, 2);
+                                }
+
+                            }
+                            ViewBag.Week = table;
+                            ViewBag.table = JsonConvert.SerializeObject(table);
+                        }
                         var TakeRecipe = await recipeService.GetAll();
                         if (TakeRecipe.oprationResult == OprationResult.ok)
                         {
@@ -161,6 +257,22 @@ namespace app.webui.Controllers
                     return View(result.value);
                 }
 
+                return View(new Customer());
+            }
+            catch (System.Exception)
+            {
+                return View(new Customer());
+            }
+        }
+        public async Task<IActionResult> CustomerPilates(int customerId)
+        {
+            try
+            {
+                var result = await customerService.GetCustomerForCustomerHome(customerId);
+                if (result.oprationResult == OprationResult.ok)
+                {
+                    return View(result.value);
+                }
                 return View(new Customer());
             }
             catch (System.Exception)
@@ -181,8 +293,21 @@ namespace app.webui.Controllers
                 throw;
             }
         }
+        public async Task<IActionResult> CustomerPilatesWeek(int id)
+        {
+            try
+            {
+                var result = await PilatesWeekService.GetWithIncludeOthers(id);
+                return View(result.value);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
 
         #endregion
+
 
         #region  PackageDefine
         [HttpPost]
@@ -255,6 +380,56 @@ namespace app.webui.Controllers
             }
 
         }
+        [HttpPost]
+        public async Task<IActionResult> SellPilates(MyCart myCart, string deneme)
+        {
+
+            try
+            {
+                //mycart Create
+                if (deneme != null)
+                {
+                    myCart.IsPaid = true;
+                }
+                myCart.Time = DateTime.Now;
+                var resultCart = await myCartService.CreateAsync(myCart);
+
+                //CreateDiet Weekly
+                if (resultCart == OprationResult.ok)
+                {
+
+                    PilatesWeek P;
+                    var result = await customerService.GetCustomerByIdWithDiet(myCart.CustomerId);
+                    if (result.oprationResult != OprationResult.ok)
+                    {
+                        //hata yazılacak
+                    }
+                    if (result.value.Pilates != null)
+                    {
+                        for (var y = 0; y < 8; y++)
+                        {
+                            P = new PilatesWeek()
+                            {
+                                Name = $"{result.value.Pilates.PilatesWeeks.Count + y + 1}. Ders",
+                                PilatesId = result.value.Pilates.Id
+                            };
+                            var resultCreateWeek = await PilatesWeekService.CreateAsync(P);
+                            if (resultCreateWeek != OprationResult.ok)
+                            {
+                                //Hata Yazılacak
+                            }
+                        }
+                    }
+                }
+                return Redirect("/Admin/CustomerHome/" + myCart.CustomerId);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+        }
 
 
         [HttpPost]
@@ -294,6 +469,101 @@ namespace app.webui.Controllers
         }
 
 
+        #endregion
+        #region UpdateCustomer
+        public async Task<IActionResult> UpdateCustomer(Customer c, string btnradio)
+        {
+            try
+            {
+                if (btnradio != null)
+                {
+                    if (btnradio == "1")
+                    {
+                        c.Gender = true;
+                    }
+                    else
+                    {
+                        c.Gender = false;
+                    }
+                }
+                var result = await customerService.UpdateAsync(c);
+                if (result != OprationResult.ok)
+                {
+                    //Hata Yazılacak
+                }
+                return Redirect("~/Admin/CustomerHome/" + c.Id);
+            }
+            catch (System.Exception)
+            {
+                return Redirect("~/Admin/CustomerHome/" + c.Id);
+            }
+        }
+        public async Task<IActionResult> UpdateDietActive(int Id, int DietId, string ForCheckedDiet)
+        {
+            try
+            {
+                var dietResult = await dietService.GetByIdAsync(DietId);
+                if (dietResult.oprationResult != OprationResult.ok)
+                {
+                    //hata
+                    return Redirect("~/Admin/CustomerHome/" + Id);
+                }
+                if (dietResult.value != null)
+                {
+                    if (ForCheckedDiet != null)
+                    {
+                        dietResult.value.Active = true;
+                    }
+                    else
+                    {
+                        dietResult.value.Active = false;
+                    }
+                    var SaveResult = await dietService.UpdateAsync(dietResult.value);
+                    if (SaveResult != OprationResult.ok)
+                    {
+                        //hata
+                    }
+                }
+                return Redirect("~/Admin/CustomerHome/" +Id);
+            }
+            catch (System.Exception)
+            {
+                 return Redirect("~/Admin/CustomerHome/" + Id);
+            }
+        }
+        public async Task<IActionResult> UpdatePilatesActive(int Id, int PilatesId, string ForCheckedPilates)
+        {
+            try
+            {
+                var pilatesResult = await pilatesService.GetByIdAsync(PilatesId);
+                if (pilatesResult.oprationResult != OprationResult.ok)
+                {
+                    //hata
+                    return Redirect("~/Admin/CustomerHome/" + Id);
+                }
+                if (pilatesResult.value != null)
+                {
+                    if (ForCheckedPilates != null)
+                    {
+                        pilatesResult.value.Active = true;
+                    }
+                    else
+                    {
+                        pilatesResult.value.Active = false;
+                    }
+                    var SaveResult = await pilatesService.UpdateAsync(pilatesResult.value);
+                    if (SaveResult != OprationResult.ok)
+                    {
+                        //hata
+                    }
+                }
+                return Redirect("~/Admin/CustomerHome/" +Id);
+            }
+            catch (System.Exception)
+            {
+                 return Redirect("~/Admin/CustomerHome/" + Id);
+            }
+        }
         #endregion
 
         #region Recipe And General Mesaj Request
@@ -488,7 +758,6 @@ namespace app.webui.Controllers
 
                 throw;
             }
-
         }
 
         [HttpPost]
@@ -535,7 +804,7 @@ namespace app.webui.Controllers
                     //Week Make Active
                     var weekResult = await dietWekklyService.MakeActive(model.Id);
                     //UpdateRemaningPackage
-                    var ReducePackage = await customerService.ReduceDietPackage(model.Diet.CustomerId);
+                    // var ReducePackage = await customerService.ReduceDietPackage(model.Diet.CustomerId);
 
                 }
                 else
@@ -556,12 +825,12 @@ namespace app.webui.Controllers
                     //Week Make Active
                     var weekResult = await dietWekklyService.MakeActive(model.Id);
                     //UpdateRemaningPackage
-                    var ReducePackage = await customerService.ReduceDietPackage(model.Diet.CustomerId);
+                    // var ReducePackage = await customerService.ReduceDietPackage(model.Diet.CustomerId);
                 }
                 // update combine diet and recipe
                 var results = await dietService.UpdateJustRecipe(model.Diet.Id, recipeIds);
 
-                await emailSender.SendEmailAsync("muammer03karaca@gmail.com", "Haftalık Diyetiniz", $"{model.DietMenü.Content}", attachment);
+                await emailSender.SendEmailAsync($"{model.Diet.Customer.Mail}", "Haftalık Diyetiniz", $"{model.DietMenü.Content}", attachment);
                 return Redirect("/Admin/CustomerWeek/" + model.Id);
             }
             catch (System.Exception)
@@ -619,7 +888,50 @@ namespace app.webui.Controllers
 
         #region  MakeDate
         [HttpPost]
-        public async Task<IActionResult> MakeDate(int dietWeekId, int durations, DateTime TimeofDates, string firstname, string lastname)
+        public async Task<IActionResult> MakeDate(int dietWeekId, int durations, int customerId, DateTime TimeofDates, string firstname, string lastname)
+        {
+            try
+            {
+                int startingHour = (TimeofDates.Hour * 60) + TimeofDates.Minute;
+
+                int finishedHour = startingHour + durations;
+                int day = TimeofDates.Day;
+                int month = TimeofDates.Month;
+                int year = TimeofDates.Year;
+                string Hour = TimeofDates.TimeOfDay.ToString();
+                Calendar c = new Calendar()
+                {
+                    StartingHour = startingHour,
+                    FinishedHour = finishedHour,
+                    CurrentDay = day,
+                    CurrentMounth = month,
+                    CurrentYear = year,
+                    Active = true,
+                    CurrentHour = Hour,
+                    DietWekklyId = dietWeekId,
+                    FirstName = firstname,
+                    Traning = TraningType.Diet,
+                    LastName = lastname
+                };
+                var result = await calendarService.MakeDate(c);
+                if (result == OprationResult.ok)
+                {
+                    //week ıs done
+                    var resultMakeIsDone = await dietWekklyService.makeIsDone(dietWeekId);
+                    //week Reduce Remaning Package 
+                    var reducePaket = await customerService.ReduceRemaningPackage(customerId);
+                }
+
+                return Redirect("~/Admin/CustomerWeek/" + dietWeekId);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public async Task<IActionResult> MakePilatesDate(int pilatesWeekId, int customerId, int durations, DateTime TimeofDates, string firstname, string lastname)
         {
             try
             {
@@ -640,47 +952,81 @@ namespace app.webui.Controllers
                     CurrentYear = year,
                     Active = true,
                     CurrentHour = Hour,
-                    DietWekklyId = dietWeekId,
+                    PilatesWeekId = pilatesWeekId,
                     FirstName = firstname,
-                    Traning = "diet",
+                    Traning = TraningType.Pilates,
                     LastName = lastname
                 };
                 var result = await calendarService.MakeDate(c);
-                return Redirect("~/Admin/CustomerWeek/" + dietWeekId);
+                if (result == OprationResult.ok)
+                {
+                    //week ıs done
+                    var resultMakeIsDone = await PilatesWeekService.makeIsDone(pilatesWeekId);
+                    //week Reduce Remaning Package 
+                    var reducePaket = await customerService.ReduceRemaningPackage(customerId);
+                }
+                return Redirect("~/Admin/CustomerPilatesWeek/" + pilatesWeekId);
             }
             catch (System.Exception)
             {
 
                 throw;
             }
-
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RemoveDate(int dietWeekId, int DateId)
+        public async Task<IActionResult> RemoveDatePilates(int customerId, int pilatesWeekId, int DateId)
         {
             try
             {
-                Calendar c = new Calendar()
+                var DateResult = await calendarService.GetByIdAsync(DateId);
+                if (DateResult.value != null)
                 {
-                    Id = DateId
-                };
-                var result = await calendarService.DeleteAsync(c);
+                    var result = await calendarService.DeleteAsync(DateResult.value);
+                    if (result == OprationResult.ok)
+                    {
+                        //week ıs done
+                        var resultNotDone = await PilatesWeekService.makeNotDone(pilatesWeekId);
+                        //week Reduce Remaning Package 
+                        var reducePaket = await customerService.ReduceRemaningPackage(customerId);
+                    }
 
+                }
+                return Redirect("~/Admin/CustomerPilatesWeek/" + pilatesWeekId);
 
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<IActionResult> RemoveDateDiet(int customerId, int dietWeekId, int DateId)
+        {
+            try
+            {
+                var DateResult = await calendarService.GetByIdAsync(DateId);
+                if (DateResult.value != null)
+                {
+                    var result = await calendarService.DeleteAsync(DateResult.value);
+                    if (result == OprationResult.ok)
+                    {
+                        //week ıs done
+                        var resultNotDone = await dietWekklyService.makeNotDone(dietWeekId);
+                        //week Reduce Remaning Package 
+                        var reducePaket = await customerService.ReduceRemaningPackage(customerId);
+                    }
+                }
                 return Redirect("~/Admin/CustomerWeek/" + dietWeekId);
 
             }
             catch (System.Exception)
             {
-
                 throw;
             }
-
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> UpdateDate(int dietWeekId, int DateId, int durations, DateTime TimeofDates, string firstname, string lastname)
+        public async Task<IActionResult> UpdateDate(int customerId, int dietWeekId, int DateId, int durations, DateTime TimeofDates, string firstname, string lastname)
         {
             try
             {
@@ -704,16 +1050,84 @@ namespace app.webui.Controllers
                     CurrentHour = Hour,
                     DietWekklyId = dietWeekId,
                     FirstName = firstname,
-                    Traning = "diet",
+                    Traning = TraningType.Diet,
                     LastName = lastname
                 };
                 var result = await calendarService.UpdateAsync(c);
+                if (result == OprationResult.ok)
+                {
+                    //week ıs done
+                    var resultMakeIsDone = await dietWekklyService.makeIsDone(dietWeekId);
+                    //week Reduce Remaning Package 
+                    var reducePaket = await customerService.ReduceRemaningPackage(customerId);
+                }
                 return Redirect("~/Admin/CustomerWeek/" + dietWeekId);
             }
             catch (System.Exception)
             {
 
                 throw;
+            }
+        }
+        public async Task<IActionResult> UpdatePilatesDate(int customerId, int pilatesWeekId, int DateId, int durations, DateTime TimeofDates, string firstname, string lastname)
+        {
+            try
+            {
+                int startingHour = (TimeofDates.Hour * 60) + TimeofDates.Minute;
+
+                int finishedHour = startingHour + durations;
+                int day = TimeofDates.Day;
+                int month = TimeofDates.Month;
+                int year = TimeofDates.Year;
+                string Hour = TimeofDates.TimeOfDay.ToString();
+
+                Calendar c = new Calendar()
+                {
+                    Id = DateId,
+                    StartingHour = startingHour,
+                    FinishedHour = finishedHour,
+                    CurrentDay = day,
+                    CurrentMounth = month,
+                    CurrentYear = year,
+                    Active = true,
+                    CurrentHour = Hour,
+                    PilatesWeekId = pilatesWeekId,
+                    FirstName = firstname,
+                    Traning = TraningType.Pilates,
+                    LastName = lastname
+                };
+                var result = await calendarService.UpdateAsync(c);
+                if (result == OprationResult.ok)
+                {
+                    //week ıs done
+                    var resultMakeIsDone = await PilatesWeekService.makeIsDone(pilatesWeekId);
+                    //week Reduce Remaning Package 
+                    var reducePaket = await customerService.ReduceRemaningPackage(customerId);
+                }
+                return Redirect("~/Admin/CustomerPilatesWeek/" + pilatesWeekId);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        public async Task<IActionResult> RemoveDateRequest(int id)
+        {
+            try
+            {
+                DateRequest date = new DateRequest
+                {
+                    Id = id
+                };
+                var reuslt = await dateRequestService.DeleteAsync(date);
+                return RedirectToAction("Home");
+            }
+            catch (System.Exception)
+            {
+                return RedirectToAction("Home");
             }
         }
         #endregion

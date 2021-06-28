@@ -33,9 +33,18 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
-        public Task<ReturnedClass<Diet>> GetByIdAsync(int id)
+        public async Task<ReturnedClass<Diet>> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var reuslt =await work.Diets.GetByIdAsync(id);
+                return reuslt;
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
         }
 
         public async Task<ReturnedClass<Diet>> GetDietByIdWithWeekAndRecipe(int? id)
@@ -61,9 +70,25 @@ namespace app.business.Concret
 
 
 
-        public Task<OprationResult> UpdateAsync(Diet entity)
+        public async Task<OprationResult> UpdateAsync(Diet entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result =work.Diets.UpdateAsync(entity);
+                if(result==OprationResult.ok)
+                {
+                    var saveResult =await work.SaveAsync();
+                    if(saveResult==OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;                
+            }
         }
 
         public async Task<ReturnedClass<Diet>> UpdateJustRecipe(int _DietId, int[] recipes)

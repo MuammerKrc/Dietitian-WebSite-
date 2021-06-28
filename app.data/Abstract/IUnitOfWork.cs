@@ -8,6 +8,7 @@ namespace app.data.Abstract
         ICustomerRepository Customers { get; }
         IRecipeRepository Recipe { get; }
         IPilatesRepository Piates { get; }
+        IPilatesWeekRepository PilatesWeek{get;}
         IDietRepository Diets { get; }
         IDietMenüRepository dietMenüs { get; }
         IDietWekklyRepository DietWekkly { get; }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V9ABrQiv00mU7UHP2EuOtgMKEB/cx9W9sxV4ebxy9AzSIaDGhmyCytX0qO7vIvcSVef+gyB8wsgnWEfglnK2QA==",
+  "dgSpecHash": "f+rRJAKiRw0itwbKupQzB6j8XvCkRP1lv6dHXMIONpKOMH96KS9gmwMXkqhq8IvY9K8IcoWvXo9TSPbYzRhRHQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_10\\app.business\\app.business.csproj",
+  "projectFilePath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_11\\app.business\\app.business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\muamm\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\muamm\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",

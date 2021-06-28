@@ -85,6 +85,14 @@ namespace app.business.Concret
         {
             try
             {
+                try
+                {
+                    await ReduceRemaningPackage((int)id);
+                }
+                catch (System.Exception)
+                {
+                    throw;
+                }
                 var value = ManagerHelper.IdControlWithReurned<Customer>(id);
                 if (value.oprationResult == OprationResult.canceled)
                 {
@@ -105,10 +113,13 @@ namespace app.business.Concret
         {
             try
             {
-                var value = ManagerHelper.IdControlWithReurned<Customer>(id);
-                if (value.oprationResult == OprationResult.canceled)
+                try
                 {
-                    return value;
+                    await ReduceRemaningPackage((int)id);
+                }
+                catch (System.Exception)
+                {
+                    throw;
                 }
                 var result = await work.Customers.GetCustomerByIdWithDiet((int)id);
                 result.oprationResult = OprationResult.ok;
@@ -124,6 +135,7 @@ namespace app.business.Concret
         {
             try
             {
+
                 if (UserId == null)
                 {
                     return new ReturnedClass<Customer>(OprationResult.canceled);
@@ -151,12 +163,20 @@ namespace app.business.Concret
         {
             try
             {
-                var result =await work.Customers.GetCustomerForCustomerHome(id);
+                try
+                {
+                    await ReduceRemaningPackage((int)id);
+                }
+                catch (System.Exception)
+                {
+                    throw;
+                }
+                var result = await work.Customers.GetCustomerForCustomerHome(id);
                 return result;
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<Customer>(OprationResult.canceled);                
+                return new ReturnedClass<Customer>(OprationResult.canceled);
             }
         }
 
@@ -164,7 +184,8 @@ namespace app.business.Concret
         {
             try
             {
-                var result =await work.Customers.GetCustomerForHome();
+
+                var result = await work.Customers.GetCustomerForHome();
                 return result;
             }
             catch (System.Exception)
@@ -242,7 +263,8 @@ namespace app.business.Concret
                 {
                     Diet d = new Diet()
                     {
-                        CustomerId = resultCustomer.value.Id
+                        CustomerId = resultCustomer.value.Id,
+                        Active=true
                     };
                     var result = await work.Diets.InitilazeDiet(d);
                     if (result == OprationResult.ok)
@@ -261,7 +283,7 @@ namespace app.business.Concret
                 return OprationResult.canceled;
             }
         }
-         public async Task<OprationResult> InitilazePilates(int customerId)
+        public async Task<OprationResult> InitilazePilates(int customerId)
         {
             try
             {
@@ -270,7 +292,8 @@ namespace app.business.Concret
                 {
                     Pilates p = new Pilates()
                     {
-                        CustomerId = resultCustomer.value.Id
+                        CustomerId = resultCustomer.value.Id,
+                        Active=true
                     };
                     var result = await work.Piates.CreateAsync(p);
                     if (result == OprationResult.ok)
@@ -290,16 +313,30 @@ namespace app.business.Concret
             }
         }
 
-        public async Task<OprationResult> ownWeekControlWithByUserId(string userId,int weekId)
+        public async Task<OprationResult> onPiatesControlWithByUserId(string userId, int weekId)
         {
             try
             {
-                var OwnWeekResult =await work.Customers.ownWeekControlWithByUserId(userId,weekId);
+                var OwnWeekResult = await work.Customers.onPiatesControlWithByUserId(userId, weekId);
                 return OwnWeekResult;
             }
             catch (System.Exception)
             {
-                
+
+                throw;
+            }
+        }
+
+        public async Task<OprationResult> ownWeekControlWithByUserId(string userId, int weekId)
+        {
+            try
+            {
+                var OwnWeekResult = await work.Customers.ownWeekControlWithByUserId(userId, weekId);
+                return OwnWeekResult;
+            }
+            catch (System.Exception)
+            {
+
                 throw;
             }
         }
@@ -315,10 +352,14 @@ namespace app.business.Concret
                     {
                         if (result.value.Diet != null)
                         {
-                            if(result.value.RemaningDietPackages != result.value.Diet.DietWekklies.Count(i=>i.Active==false))
+                            if (result.value.RemaningDietPackages != result.value.Diet.DietWekklies.Count(i => i.Active == false))
                             {
-                                var results=await work.Customers.updateDietPackages(result.value.Diet.DietWekklies.Count(i=>i.Active==false),customerId);
+                                var results = await work.Customers.updateDietPackages(result.value.Diet.DietWekklies.Count(i => i.Active == false), customerId);
                                 return results;
+                            }
+                            else
+                            {
+                                return OprationResult.ok;
                             }
                         }
                     }
@@ -331,9 +372,60 @@ namespace app.business.Concret
             }
         }
 
-        public Task<OprationResult> UpdateAsync(Customer entity)
+        public async Task<OprationResult> ReduceRemaningPackage(int customerId)
         {
-           throw new System.NotImplementedException();
+            try
+            {
+                var result = await work.Customers.GetCustomerByIdWithDiet(customerId);
+
+                if (result.oprationResult == OprationResult.ok)
+                {
+                    if (result.value != null)
+                    {
+                        if (result.value.Diet != null)
+                        {
+                            if (result.value.RemaningDietPackages != result.value.Diet.DietWekklies.Count(i => i.IsDone == false))
+                            {
+                                var results = await work.Customers.updateDietPackages(result.value.Diet.DietWekklies.Count(i => i.IsDone == false), customerId);
+                            }
+                        }
+
+                        if (result.value.Pilates != null)
+                        {
+                            if (result.value.RemaningDietPackages != result.value.Pilates.PilatesWeeks.Count(i => i.IsDone == false))
+                            {
+                                var results = await work.Customers.updatePilatesPackages(result.value.Pilates.PilatesWeeks.Count(i => i.IsDone == false), customerId);
+                            }
+                        }
+                    }
+                }
+                return OprationResult.ok;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<OprationResult> UpdateAsync(Customer entity)
+        {
+            try
+            {
+                var result =work.Customers.UpdateAsync(entity);
+                if(result==OprationResult.ok)
+                {
+                    var saveResult =await work.SaveAsync();
+                    if(saveResult==OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
     }
 }

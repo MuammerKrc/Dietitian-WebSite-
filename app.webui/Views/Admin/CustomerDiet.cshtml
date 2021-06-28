@@ -3,6 +3,16 @@
 <link rel="stylesheet" href="~/css/online.css">
 
 }
+@{
+    AnamnezForm a = null;
+    if (Model.Diet != null)
+    {
+        if (Model.Diet.AnamnezForm != null)
+        {
+            a = Model.Diet.AnamnezForm;
+        }
+    }
+}
 
 
 <div class="content-wrapper" style="margin-top: 50px;">
@@ -11,11 +21,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Online Diyet</h1>
+                    <h1>Diyet</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="~/online/Home">AnaSayfa</a></li>
+                          <li class="breadcrumb-item"><a href="~/admin/Home">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="~/admin/CustomerHome/@Model.Id">Müsteri</a></li>
                         <li class="breadcrumb-item text-danger">Diyet</li>
                     </ol>
                 </div>
@@ -53,6 +64,7 @@
                                                 <div class="card-body  make-flex-row center" style="border:none;">
                                                     @if (Model.Diet != null)
                                                     {
+                                                            
                                                         @if (Model.Diet.DietWekklies != null)
                                                         {
                                                             @foreach (var item in Model.Diet.DietWekklies)
@@ -162,62 +174,118 @@
                                     <div class="post ">
                                         <div class="general-information mt-3">
                                             <div class="card g-0" style="width:100%; border:none;">
-                                                @if (Model.Diet.AnamnezForm != null)
+                                                           @if (a != null)
                                                 {
+                                                    <div class="col-12">
+                                                        <h2 id="haftası" class="text-center"></h2>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <div class="row">
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-warning btn-lg dropdown-toggle" type="button"
+                                                                id="dropdownMenu2" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                    Haftalar
+                                                                </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                                    @if (ViewBag.Week != null)
+                                                                    {
+                                                                        foreach (var item in (List<TableInfo>)ViewBag.Week)
+                                                                        {
+                                                                            <button class="dropdown-item" id="@item.Name" onclick="asdad(this)" type="button">@item.Name</button>
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+
                                                     <div class="card-body  make-flex-row center">
                                                         <div class=" make-flex-column center mx-3 p-2 box-shadow"
-                                                        style="min-width: 125px;">
+                                                        style="min-width: 175px;">
                                                             <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                Başlagıç kilo</h5>
-                                                            <p class="card-text " style="font-size:20px;">65</p>
+                                                                Başlagıç Kilo</h5>
+                                                            <p class="card-text " style="font-size:20px;">@a.Kilo </p>
                                                             <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <p id="kiloDegisim" class="card-text text-danger" style="font-size:16px;">% 22</p>
                                                             <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                Güncel kilo</h5>
-                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                                Güncel Kilo</h5>
+                                                            <p  id="güncelKilo" class="card-text " style="font-size:20px;">50</p>
                                                         </div>
+
                                                         <div class=" make-flex-column center mx-3 p-2 box-shadow"
-                                                        style="min-width: 125px;">
+                                                        style="min-width: 175px;">
                                                             <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                Başlagıç kilo</h5>
-                                                            <p class="card-text " style="font-size:20px;">65</p>
+                                                                Başlangıç BDK</h5>
+                                                            <p id="baslagicBdk" class="card-text " style="font-size:20px;">65</p>
                                                             <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <p id="bkiDegisim" class="card-text text-danger" style="font-size:16px;">% 22</p>
                                                             <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                Güncel kilo</h5>
-                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                                Güncel BDK</h5>
+                                                            <p id="BDK" class="card-text " style="font-size:20px;">50</p>
                                                         </div>
+
                                                         <div class=" make-flex-column center mx-3 p-2 box-shadow"
-                                                        style="min-width: 125px;">
+                                                        style="min-width: 175px;">
                                                             <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                Başlagıç kilo</h5>
-                                                            <p class="card-text " style="font-size:20px;">65</p>
+                                                                Başlagıç Basen Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">@a.BasenÖlcüsü</p>
                                                             <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <p id="basenDeigisim" class="card-text text-danger" style="font-size:16px;">% 22</p>
                                                             <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                Güncel kilo</h5>
-                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                                Güncel Basen Ölcüsü</h5>
+                                                            <p id="Basen" class="card-text " style="font-size:20px;">50</p>
                                                         </div>
+
                                                         <div class=" make-flex-column center mx-3 p-2 box-shadow"
-                                                        style="min-width: 125px;">
+                                                        style="min-width: 175px;">
                                                             <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                Başlagıç kilo</h5>
-                                                            <p class="card-text " style="font-size:20px;">65</p>
+                                                                Başlagıç Bel Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">@a.BelÖlcüsü</p>
                                                             <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <p id="belDeigisim" class="card-text text-danger" style="font-size:16px;">% 22</p>
                                                             <h5 class="card-title text-muted"
                                                             style="border-bottom: 2px solid black; padding-bottom:12px;">
-                                                                Güncel kilo</h5>
-                                                            <p class="card-text " style="font-size:20px;">50</p>
+                                                                Güncel Bel Ölcüsü</h5>
+                                                            <p id="Bel" class="card-text " style="font-size:20px;">50</p>
+                                                        </div>
+
+                                                        <div class=" make-flex-column center mx-3 p-2 box-shadow"
+                                                        style="min-width: 175px;">
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Başlagıç Gögüs Ölcüsü</h5>
+                                                            <p class="card-text " style="font-size:20px;">@a.GögüsÖlcüsü</p>
+                                                            <i class="fas fa-arrow-down " style="color: red;"></i>
+                                                            <p id="gögüsDegisim" class="card-text text-danger" style="font-size:16px;">% 22</p>
+                                                            <h5 class="card-title text-muted"
+                                                            style="border-bottom: 2px solid black; padding-bottom:12px;">
+                                                                Güncel Gögüs Ölcüsü</h5>
+                                                            <p id="Gögüs" class="card-text " style="font-size:20px;">50</p>
                                                         </div>
 
                                                     </div>
-                                                }else{
+                                                    <div class="card-body  make-flex-row center">
+                                                        <div class="col-12 col-md-6">
+                                                            <canvas id="ForWeek" width="150" height="150"></canvas>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <canvas id="ForStep" width="150" height="150"></canvas>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
                                                     <div class="alert alert-danger">
-                                                        <h2>Kişi Anamnez Formunu Doldurmamıştır</h2>
+                                                        <h2>Lütfen Anamnez Formunuzu Doldurunuz</h2>
                                                     </div>
                                                 }
                                             </div>
@@ -225,61 +293,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane" id="settings">
-                                    <form class="form-horizontal">
-                                        <div class="form-group row mt-2">
-                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputName"
-                                                    placeholder="Name">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputEmail"
-                                                    placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputName2"
-                                                    placeholder="Name">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <label for="inputExperience"
-                                                class="col-sm-2 col-form-label">Experience</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" id="inputExperience"
-                                                    placeholder="Experience"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputSkills"
-                                                    placeholder="Skills">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> I agree to the <a href="#">terms and
-                                                            conditions</a>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-2">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                            
                             </div>
                         </div>
                     </div>
@@ -291,4 +305,259 @@
 @section Scripts
 {
 <script src="~/js/online.js"></script>
+<script src="/charjs/dist/chart.js"></script>
+<script>
+
+    var ForWeek = document.getElementById('ForWeek').getContext('2d');
+    var asd = @Html.Raw(ViewBag.table);
+
+
+    var güncelKilo=document.querySelector("#güncelKilo");
+    var BDK=document.querySelector("#BDK");
+    var Basen=document.querySelector("#Basen")
+    var Bel=document.querySelector("#Bel")
+    var Gögüs=document.querySelector("#Gögüs")
+    var haftası=document.querySelector("#haftası")
+    var baslagicBdk=document.querySelector("#baslagicBdk");
+    baslagicBdk.innerHTML=asd[0].baslangicBki;
+    //değisimler
+    var kiloDegisim=document.querySelector("#kiloDegisim");
+    var bkiDegisim=document.querySelector("#bkiDegisim");
+    var basenDeigisim=document.querySelector("#basenDeigisim");
+    var belDeigisim=document.querySelector("#belDeigisim");
+    var gögüsDegisim=document.querySelector("#gögüsDegisim");
+
+    güncelKilo.innerHTML=asd[(asd.length-1)].Kilo;
+    Gögüs.innerHTML=asd[(asd.length-1)].GögüsÖlcüsü;
+    BDK.innerHTML=asd[(asd.length-1)].Bki;
+    Basen.innerHTML=asd[(asd.length-1)].BasenÖlcüsü;
+    Bel.innerHTML=asd[(asd.length-1)].BelÖlcüsü;
+    haftası.innerHTML=asd[(asd.length-1)].Name+" Vücut Analizi"
+    //değişim
+    kiloDegisim.innerHTML=asd[(asd.length-1)].KiloDegisim+ " kg";
+    bkiDegisim.innerHTML="% "+asd[(asd.length-1)].bkiDegisim;
+    basenDeigisim.innerHTML=asd[(asd.length-1)].basenDegisim+ " cm";
+    belDeigisim.innerHTML=asd[(asd.length-1)].belDegisim+" cm";
+    gögüsDegisim.innerHTML=asd[(asd.length-1)].gögüsDegisim+ " cm";
+    function asdad(e)
+    {
+       console.log(e.getAttribute("id"));
+        for (let i = 0; i < asd.length; i++) {
+            if(asd[i].Name==e.getAttribute("id"))
+            {
+                güncelKilo.innerHTML=asd[i].Kilo;
+                Gögüs.innerHTML=asd[i].GögüsÖlcüsü;
+                BDK.innerHTML=asd[i].Bki;
+                Basen.innerHTML=asd[i].BasenÖlcüsü;
+                Bel.innerHTML=asd[i].BelÖlcüsü;
+                haftası.innerHTML=asd[i].Name+" Vücut Analizi";
+                kiloDegisim.innerHTML=asd[i].KiloDegisim+ " kg";
+                bkiDegisim.innerHTML="% "+asd[i].bkiDegisim;
+                basenDeigisim.innerHTML=asd[i].basenDegisim+" cm";
+                belDeigisim.innerHTML=asd[i].belDegisim+" cm";
+                gögüsDegisim.innerHTML=asd[i].gögüsDegisim+" cm";
+            }
+        }
+    }
+    if (ForWeek != null) {
+
+        var adım = [];
+        var label = [];
+        var ortSu = [];
+        var DietImp = [];
+        var ort = [];
+
+        for (let i = 0; i < asd.length; i++) {
+            label.push(asd[i].Name)
+            adım.push(asd[i].Adım)
+            ortSu.push(asd[i].Su)
+            DietImp.push(asd[i].Diet)
+            ort.push(asd[i].WeekOrt)
+        }
+
+
+        var myChart = new Chart(ForWeek, {
+            data: {
+                labels: label,
+                datasets: [{
+                    type: 'bar',
+                    label: 'Su',
+                    data: ortSu,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.3)',
+                        'rgba(54, 162, 235, 0.3)',
+                        'rgba(255, 206, 86, 0.3)',
+                        'rgba(75, 192, 192, 0.3)',
+                        'rgba(153, 102, 255, 0.3)',
+                        'rgba(255, 159, 64, 0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2,
+                },
+                {
+                    type: 'bar',
+                    label: 'Adım',
+                    data: adım,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.3)',
+                        'rgba(54, 162, 235, 0.3)',
+                        'rgba(255, 206, 86, 0.3)',
+                        'rgba(75, 192, 192, 0.3)',
+                        'rgba(153, 102, 255, 0.3)',
+                        'rgba(255, 159, 64, 0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2,
+                },
+                {
+                    type: 'bar',
+                    label: 'Diyet',
+                    data: DietImp,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.3)',
+                        'rgba(54, 162, 235, 0.3)',
+                        'rgba(255, 206, 86, 0.3)',
+                        'rgba(75, 192, 192, 0.3)',
+                        'rgba(153, 102, 255, 0.3)',
+                        'rgba(255, 159, 64, 0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2,
+                },
+                {
+                    type: 'line',
+                    label: 'Ort',
+                    data: ort,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.3)',
+                        'rgba(54, 162, 235, 0.3)',
+                        'rgba(255, 206, 86, 0.3)',
+                        'rgba(75, 192, 192, 0.3)',
+                        'rgba(153, 102, 255, 0.3)',
+                        'rgba(255, 159, 64, 0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2,
+                }
+
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 5
+                    }
+                }
+            }
+        });
+    }
+
+
+    var ForStep = document.getElementById('ForStep').getContext('2d');
+    var asd = @Html.Raw(ViewBag.table);
+
+    if (ForStep != null) {
+
+        var label = [];
+        var kilo = [];
+        var bki = [];
+
+        for (let i = 0; i < asd.length; i++) {
+            label.push(asd[i].Name)
+            kilo.push(asd[i].Kilo)
+            bki.push(asd[i].Bki)
+        }
+
+
+        var myChart = new Chart(ForStep, {
+            data: {
+                labels: label,
+                datasets: [{
+                    type: 'bar',
+                    label: 'Kilo',
+                    data: kilo,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.3)',
+                        'rgba(54, 162, 235, 0.3)',
+                        'rgba(255, 206, 86, 0.3)',
+                        'rgba(75, 192, 192, 0.3)',
+                        'rgba(153, 102, 255, 0.3)',
+                        'rgba(255, 159, 64, 0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2,
+                },
+                {
+                    type: 'line',
+                    label: 'BKİ',
+                    data: bki,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.3)',
+                        'rgba(54, 162, 235, 0.3)',
+                        'rgba(255, 206, 86, 0.3)',
+                        'rgba(75, 192, 192, 0.3)',
+                        'rgba(153, 102, 255, 0.3)',
+                        'rgba(255, 159, 64, 0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2,
+                }
+
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+
+</script>
 }

@@ -33,7 +33,7 @@ namespace app.business.Concret
                         var saveResult = await work.SaveAsync();
                         if (saveResult == OprationResult.Saved)
                         {
-                            return OprationResult.Saved;
+                            return OprationResult.ok;
                         }
                     }
                 }
@@ -55,21 +55,29 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
-        public Task<ReturnedClass<Calendar>> GetByIdAsync(int id)
+        public async Task<ReturnedClass<Calendar>> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var reuslt =await work.Calendar.GetByIdAsync(id);
+                return reuslt;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<Calendar>(OprationResult.canceled);
+            }
         }
 
         public async Task<ReturnedClass<Calendar>> GetDates(DateTime day)
         {
             try
             {
-                var result =await work.Calendar.GetDates(day);
+                var result = await work.Calendar.GetDates(day);
                 return result;
             }
             catch (System.Exception)
             {
-                return new ReturnedClass<Calendar>(OprationResult.canceled);                
+                return new ReturnedClass<Calendar>(OprationResult.canceled);
             }
         }
 
@@ -102,7 +110,7 @@ namespace app.business.Concret
         {
             try
             {
-                if (entity.DietWekklyId > 0 && entity.Id > 0)
+                if ((entity.DietWekklyId > 0 && entity.Id > 0) || (entity.PilatesWeekId > 0 && entity.Id > 0))
                 {
                     var result = work.Calendar.UpdateAsync(entity);
                     if (result == OprationResult.ok)

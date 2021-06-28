@@ -5,7 +5,7 @@ namespace app.entity
 {
     public class Diet : BaseClass
     {
-        public DateTime DateStart { get; set; }
+        public bool Active { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public AnamnezForm AnamnezForm { get; set; }

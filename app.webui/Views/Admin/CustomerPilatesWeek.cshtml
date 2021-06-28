@@ -1,0 +1,167 @@
+@model PilatesWeek
+
+@{
+    Customer c = Model.Pilates.Customer;
+}
+
+@section css{
+<link rel="stylesheet" href="~/css/online.css">
+<style>
+    .aaaaa{
+        position: relative;
+        
+    }
+    #sssss{
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 700;
+        justify-content: space-between;
+        top: -20px;
+        right: 0px;
+        left: 0px;
+    }
+    .make-flex-column-center{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+}
+
+<div class="content-wrapper" style="margin-top: 50px;">
+
+    <!-- Main content -->
+    <section class="content">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1> @Model.Name Pilates</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                                     <li class="breadcrumb-item"><a href="~/admin/Home">Admin</a></li>
+                                    <li class="breadcrumb-item"><a href="~/admin/CustomerHome/@Model.Pilates.Customer.Id">Müsteri</a></li>
+                                    <li class="breadcrumb-item "><a href="~/admin/CustomerPilates/?customerId=@Model.Pilates.Customer.Id">Pilates</a></li>
+                                    <li class="breadcrumb-item text-danger">@Model.Name Pilates</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- Partial View -->
+                    @await Html.PartialAsync("_AdminNavbar",c)
+                    <!-- Partial View -->
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <div class="row make-flex-row space-around">
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:360px;">
+                                            <div class="card-header text-center">
+                                                <p class="h2">Randevu</p>
+                                                <hr>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="row make-flex-column center" style="min-height: 200px;">
+
+                                                    @if (Model.calendar == null)
+                                                    {
+                                                        <p class="text-center h3">Randevu Verilmedi
+                                                        </p>
+                                                        <Form action="~/admin/MakePilatesDate" method="POST">
+
+                                                            <div class="form-group row mt-2">
+                                                                <label for="DateTime"
+                                                                class="col-sm-2 col-form-label">Tarih</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="datetime-local"  class="form-control"
+                                                                    id="DateTime" name="TimeofDates" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mt-2">
+                                                                <label for="Durations"
+                                                                class="col-sm-2 col-form-label">Süre</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="number" step="10" min="10" name="durations"
+                                                                    class="form-control" id="DateTime" value="10">
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" value="@Model.Pilates.Customer.FirstName"
+                                                            name="firstname">
+                                                            <input type="hidden" name="customerId" value="@Model.Pilates.Customer.Id">
+                                                            <input type="hidden" value="@Model.Pilates.Customer.LastName"
+                                                            name="lastname">
+                                                            <input type="hidden" name="pilatesWeekId" value="@Model.Id">
+                                                            <div class="row center ">
+                                                                <button class="btn btn-warning  mt-3 col-6"
+                                                                type="submit">Randevu Ayarla</button>
+                                                            </div>
+                                                        </Form>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="card-title text-center h1 p-3 text-white bg-dark">
+                                                            @(Model.calendar.CurrentDay+"/"+Model.calendar.CurrentMounth+"/"+Model.calendar.CurrentYear+" "+Model.calendar.CurrentHour)</p>
+                                                        <Form action="~/admin/UpdatePilatesDate" method="POST">
+
+                                                            <div class="form-group row mt-2">
+                                                                <label for="DateTime"
+                                                                class="col-sm-2 col-form-label">Tarih</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="datetime-local" class="form-control"
+                                                                    id="DateTime" name="TimeofDates" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mt-2">
+                                                                <label for="Durations"
+                                                                class="col-sm-2 col-form-label">Tarih</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="number" step="10" min="10" name="durations"
+                                                                    class="form-control" id="DateTime" value="10">
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" value="@Model.Pilates.Customer.FirstName"
+                                                            name="firstname">
+                                                            <input type="hidden" value="@Model.Pilates.Customer.LastName"
+                                                            name="lastname">
+                                                            <input type="hidden" name="pilatesWeekId" value="@Model.Id">
+                                                            <input type="hidden" name="customerId" value="@Model.Pilates.Customer.Id">
+                                                            <input type="hidden" name="DateId" value="@Model.calendar.Id">
+                                                            <div class="row center ">
+                                                                <button class="btn btn-warning  mt-3 col-6"
+                                                                type="submit">Randevu değiştir</button>
+
+                                                            </div>
+                                                        </Form>
+                                                        <a href="~/admin/RemoveDatePilates?pilatesWeekId=@Model.Id&DateId=@Model.calendar.Id&customerId=@Model.Pilates.Customer.Id" class="btn btn-danger  mt-3 col-6">Randevu
+                                                            Sil</a>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts
+{
+<script src="~/js/online.js"></script>
+}

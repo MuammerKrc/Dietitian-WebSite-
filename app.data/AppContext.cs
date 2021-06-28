@@ -18,6 +18,7 @@ namespace app.data
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<AnamnezForm> AnamnezForms { get; set; }
         public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<PilatesWeek> PilatesWeeks{get;set;}
         public DbSet<PackageRequest> packageRequests { get; set; }
         public DbSet<DateRequest> dateRequests{get;set;}
         public DbSet<GeneralMesaj> GeneralMesajs { get; set; }

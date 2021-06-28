@@ -1,0 +1,138 @@
+@model PilatesWeek
+@{
+    string name="";
+    if(Model.Pilates.Customer.FirstName!=null &&Model.Pilates.Customer.LastName!=null)
+    {
+        name =Model.Pilates.Customer.FirstName+" "+Model.Pilates.Customer.LastName;
+    }
+}
+
+@section css{
+<link rel="stylesheet" href="~/css/online.css">
+<style>
+    .aaaaa{
+        position: relative;
+        
+    }
+    #sssss{
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 700;
+        justify-content: space-between;
+        top: -20px;
+        right: 0px;
+        left: 0px;
+    }
+    .make-flex-column-center{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+}
+
+
+<div class="content-wrapper" style="margin-top: 50px;">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>@Model.Name Pilates</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="~/Online/Home">AnaSayfa</a></li>
+                            <li class="breadcrumb-item active"><a href="~/Online/PilatesIndex">Pilates</a></li>
+                            <li class="breadcrumb-item active text-danger">Haftalık Pilates</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- Partial View -->
+                    @await Html.PartialAsync("_CustomerNavbar",Model.Pilates.Customer)
+                    <!-- Partial View -->
+
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                      <div class="row make-flex-row space-around">
+
+                                        <div class="card  g-0 shadow  bg-body rounded" style="width:360px;">
+                                            <div class="card-header text-center">
+                                                <p class="h2">Randevu</p>
+                                                <hr>
+                                            </div>
+                                            <div class="card-body g-0">
+                                                <div class="row make-flex-column center" style="min-height: 200px;">
+
+                                                    @if (Model.calendar != null)
+                                                    {
+                                                         <p class="card-title text-center h1 p-3 text-white bg-dark">
+                                                            @(Model.calendar.CurrentDay+"/"+Model.calendar.CurrentMounth+"/"+Model.calendar.CurrentYear+" "+Model.calendar.CurrentHour)</p>
+                                                    }
+                                                    else if(ViewBag.Control!=null)
+                                                    {
+                                                        if((Boolean)ViewBag.Control)
+                                                        {
+                                                            <div class="alert alert-success">Talebiniz Alınmıştır. En Kısa Zamanda Size Geri Dönüş Sağlanacaktır</div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p class="text-center h3">Randevu Talebiniz Yok 
+                                                            </p>
+                                                            <form method="POST"  action="~/online/dateRequestPilates">
+                                                                <input type="hidden" name="WeekId" value="@Model.Id">
+                                                                <input type="hidden" name="FullName" value="@name">
+                                                            <button type="submit" class="btn btn-warning mt-5 col-5"> Randevu Oluştur</button>
+                                                            </form>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                       <p class="text-center h3">Randevu Talebiniz Yok 
+                                                        </p>
+                                                        <form method="POST" action="~/online/dateRequestPilates">
+
+                                                            <input type="hidden" name="WeekId" value="@Model.Id">
+                                                            <input type="hidden" name="FullName" value="@name">
+
+                                                            <div class="row center">
+                                                                <button type="submit" class="btn btn-warning mt-5 col-5"> Randevu Oluştur</button>
+                                                            </div>
+                                                        </form>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+@section Scripts
+{
+<script src="~/js/online.js"></script>
+
+}

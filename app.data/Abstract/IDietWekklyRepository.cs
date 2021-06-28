@@ -10,5 +10,8 @@ namespace app.data.Abstract
         Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid);
         Task<ReturnedClass<DietWekkly>> UpdateJustDate(int dietWeekId,string CurrentHour);
         Task<OprationResult> MakeActive(int weekId);
+        Task<OprationResult> makeIsDone(int weekId);
+        Task<OprationResult> makeNotDone(int weekId);
+
     }
 }

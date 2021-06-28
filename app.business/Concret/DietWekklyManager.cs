@@ -57,7 +57,6 @@ namespace app.business.Concret
             try
             {
                 var result = await work.DietWekkly.GetByIDWithDietMenü(id);
-                result.oprationResult = OprationResult.ok;
                 return result;
             }
             catch (System.Exception)
@@ -70,22 +69,85 @@ namespace app.business.Concret
         {
             try
             {
-                var result =await work.DietWekkly.MakeActive(weekId);
-                return result;
+                var result = await work.DietWekkly.MakeActive(weekId);
+                if (result == OprationResult.ok)
+                {
+                    var saveResult = await work.SaveAsync();
+                    if (saveResult == OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
             }
             catch (System.Exception)
             {
-                return OprationResult.canceled;                
+                return OprationResult.canceled;
             }
         }
 
+        public async Task<OprationResult> makeIsDone(int weekId)
+        {
+            try
+            {
+                var result = await work.DietWekkly.makeIsDone(weekId);
+                if (result == OprationResult.ok)
+                {
+                    var saveResult = await work.SaveAsync();
+                    if (saveResult == OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+        public async Task<OprationResult> makeNotDone(int weekId)
+        {
+            try
+            {
+                try
+                {
+                    var result = await work.DietWekkly.makeNotDone(weekId);
+                    if (result == OprationResult.ok)
+                    {
+                        var saveResult = await work.SaveAsync();
+                        if (saveResult == OprationResult.Saved)
+                        {
+                            return OprationResult.ok;
+                        }
+                    }
+                    return OprationResult.canceled;
+                }
+                catch (System.Exception)
+                {
+                    return OprationResult.canceled;
+                }
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
         public async Task<OprationResult> UpdateAsync(DietWekkly entity)
         {
             try
             {
-                var result1 = work.DietWekkly.UpdateAsync(entity);
-                var result2 = await work.SaveAsync();
-                return OprationResult.ok;
+                var result = work.DietWekkly.UpdateAsync(entity);
+                if (result == OprationResult.ok)
+                {
+                    var SaveResult = await work.SaveAsync();
+                    if (SaveResult == OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
             }
             catch (System.Exception)
             {
@@ -98,8 +160,8 @@ namespace app.business.Concret
         {
             try
             {
-                var result =await work.DietWekkly.UpdateJustDate(dietWeekId,currentHour);
-                if(result.oprationResult==OprationResult.ok)
+                var result = await work.DietWekkly.UpdateJustDate(dietWeekId, currentHour);
+                if (result.oprationResult == OprationResult.ok)
                 {
                     return await work.SaveAsync();
                 }
@@ -107,11 +169,11 @@ namespace app.business.Concret
             }
             catch (System.Exception)
             {
-                return OprationResult.canceled;                
+                return OprationResult.canceled;
             }
         }
 
-        public async Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId,int dietid)
+        public async Task<ReturnedClass<DietWekkly>> UpdateJustDietMenü(int dietWeekId, int dietid)
         {
             try
             {
@@ -120,8 +182,8 @@ namespace app.business.Concret
 
                     return new ReturnedClass<DietWekkly>(OprationResult.NotFound);
                 }
-                var result = await work.DietWekkly.UpdateJustDietMenü(dietWeekId,dietid);
-                var result1=await work.SaveAsync();
+                var result = await work.DietWekkly.UpdateJustDietMenü(dietWeekId, dietid);
+                var result1 = await work.SaveAsync();
                 return result;
             }
             catch (System.Exception)
@@ -129,6 +191,6 @@ namespace app.business.Concret
                 return new ReturnedClass<DietWekkly>(OprationResult.canceled);
             }
         }
-        
+
     }
 }

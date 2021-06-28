@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using app.business.Abstract;
 using app.entity;
@@ -11,8 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using static app.entity.PackageRequest;
-
+using Newtonsoft.Json;
 namespace app.webui.Controllers
 {
     [Authorize]
@@ -28,8 +28,12 @@ namespace app.webui.Controllers
         ICalendarService calendarService;
         IPackageRequestService packageService;
         IDateRequestService dateRequestService;
-        public OnlineController(IDateRequestService _dateRequestService, ICalendarService _calendarService, UserManager<User> _userManager, ICustomerService _customerService, IRecipeService _recipeService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IAnamnezFormService _anamnezFormService, IDietService _dietService, IPackageRequestService _packageService)
+        IPilatesWeekService pilatesWeekService;
+        IGeneralMsjService generalMsjService;
+        public OnlineController(IGeneralMsjService _generalMsjService, IPilatesWeekService _pilatesWeekService, IDateRequestService _dateRequestService, ICalendarService _calendarService, UserManager<User> _userManager, ICustomerService _customerService, IRecipeService _recipeService, IDietWekklyService _dietWekklyService, IEmailSender _emailSender, IAnamnezFormService _anamnezFormService, IDietService _dietService, IPackageRequestService _packageService)
         {
+            generalMsjService = _generalMsjService;
+            pilatesWeekService = _pilatesWeekService;
             dateRequestService = _dateRequestService;
             calendarService = _calendarService;
             packageService = _packageService;
@@ -52,6 +56,18 @@ namespace app.webui.Controllers
                     var result = await customerService.GetCustomerByUserId(user.Id);
                     if (result.oprationResult == OprationResult.ok)
                     {
+
+                        var resultGeneralMesaj = await generalMsjService.GetAll();
+                        if (resultGeneralMesaj.oprationResult == OprationResult.ok)
+                        {
+                            if (resultGeneralMesaj.values != null)
+                            {
+                                if (resultGeneralMesaj.values.Count() > 0)
+                                {
+                                    ViewBag.GeneralMsj = resultGeneralMesaj.values.OrderByDescending(i => i.Id).ToList();
+                                }
+                            }
+                        }
                         return View(result.value);
                     }
                 }
@@ -72,6 +88,88 @@ namespace app.webui.Controllers
                     var result = await customerService.GetCustomerByUserId(user.Id);
                     if (result.oprationResult == OprationResult.ok)
                     {
+                        if (result.value.Diet.AnamnezForm != null)
+                        {
+                            AnamnezForm a = result.value.Diet.AnamnezForm;
+                            List<TableInfo> table = new List<TableInfo>();
+                            table.AddRange(result.value.Diet.DietWekklies.Where(i => i.Active).OrderBy(i => i.Id).Select(i => new TableInfo()
+                            {
+                                Name = i.Name,
+                                Adım = i.ortalamaAdim,
+                                Diet = i.Dietuyumluluk,
+                                Su = i.ortSu,
+                                Kilo = i.GüncelKilo,
+                                BasenÖlcüsü = i.GüncelKalca,
+                                GögüsÖlcüsü = i.GüncelGögüs,
+                                BelÖlcüsü = i.GüncelBel
+                            }));
+                            foreach (var item in table)
+                            {
+                                if ((item.Adım + item.Diet + item.Su) != 0)
+                                {
+                                    float t = item.Adım + item.Diet + item.Su;
+                                    float k = t / 3;
+                                    float y = MathF.Round(k, 1);
+                                    item.WeekOrt = y;
+                                }
+                                if (a.Boy != null)
+                                {
+                                    if (a.Boy > 0 && item.Kilo > 0)
+                                    {
+                                        float kilos = item.Kilo * 10000;
+                                        float boy = (float)a.Boy * (float)a.Boy;
+                                        float bksaa = kilos / boy;
+                                        item.Bki = MathF.Round(bksaa, 2);
+                                    }
+                                    if (a.Kilo != null)
+                                    {
+                                        if (a.Kilo > 0)
+                                        {
+                                            float kilos = (float)a.Kilo * 10000;
+                                            float boy = (float)a.Boy * (float)a.Boy;
+                                            float bksaa = kilos / boy;
+                                            item.baslangicBki = MathF.Round(bksaa, 2);
+                                        }
+                                    }
+                                }
+                                if (a.Kilo != null)
+                                {
+                                    if (a.Kilo > 0 && item.Kilo > 0)
+                                    {
+                                        item.KiloDegisim = MathF.Round((float)a.Kilo - item.Kilo, 2);
+                                    }
+                                }
+                                if (a.BelÖlcüsü != null)
+                                {
+                                    if (a.BelÖlcüsü > 0 && item.BelÖlcüsü > 0)
+                                    {
+                                        item.belDegisim = MathF.Round((float)a.BelÖlcüsü - item.BelÖlcüsü, 2);
+                                    }
+                                }
+                                if (a.GögüsÖlcüsü != null)
+                                {
+                                    if (a.GögüsÖlcüsü > 0 && item.GögüsÖlcüsü > 0)
+                                    {
+                                        item.gögüsDegisim = MathF.Round((float)a.GögüsÖlcüsü - item.GögüsÖlcüsü, 2);
+                                    }
+                                }
+                                if (a.BasenÖlcüsü != null)
+                                {
+                                    if (a.BasenÖlcüsü > 0 && item.BasenÖlcüsü > 0)
+                                    {
+                                        item.basenDegisim = MathF.Round((float)a.BasenÖlcüsü - item.BasenÖlcüsü, 2);
+                                    }
+                                }
+                                if (item.baslangicBki > 0 && item.Bki > 0)
+                                {
+                                    item.bkiDegisim = MathF.Round((float)item.baslangicBki - item.Bki, 2);
+                                }
+
+                            }
+                            ViewBag.Week = table;
+                            ViewBag.table = JsonConvert.SerializeObject(table);
+                        }
+
                         return View(result.value);
                     }
                 }
@@ -83,12 +181,32 @@ namespace app.webui.Controllers
             }
         }
 
+        public async Task<IActionResult> PilatesIndex()
+        {
+            try
+            {
+                var user = await usermanager.FindByNameAsync(User.Identity.Name);
+                if (user != null)
+                {
+                    var result = await customerService.GetCustomerByUserId(user.Id);
+                    if (result.oprationResult == OprationResult.ok)
+                    {
+                        return View(result.value);
+
+                    }
+                }
+                return NotFound();
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+        }
         [HttpGet]
         public async Task<IActionResult> DietWekklys(int id)
         {
             try
             {
-
                 var user = await usermanager.FindByNameAsync(User.Identity.Name);
                 if (user != null)
                 {
@@ -106,9 +224,9 @@ namespace app.webui.Controllers
                             {
                                 foreach (var item in resultDateRequest.values)
                                 {
-                                    if(item.WeekId==id&&item.typeOfRequest==DateType.Diet)
+                                    if (item.WeekId == id && item.typeOfRequest == DateType.Diet)
                                     {
-                                        ViewBag.control=true;
+                                        ViewBag.control = true;
                                     }
                                 }
                             }
@@ -124,6 +242,46 @@ namespace app.webui.Controllers
             }
 
         }
+        public async Task<IActionResult> PilatesWeek(int id)
+        {
+            try
+            {
+                var user = await usermanager.FindByNameAsync(User.Identity.Name);
+                if (user != null)
+                {
+                    //control his own this dietweek
+                    var ownWeek = await customerService.onPiatesControlWithByUserId(user.Id, id);
+                    if (ownWeek == OprationResult.ok)
+                    {
+                        //take this week
+                        var resultWeek = await pilatesWeekService.GetWithIncludeOthers(id);
+                        if (resultWeek.oprationResult == OprationResult.ok)
+                        {
+                            //take all date request
+                            var resultDateRequest = await dateRequestService.GetAll();
+                            if (resultDateRequest.oprationResult == OprationResult.ok)
+                            {
+                                foreach (var item in resultDateRequest.values)
+                                {
+                                    if (item.WeekId == id && item.typeOfRequest == DateType.Pilates)
+                                    {
+                                        ViewBag.control = true;
+                                    }
+                                }
+                            }
+                            return View(resultWeek.value);
+                        }
+                    }
+                }
+                return NotFound();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpPost]
         public IActionResult DietWekklys(DietWekkly model, IFormFile file)
         {
@@ -203,11 +361,13 @@ namespace app.webui.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Callendar()
+        public async Task<IActionResult> Calendar()
         {
             CallendarModel m = new CallendarModel(DateTime.Now);
-            List<Week> Week = m.Weeks;
 
+            ViewBag.times = DateTime.Now;
+
+            List<Week> Week = m.Weeks;
             foreach (var item in Week)
             {
                 var result = await calendarService.GetDates(item.Time);
@@ -220,33 +380,94 @@ namespace app.webui.Controllers
         }
 
         [HttpPost]
-        public IActionResult Callendar(int i)
+        public async Task<IActionResult> Calendar(DateTime? time)
         {
-            return View();
+            CallendarModel m = null;
+            if (time == null)
+            {
+                m = new CallendarModel(DateTime.Now);
+                ViewBag.times = DateTime.Now;
+            }
+            else
+            {
+                m = new CallendarModel((DateTime)time);
+                ViewBag.times = (DateTime)time;
+            }
+            List<Week> Week = m.Weeks;
+            foreach (var item in Week)
+            {
+                var result = await calendarService.GetDates(item.Time);
+                if (result.oprationResult == OprationResult.ok)
+                {
+                    item.AllDateInDay = result.values.OrderBy(i=>i.StartingHour).ToList();
+                }
+            }
+            return View(Week);
         }
-        
+
+        #region Diet Week Update
+        [HttpPost]
+        public async Task<IActionResult> UpdateDietWeekly(DietWekkly d, int aaa, int bbb)
+        {
+            try
+            {
+                d.IsUpdate = true;
+                var result = await dietWekklyService.UpdateAsync(d);
+                if (User.IsInRole("Admin"))
+                {
+                    return Redirect("~/Admin/CustomerWeek/" + d.Id);
+                }
+                else
+                {
+                    return Redirect("~/Online/DietWekklys/" + d.Id);
+                }
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+        }
+
+
+        #endregion
+
         #region  DateRequest
         public async Task<IActionResult> dateRequestDiet(DateRequest date)
         {
             try
             {
-                date.RequestTİme=DateTime.Now;
-                date.typeOfRequest=DateType.Diet;
-                var resultCreate=await dateRequestService.CreateAsync(date);
-                if(resultCreate!=OprationResult.ok)
+                date.RequestTİme = DateTime.Now;
+                date.typeOfRequest = DateType.Diet;
+                var resultCreate = await dateRequestService.CreateAsync(date);
+                if (resultCreate != OprationResult.ok)
                 {
 
                 }
-                return Redirect("~/Online/DietWekklys/"+date.WeekId);
+                return Redirect("~/Online/DietWekklys/" + date.WeekId);
             }
             catch (System.Exception)
             {
-                
                 throw;
             }
-        } 
+        }
+        public async Task<IActionResult> dateRequestPilates(DateRequest date)
+        {
+            try
+            {
+                date.RequestTİme = DateTime.Now;
+                date.typeOfRequest = DateType.Pilates;
+                var resultCreate = await dateRequestService.CreateAsync(date);
+                if (resultCreate != OprationResult.ok)
+                {
 
+                }
+                return Redirect("~/Online/PilatesWeek/" + date.WeekId);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
         #endregion
     }
-
 }

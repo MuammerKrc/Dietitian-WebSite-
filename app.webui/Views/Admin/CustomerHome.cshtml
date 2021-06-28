@@ -113,11 +113,12 @@
                 <h2>Pilates Paket Satışı</h2>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" asp-controller="admin" asp-action="AddPackage" method="POST">
+                <form class="form-horizontal" action="~/admin/SellPilates" method="POST">
                     <div class="form-group row mt-2">
                         <label for="Name" class="col-sm-2 col-form-label">Adı</label>
                         <div class="col-sm-10">
-                            <input class="forName" type="text" id="Name" name="Name" class="form-control" readonly>
+                            <input class="forName" type="text" id="Name" name="ProductName" class="form-control"
+                                readonly>
                         </div>
                     </div>
 
@@ -161,11 +162,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Online AnaSayfa</h1>
+                    <h1>Müsteri AnaSayfa</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">AnaSayfa</li>
+                        <li class="breadcrumb-item"><a href="~/admin/Home">Admin</a></li>
+                        <li class="breadcrumb-item text-danger">Müsteri AnaSayfa</li>
                     </ol>
                 </div>
             </div>
@@ -317,7 +319,8 @@
 
                                                                 <tr class="@(item.IsPaid==true?"":"bg-warning")">
                                                                     <td><input asp-for="@item.ProductName" class="form-control"
-                                                                placeholder="Adı" name="ProductName" required readonly></td>
+                                                                placeholder="Adı" name="ProductName" required readonly>
+                                                                    </td>
                                                                     <td><input asp-for="@item.Price" class="form-control"
                                                                 placeholder="Fiyat" name="Price" min="200"></td>
                                                                     <td><input asp-for="@item.Time" class="form-control"
@@ -373,8 +376,8 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="activity">
-                                    <form class="form-horizontal" method="POST">
-                                        <h4 class="h2">Bilgilerimi Güncelle</h4>
+                                    <form class="form-horizontal" action="~/admin/UpdateCustomer" method="POST">
+                                        <h4 class="h2">Bilgilerini Güncelle</h4>
                                         <hr>
                                         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -436,12 +439,69 @@
                                             </div>
                                         </div>
                                     </form>
-                                </div>
+                                    <form class="form-horizontal" action="~/admin/UpdateDietActive" method="POST">
+                                        <h4 class="h2">Diyet Active Güncelle</h4>
+                                        <hr>
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        @if (Model.Diet != null)
+                                        {
+                                            <div class="form-check form-switch mt-3">
+                                                <label class="col-sm-2 form-check-label"
+                                                for="flexSwitchCheckChecked">Diyet</label>
+                                                <input class="form-check-input" type="checkbox" name="ForCheckedDiet"
+                                                value="1" id="flexSwitchCheckChecked" @(Model.Diet.Active?"checked":"")>
+                                            </div>
+                                            <input type="hidden" name="DietId" value="@Model.Diet.Id">
+                                            <input type="hidden" name="Id" value="@Model.Id">
+                                            <div class="form-group row mt-2">
+                                                <div class="col-sm-10">
+                                                    <button type="submit" class="btn btn-primary">Diyet Güncelle</button>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-danger">
+                                                Daha Önce Diyet Tanımlanmamış
+                                            </div>
+                                        }
 
+                                    </form>
+                                    <form class="form-horizontal" action="~/admin/UpdatePilatesActive" method="POST">
+                                        <h4 class="h2">Pilates Active Güncelle</h4>
+                                        <hr>
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+
+
+                                        @if (Model.Pilates != null)
+                                        {
+                                            <div class="form-check form-switch mt-3">
+                                                <label class="col-sm-2 form-check-label"
+                                                for="flexSwitchCheckChecked">Pilates</label>
+                                                <input class="form-check-input" type="checkbox" name="ForCheckedPilates"
+                                                value="1" id="flexSwitchCheckChecked"
+                                                @(Model.Pilates.Active?"checked":"")>
+                                            </div>
+                                            <input type="hidden" name="PilatesId" value="@Model.Pilates.Id">
+                                            <input type="hidden" name="Id" value="@Model.Id">
+                                            <div class="form-group row mt-2">
+                                                <div class=" col-sm-10">
+                                                    <button type="submit" class="btn btn-primary">Pilates Güncelle</button>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-danger">
+                                                Daha Önce Pilates Tanımlanmamış
+                                            </div>
+                                        }
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

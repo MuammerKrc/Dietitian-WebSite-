@@ -92,6 +92,8 @@ namespace app.webui
             services.AddScoped<IRecipeService, RecipeManager>();
             //Pilates
             services.AddScoped<IPilatesService, PilatesManager>();
+            //PilatesWeek
+            services.AddScoped<IPilatesWeekService,PilatesWeekManager>();
             //Calander
             services.AddScoped<ICalendarService, CalendarManager>();
             //Package

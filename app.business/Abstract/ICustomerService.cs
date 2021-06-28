@@ -24,5 +24,7 @@ namespace app.business.Abstract
         Task<ReturnedClass<Customer>> GetCustomerForHome();
         Task<ReturnedClass<Customer>> GetCustomerForCustomerHome(int id);
         Task<OprationResult> ownWeekControlWithByUserId(string userId,int weekId);
+        Task<OprationResult> onPiatesControlWithByUserId(string userId,int weekId);
+        Task<OprationResult> ReduceRemaningPackage(int customerId);
     }
 }

@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using app.business.Abstract;
 using app.entity;
@@ -27,13 +29,9 @@ namespace app.webui.Controllers
         [HttpGet]
         public IActionResult Login(string ReturnUrl = null)
         {
-            return View(new LoginModel()
-            {
-                ReturnUrl = ReturnUrl
-            });
+            return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (!ModelState.IsValid)
@@ -42,14 +40,15 @@ namespace app.webui.Controllers
                 model.Password = "";
                 return View(model);
             }
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 ModelState.AddModelError("", "Girilen Kullanıcı Adı ve Parola İle Eşleşen Bir Kullanıcı Bulunamadı");
                 model.Password = "";
                 return View(model);
             }
-            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, true, true);
+
+            var result = await signInManager.PasswordSignInAsync(user, model.Password, true, true);
             if (result.Succeeded)
             {
                 return Redirect(model.ReturnUrl ?? "~/");
@@ -124,26 +123,49 @@ namespace app.webui.Controllers
         {
             return View();
         }
-
+        public static string ToTitleCase(string value)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> Register(RegisterModel model, string btnradio)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
                     model.Password = "";
-                    model.RePassword = "";
-                    return View(model);
+                    return RedirectToAction("login", "account", model);
                 }
-                var user = new User
+                var user = new User();
+                var IsThere = await userManager.FindByEmailAsync(model.Email);
+                if (IsThere != null)
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    UserName = model.UserName,
-                    Email = model.Email
-                };
+                    //var yazılacak
+                    return RedirectToAction("login", "account", model);
+                }
+                user.FirstName = ToTitleCase(model.FirstName.ToLower().Trim());
+                user.LastName = ToTitleCase(model.LastName.ToLower().Trim());
+                user.Gender = btnradio == "1" ? true : false;
+                user.Email=model.Email;
+                bool flag = true;
+                int y=0;
+                while (flag)
+                {
+                    var modelUserName=user.FirstName+$"{y}";
+                    var UserNameTry=await userManager.FindByNameAsync(modelUserName);
+                    if(UserNameTry==null)
+                    {
+                        user.UserName=modelUserName;
+                        flag=true;
+                        break;
+                    }
+                    else
+                    {
+                        y++;
+                    }
+                }
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -155,18 +177,19 @@ namespace app.webui.Controllers
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         Mail = user.Email,
-                        UserId = user.Id
+                        UserId = user.Id,
+                        Gender=user.Gender
                     };
                     var resultCustomer = await customerService.InitilazeCustomer(customer);
 
 
                     //Email
-                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var url = Url.Action("ConfirmEmail", "Account", new
-                    {
-                        userId = user.Id,
-                        token = code
-                    });
+                    // var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    // var url = Url.Action("ConfirmEmail", "Account", new
+                    // {
+                    //     userId = user.Id,
+                    //     token = code
+                    // });
                     // await emailSender.SendEmailAsync(model.Email, "Hesabınızı onaylayınız.", $"lütfen email hesabınızı onaylamak için linke <a href='http://localhost:5000{url}'>tıklayınız.</a>");
                     return RedirectToAction("Login", "Account");
                 }

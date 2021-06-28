@@ -1,44 +1,83 @@
-@model LoginModel
+@model RegisterModel
 
-<h1 class="h3">Login</h1>
-<hr>
+@section css{
+<link rel="stylesheet" href="~/css/loginaaa.css">
+}
 
-<div class="row mt-3">
-    <div class="col-md-8">
-        <form asp-controller="Account" asp-action="Login" method="POST">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            @Html.HiddenFor(m => m.ReturnUrl,Model.ReturnUrl)
-                <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl">
-            <div class="form-group row mt-3">
-                <label asp-for="Username" class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" asp-for="Username">
-                    <span asp-validation-for="Username" class="text-danger"></span>
+<div class="containerss" id="container">
+    <div class="col-5">
+        <div class="form-container sign-up-container">
+            <form action="~/account/Register" method="POST">
+                <h1>Hesap Oluştur</h1>
+                <input type="text" placeholder="Adınız" name="FirstName" required />
+                <input type="text" placeholder="Soyadınız" name="LastName" required />
+                <input type="email" placeholder="Email" name="Email" autocomplete="off" required />
+                <div class="btn-group col-12" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
+                        value="1">
+                    <label class="btn btn-outline-primary" for="btnradio1">Kadın</label>
+                    <input type="radio" class="btn-check" value="2" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2">Erkek</label>
+                </div>
+                <input type="password" name="Password" placeholder="Password" required />
+                <button type="submit">Üye Ol</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="~/Account/Login" method="POST">
+                <h1>Giriş Yap</h1>
+                <input type="email" placeholder="Email" name="Email" />
+                <input type="password" placeholder="Password" name="Password" />
+                <a href="~/Account/ForgotPassword">Şifremi Unuttum</a>
+                <button type="submit">Giriş Yap</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Hoş Geldiniz!</h1>
+                    <p>Hesabınız varsa aşağıdan giriş yapabilirsiniz</p>
+                    <button class="ghost" id="signIn">Giriş Yap</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hoş Geldiniz!</h1>
+                    <p>Hesabınz yoksa aşığadan üye olabilirsiniz</p>
+                    <button class="ghost" id="signUp">Üye Ol</button>
                 </div>
             </div>
-
-
-            <div class="form-group row  mt-3">
-                <label asp-for="Password" class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" asp-for="Password">
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-            </div>
-
-
-            <div class="form-group row  mt-3">
-                <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <a href="~/account/forgotpassword" class="btn btn-outline-primary">Forgot Password</a>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
+
 @section Scripts
 {
-<script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    const signUpButton = document.getElementById('signUp');
+    var aaaa=document.querySelector(".containerss");
+    console.log(aaaa);
+    console.log(signUpButton)
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+        container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener('click', () => {
+        container.classList.remove("right-panel-active");
+    });
+
+    console.log(window.innerWidth);
+    $(window).resize(function () {
+        if(window.innerWidth<767)
+        {
+            console.log("asd0")
+            var string=(window.innerWidth-10)+"px";
+            console.log(string);
+            container.style.width=string;
+        }
+    });
+</script>
 }

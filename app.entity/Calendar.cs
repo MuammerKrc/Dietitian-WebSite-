@@ -10,11 +10,20 @@ namespace app.entity
         public string CurrentHour { get; set; }
         public int StartingHour { get; set; }
         public int FinishedHour { get; set; }
-        public string Traning { get; set; }
+        public TraningType Traning { get; set; }
         public int? DietWekklyId { get; set; }
         public DietWekkly DietWekkly { get; set; }
+        public int? PilatesWeekId { get; set; }
+        public PilatesWeek PilatesWeek { get; set; }
+        public DateTime DateTimeOfDate { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool Active { get; set; }
+    }
+
+    public enum TraningType
+    {
+        Diet = 1,
+        Pilates = 2
     }
 }

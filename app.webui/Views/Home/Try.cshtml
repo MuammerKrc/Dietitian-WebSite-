@@ -1,0 +1,11 @@
+@if (ViewBag.Eventlist != null)
+{
+    foreach (var item in (List<string>)ViewBag.Eventlist)
+    {
+        <h3>item</h3>
+
+    }
+}
+else{
+    <h3>Girmedi</h3>
+}

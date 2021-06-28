@@ -4,6 +4,9 @@
     string tel = null;
     string Name = null;
     bool t1 = false;
+    bool t2 = false;
+    bool t3 = false;
+    bool t4 = false;
     if (Model != null)
     {
 
@@ -26,6 +29,18 @@
                 if ((item.typeOfRequest) == PackageName.OnlineDiet)
                 {
                     t1 = true;
+                }
+                if (item.typeOfRequest == PackageName.YüzyüzeDiet)
+                {
+                    t2 = true;
+                }
+                if (item.typeOfRequest == PackageName.OnlinePilates)
+                {
+                    t3 = true;
+                }
+                if (item.typeOfRequest == PackageName.YüzyüzePilates)
+                {
+                    t4 = true;
                 }
             }
         }
@@ -101,6 +116,17 @@
         justify-content: center;
     }
 
+    .make-flex {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .make-center {
+        justify-content: center;
+        align-items: center;
+    }
+
     .make-row p {
         font-size: 16px;
         letter-spacing: 0.5px;
@@ -143,6 +169,7 @@
     </div>
 </section>
 
+<!-- Online Diet-->
 @if (Model != null)
 {
     <div class="modal fade" id="sendRequest" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel"
@@ -158,12 +185,9 @@
                 <div class="modal-body">
                     <form class="membership-form webform" method="POST" action="~/online/DietPackage" role="form">
                         <input type="text" class="form-control" name="FullName" placeholder="Adınız" value="@Name" required>
-
                         <input type="email" class="form-control" name="email" value="@Mail" required>
-
-                        <input type="tel" class="form-control" name="PhoneNumber" placeholder="0555-555-5555" value="@tel"
-                        pattern="[0-9]{11}" required>
-
+                        <input type="tel" class="form-control" name="PhoneNumber" placeholder="500-000-0000" value="@tel"
+                        pattern="[0-9]{10}" required>
                         <textarea class="form-control" rows="3" name="cf-message" placeholder="İçerik"></textarea>
                         <input type="hidden" name="RequestTime" value="@DateTime.Now">
                         <input type="hidden" value="@Model.Id" name="CustomerId">
@@ -171,251 +195,103 @@
                         <button type="submit" class="form-control" id="submit-button" name="submit">İstek Gönder</button>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
 }
+<!-- Yüz yüze Diet-->
 
-
-
-<!-- ABOUT -->
-<section class="" id="about">
-    <div class="container-fluid  allss">
-        <div class="for-diyet">
-            <div class="display-3 text-dark text-center">
-                <h2 style="font-weight: 900; font-size: 60px;">Diyet</h2>
-            </div>
-            <div class="cardx" style="margin-top: 50px;">
-                <div class=" cardx-body bg-white" data-aos="fade-down-right" data-aos-delay="500">
-                    <div class="for-foto">
-
-                    </div>
-                    <div class="for-text mt-5 ">
-                        <div class=" cardx-title">
-                            <h3 class="text-center text-white">Online Diyet</h3>
-                        </div>
-                        <div class="cardx-text ">
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                        </div>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            if (t1)
-                            {
-                                <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300"
-                           >Talebiniz Başrılı</a>
-                            }
-                            else
-                            {
-                                <form action="#" method="POST">
-                                    <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300"
-                                data-toggle="modal" data-target="#sendRequest">Ertelemeyin Gelin Başlayalım</a>
-                                </form>
-                            }
-                        }
-                        else
-                        {
-
-                            <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300"
-                            data-toggle="modal" data-target="#membershipForm">Ertelemeyin Gelin Başlayalım</a>
-                        }
-                    </div>
+@if (Model != null)
+{
+    <div class="modal fade" id="sendRequest2" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="membershipFormLabel">Yüz Yüze Diyet</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-
-                <div class=" cardx-body " data-aos="fade-down-left" data-aos-delay="500">
-                    <div class="for-foto">
-
-                    </div>
-                    <div class="for-text mt-5 ">
-                        <div class=" cardx-title">
-                            <h3 class="text-center text-white">Online Diyet</h3>
-                        </div>
-                        <div class="cardx-text ">
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-body">
+                    <form class="membership-form webform" method="POST" action="~/online/DietPackage" role="form">
+                        <input type="text" class="form-control" name="FullName" placeholder="Adınız" value="@Name" required>
+                        <input type="email" class="form-control" name="email" value="@Mail" required>
+                        <input type="tel" class="form-control" name="PhoneNumber" placeholder="500-000-0000" value="@tel"
+                        pattern="[0-9]{10}" required>
+                        <textarea class="form-control" rows="3" name="cf-message" placeholder="İçerik"></textarea>
+                        <input type="hidden" name="RequestTime" value="@DateTime.Now">
+                        <input type="hidden" value="@Model.Id" name="CustomerId">
+                        <input type="hidden" value="@PackageName.YüzyüzeDiet" name="typeOfRequest">
+                        <button type="submit" class="form-control" id="submit-button" name="submit">İstek Gönder</button>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
-    <div class="container-fluid  allss">
-        <div class="for-diyet">
-            <div class="display-3 text-dark text-center">
-                <h2 style="font-weight: 900; font-size: 60px;">Diyet</h2>
-            </div>
-            <div class="cardx" style="margin-top: 50px;">
-                <div class=" cardx-body bg-white" data-aos="fade-down-right" data-aos-delay="500">
-                    <div class="for-foto">
+}
+<!-- Online Pilates-->
 
-                    </div>
-                    <div class="for-text mt-5 ">
-                        <div class=" cardx-title">
-                            <h3 class="text-center text-white">Online Diyet</h3>
-                        </div>
-                        <div class="cardx-text ">
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                        </div>
-
-                    </div>
+@if (Model != null)
+{
+    <div class="modal fade" id="sendRequest3" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="membershipFormLabel">Online Pilates</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-
-                <div class=" cardx-body " data-aos="fade-down-left" data-aos-delay="500">
-                    <div class="for-foto">
-
-                    </div>
-                    <div class="for-text mt-5 ">
-                        <div class=" cardx-title">
-                            <h3 class="text-center text-white">Online Diyet</h3>
-                        </div>
-                        <div class="cardx-text ">
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                            <div class="make-row ">
-                                <i class="fas fa-check text-success"></i>
-                                <p>Whatsaptan ileteişim halinde kalınacak</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-body">
+                    <form class="membership-form webform" method="POST" action="~/online/DietPackage" role="form">
+                        <input type="text" class="form-control" name="FullName" placeholder="Adınız" value="@Name" required>
+                        <input type="email" class="form-control" name="email" value="@Mail" required>
+                        <input type="tel" class="form-control" name="PhoneNumber" placeholder="500-000-0000" value="@tel"
+                        pattern="[0-9]{10}" required>
+                        <textarea class="form-control" rows="3" name="cf-message" placeholder="İçerik"></textarea>
+                        <input type="hidden" name="RequestTime" value="@DateTime.Now">
+                        <input type="hidden" value="@Model.Id" name="CustomerId">
+                        <input type="hidden" value="@PackageName.OnlinePilates" name="typeOfRequest">
+                        <button type="submit" class="form-control" id="submit-button" name="submit">İstek Gönder</button>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
-</section>
+}
+<!-- Yüz Yüze Pilates-->
 
-
-
-
-<!-- SCHEDULE -->
-
-
-<!-- CONTACT -->
-<section class="contact section" id="contact">
-    <div class="container">
-        <div class="row">
-
-            <div class="ml-auto col-lg-5 col-md-6 col-12">
-                <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Soru Sormak İçin Buradan
-                    İletişime
-                    Geçebilirsiniz</h2>
-
-                <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400"
-                    role="form">
-                    <input type="text" class="form-control" name="cf-name" placeholder="Name">
-
-                    <input type="email" class="form-control" name="cf-email" placeholder="Email">
-
-                    <textarea class="form-control" rows="5" name="cf-message" placeholder="Message"></textarea>
-
-                    <button type="submit" class="form-control" id="submit-button" name="submit">Send
-                        Message</button>
-                </form>
-            </div>
-
-            <div class="mx-auto mt-4 mt-lg-0 mt-md-0 col-lg-5 col-md-6 col-12">
-                <h2 class="mb-4" data-aos="fade-up" data-aos-delay="600">Biz Nerde Bulabilirsin ?</h2>
-
-                <p data-aos="fade-up" data-aos-delay="800"><i class="fa fa-map-marker mr-1"></i> İstanbul
-                    Kağıthane</p>
-                <!-- How to change your own map point
-    1. Go to Google Maps
-    2. Click on your location point
-    3. Click "Share" and choose "Embed map" tab
-    4. Copy only URL and paste it within the src="" field below
--->
-                <div class="google-map" data-aos="fade-up" data-aos-delay="900">
-                    <iframe
-                        src="https://maps.google.com/maps?q=Av.+Lúcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                        width="1920" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+@if (Model != null)
+{
+    <div class="modal fade" id="sendRequest4" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="membershipFormLabel">Yüz Yüze Pilates</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="membership-form webform" method="POST" action="~/online/DietPackage" role="form">
+                        <input type="text" class="form-control" name="FullName" placeholder="Adınız" value="@Name" required>
+                        <input type="email" class="form-control" name="email" value="@Mail" required>
+                        <input type="tel" class="form-control" name="PhoneNumber" placeholder="500-000-0000" value="@tel"
+                        pattern="[0-9]{10}" required>
+                        <textarea class="form-control" rows="3" name="cf-message" placeholder="İçerik"></textarea>
+                        <input type="hidden" name="RequestTime" value="@DateTime.Now">
+                        <input type="hidden" value="@Model.Id" name="CustomerId">
+                        <input type="hidden" value="@PackageName.YüzyüzePilates" name="typeOfRequest">
+                        <button type="submit" class="form-control" id="submit-button" name="submit">İstek Gönder</button>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
-</section>
-
-
-<!-- FOOTER -->
-<footer class="site-footer">
-    <div class="container">
-        <div class="row">
-
-            <div class="ml-auto col-lg-4 col-md-5">
-                <p class="copyright-text">Copyright &copy; 2020 Gymso Fitness Co.
-
-                    <br>Design: <a href="https://www.tooplate.com">Tooplate</a>
-                </p>
-            </div>
-
-            <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
-                <p class="mr-4">
-                    <i class="fa fa-envelope-o mr-1"></i>
-                    <a href="#">hello@company.co</a>
-                </p>
-
-                <p><i class="fa fa-phone mr-1"></i> 010-020-0840</p>
-            </div>
-
-        </div>
-    </div>
-</footer>
-
+}
 <!-- Modal -->
 <div class="modal fade" id="membershipForm" tabindex="-1" role="dialog" aria-labelledby="membershipFormLabel"
     aria-hidden="true">
@@ -463,6 +339,312 @@
         <div class="modal-footer"></div>
     </div>
 </div>
+
+
+<!-- ABOUT -->
+<section class="" id="">
+    <div class="container-fluid allss">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="for-diyet">
+                    <div class="display-3 text-dark text-center">
+                        <h2 style="font-weight: 900; font-size: 60px;">Diyet</h2>
+                    </div>
+                    <div class="cardx" style="margin-top: 50px;">
+                        <div class=" cardx-body bg-white" data-aos="fade-down-right" data-aos-delay="500">
+                            <div class="for-foto">
+                            </div>
+                            <div class="for-text mt-5 ">
+                                <div class=" cardx-title">
+                                    <h3 class="text-center text-white">Online Diyet</h3>
+                                </div>
+                                <div class="cardx-text ">
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (t1)
+                                        {
+                                            <div class="make-flex make-center">
+                                                <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                            data-aos-delay="300">Talebiniz Başrılı</a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="make-flex make-center ">
+                                                <form action="#" method="POST">
+                                                    <a href="#" class="btn custom-btn text-center bg-color mt-3"
+                                                data-aos="fade-up" data-aos-delay="300" data-toggle="modal"
+                                                data-target="#sendRequest">Ertelemeyin
+                                                        Gelin Başlayalım</a>
+                                                </form>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="make-flex make-center ">
+                                            <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                            data-aos-delay="300" data-toggle="modal"
+                                            data-target="#membershipForm">Ertelemeyin Gelin Başlayalım</a>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class=" cardx-body " data-aos="fade-down-left" data-aos-delay="500">
+                            <div class="for-foto">
+                            </div>
+                            <div class="for-text mt-5 ">
+                                <div class=" cardx-title">
+                                    <h3 class="text-center text-white">Yüz Yüze Diyet</h3>
+                                </div>
+                                <div class="cardx-text ">
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (t2)
+                                        {
+                                            <div class="make-flex make-center">
+                                                <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                            data-aos-delay="300">Talebiniz Başrılı</a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="make-flex make-center ">
+                                                <form action="#" method="POST">
+                                                    <a href="#" class="btn custom-btn text-center bg-color mt-3"
+                                                data-aos="fade-up" data-aos-delay="300" data-toggle="modal"
+                                                data-target="#sendRequest2">Ertelemeyin
+                                                        Gelin Başlayalım</a>
+                                                </form>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="make-flex make-center ">
+                                            <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                            data-aos-delay="300" data-toggle="modal"
+                                            data-target="#membershipForm">Ertelemeyin Gelin Başlayalım</a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="for-diyet">
+                    <div class="display-3 text-dark text-center">
+                        <h2 style="font-weight: 900; font-size: 60px;">Pilates</h2>
+                    </div>
+                    <div class="cardx" style="margin-top: 50px;">
+                        <div class=" cardx-body bg-white" data-aos="fade-down-right" data-aos-delay="500">
+                            <div class="for-foto">
+                            </div>
+                            <div class="for-text mt-5 ">
+                                <div class=" cardx-title">
+                                    <h3 class="text-center text-white">Online Diyet</h3>
+                                </div>
+                                <div class="cardx-text ">
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (t3)
+                                        {
+                                            <div class="make-flex make-center">
+                                                <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                            data-aos-delay="300">Talebiniz Başrılı</a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="make-flex make-center">
+                                                <form action="#" method="POST">
+                                                    <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                                data-aos-delay="300" data-toggle="modal"
+                                                data-target="#sendRequest3">Ertelemeyin
+                                                        Gelin Başlayalım</a>
+                                                </form>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="make-flex make-center">
+                                            <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                            data-aos-delay="300" data-toggle="modal"
+                                            data-target="#membershipForm">Ertelemeyin Gelin Başlayalım</a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" cardx-body " data-aos="fade-down-left" data-aos-delay="500">
+                            <div class="for-foto">
+                            </div>
+                            <div class="for-text mt-5 ">
+                                <div class=" cardx-title">
+                                    <h3 class="text-center text-white">Online Diyet</h3>
+                                </div>
+                                <div class="cardx-text ">
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    <div class="make-row ">
+                                        <i class="fas fa-check text-success"></i>
+                                        <p>Whatsaptan ileteişim halinde kalınacak</p>
+                                    </div>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (t4)
+                                        {
+                                            <div class="make-flex make-center">
+                                                <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                            data-aos-delay="300">Talebiniz Başrılı</a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="make-flex make-center">
+                                                <form action="#" method="POST">
+                                                    <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                                data-aos-delay="300" data-toggle="modal"
+                                                data-target="#sendRequest4">Ertelemeyin
+                                                        Gelin Başlayalım</a>
+                                                </form>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="make-flex make-center">
+                                            <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up"
+                                            data-aos-delay="300" data-toggle="modal"
+                                            data-target="#membershipForm">Ertelemeyin Gelin Başlayalım</a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- SCHEDULE -->
+
+
+<!-- CONTACT -->
+<section class="contact section" id="contact">
+    <div class="container">
+        <div class="row">
+
+            <div class="ml-auto col-lg-5 col-md-6 col-12">
+                <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Soru Sormak İçin Buradan
+                    İletişime
+                    Geçebilirsiniz</h2>
+
+                <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400"
+                    role="form">
+                    <input type="text" class="form-control" name="cf-name" placeholder="Name">
+
+                    <input type="email" class="form-control" name="cf-email" placeholder="Email">
+
+                    <textarea class="form-control" rows="5" name="cf-message" placeholder="Message"></textarea>
+
+                    <button type="submit" class="form-control" id="submit-button" name="submit">Send
+                        Message</button>
+                </form>
+            </div>
+
+            <div class="mx-auto mt-4 mt-lg-0 mt-md-0 col-lg-5 col-md-6 col-12">
+                <h2 class="mb-4" data-aos="fade-up" data-aos-delay="600">Biz Nerde Bulabilirsin ?</h2>
+
+                <p data-aos="fade-up" data-aos-delay="800"><i class="fa fa-map-marker mr-1"></i> İstanbul
+                    Kağıthane</p>
+
+                <div class="google-map" data-aos="fade-up" data-aos-delay="900">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Av.+Lúcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        width="1920" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
 @section Scripts
 {
 <script src="/js/bootstrap.min.js"></script>

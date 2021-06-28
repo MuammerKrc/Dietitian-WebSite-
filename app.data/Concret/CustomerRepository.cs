@@ -33,6 +33,8 @@ namespace app.data.Concret
                                 .AsSplitQuery()
 
                                 .Include(m => m.Pilates)
+                                .ThenInclude(m => m.PilatesWeeks)
+                                .ThenInclude(m => m.calendar)
                                 .AsSplitQuery()
 
                                 .AsNoTracking()
@@ -71,6 +73,8 @@ namespace app.data.Concret
                                                 .AsSplitQuery()
 
                                                 .Include(m => m.Pilates)
+                                                .ThenInclude(m => m.PilatesWeeks)
+                                                .ThenInclude(m => m.calendar)
                                                 .AsSplitQuery()
 
                                                 .AsNoTracking()
@@ -166,6 +170,8 @@ namespace app.data.Concret
                                                     .AsSplitQuery()
 
                                                     .Include(m => m.Pilates)
+                                                    .ThenInclude(m => m.PilatesWeeks)
+                                                    .ThenInclude(m => m.calendar)
                                                     .AsSplitQuery()
 
                                                     .Include(m => m.MyCarts)
@@ -212,5 +218,56 @@ namespace app.data.Concret
                 return OprationResult.canceled;
             }
         }
+        public async Task<OprationResult> onPiatesControlWithByUserId(string userId, int weekId)
+        {
+            try
+            {
+                var result = await appContext.Customers
+                                                    .Where(i => i.UserId == userId)
+                                                    .Include(i => i.Pilates)
+                                                    .ThenInclude(i => i.PilatesWeeks)
+                                                    .FirstOrDefaultAsync();
+
+                if (result != null)
+                {
+                    if (result.Pilates != null)
+                    {
+                        if (result.Pilates.PilatesWeeks != null)
+                        {
+                            if (result.Pilates.PilatesWeeks.Any(i => i.Id == weekId))
+                            {
+                                return OprationResult.ok;
+                            }
+                        }
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+        public async Task<OprationResult> updatePilatesPackages(int quantity, int customerId)
+        {
+            try
+            {
+                var cmd = "Update Customers set RemaningPilatesPackages=@p0 where Id=@p1";
+
+                var result = await appContext.Database.ExecuteSqlRawAsync(cmd, quantity, customerId);
+                if (result == 1)
+                {
+                    return OprationResult.ok;
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
+        }
+
+
     }
 }

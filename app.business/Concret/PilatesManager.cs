@@ -11,17 +11,17 @@ namespace app.business.Concret
         private IUnitOfWork work;
         public PilatesManager(IUnitOfWork _work)
         {
-            work=_work;
+            work = _work;
         }
-        public  async Task<OprationResult> CreateAsync(Pilates entity)
+        public async Task<OprationResult> CreateAsync(Pilates entity)
         {
             try
             {
-                var reult =await work.Piates.CreateAsync(entity);
-                if(reult==OprationResult.ok)
+                var reult = await work.Piates.CreateAsync(entity);
+                if (reult == OprationResult.ok)
                 {
-                    var SaveResult=await work.SaveAsync();
-                    if(SaveResult==OprationResult.Saved)
+                    var SaveResult = await work.SaveAsync();
+                    if (SaveResult == OprationResult.Saved)
                     {
                         return OprationResult.ok;
                     }
@@ -49,14 +49,38 @@ namespace app.business.Concret
             throw new System.NotImplementedException();
         }
 
-        public Task<ReturnedClass<Pilates>> GetByIdAsync(int id)
+        public async Task<ReturnedClass<Pilates>> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var reuslt = await work.Piates.GetByIdAsync(id);
+                return reuslt;
+            }
+            catch (System.Exception)
+            {
+                return new ReturnedClass<Pilates>(OprationResult.canceled);
+            }
         }
 
-        public Task<OprationResult> UpdateAsync(Pilates entity)
+        public async Task<OprationResult> UpdateAsync(Pilates entity)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var result = work.Piates.UpdateAsync(entity);
+                if (result == OprationResult.ok)
+                {
+                    var saveResult = await work.SaveAsync();
+                    if (saveResult == OprationResult.Saved)
+                    {
+                        return OprationResult.ok;
+                    }
+                }
+                return OprationResult.canceled;
+            }
+            catch (System.Exception)
+            {
+                return OprationResult.canceled;
+            }
         }
     }
 }
