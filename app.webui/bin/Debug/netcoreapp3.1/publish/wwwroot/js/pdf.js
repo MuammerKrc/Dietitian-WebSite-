@@ -1,0 +1,1 @@
+pdfjslib.getDocument()

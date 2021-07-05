@@ -1,0 +1,8 @@
+#MenüTable{
+    display: flex;
+    flex-direction: row;
+
+}
+.option{
+    min-width: 150px;
+}

@@ -1,0 +1,72 @@
+.customer-view{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.container-card{
+    margin:  25px 20px;
+    min-width: 225px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--color_pink_3);
+    background-color: var(--color_title);
+}
+.name-card{
+    color: wheat;
+    font-size: 25px;
+    
+}
+.diet{
+    padding: 10px 0px;
+    background-color: var(--color_pink_2);
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    width: 175px;
+
+}
+.diet-name{
+    width: 75%;
+    border-bottom: 2px solid gray;
+    color: var(--color_background_1);
+    font-size: 20px;
+    font-family: var(--font_3);
+    font-weight: 800;
+}
+.diet-date{
+    width: 75%;
+    font-size: 20px;
+    font-family: var(--font_3);
+    font-weight: 800;
+}
+.pilates{
+    padding: 10px 0px;
+    margin: 10px 0px;
+    background-color: var(--color_background_1);
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    width: 175px;
+}
+.pilates-name{
+    width: 75%;
+    border-bottom: 2px solid gray;
+    color: var(--color_pink_1);
+    font-size: 20px;
+    font-family: var(--font_3);
+    font-weight: 800;
+}
+.pilates-date{
+    width: 75%;
+    font-size: 20px;
+    font-family: var(--font_3);
+    font-weight: 800;
+}

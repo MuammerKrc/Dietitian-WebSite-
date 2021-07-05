@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0XakeHM/E6LtufLHv08TGUpEt0xDW6RdKHvFtX2GDbLbB7vAIPSxp+Bd/guL9m93LdF9DKLGwOsH9rYi41Bb0w==",
+  "dgSpecHash": "oYwz0SIq8fCGmxwUExD3TPaEkgi2+ozeEsIG3UItSHKMFJydDSiL+YKDitPbh0FvZ5WQSQZFJjeQ2SI0i2mN5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_12\\app.webui\\app.webui.csproj",
+  "projectFilePath": "C:\\Users\\muamm\\OneDrive\\Masaüstü\\SinemKaraca_13\\app.webui\\app.webui.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\muamm\\.nuget\\packages\\google.apis\\1.52.0\\google.apis.1.52.0.nupkg.sha512",
     "C:\\Users\\muamm\\.nuget\\packages\\google.apis.auth\\1.52.0\\google.apis.auth.1.52.0.nupkg.sha512",

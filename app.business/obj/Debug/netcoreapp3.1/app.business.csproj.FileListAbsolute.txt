@@ -12,3 +12,17 @@ C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.business\obj\Debug\netcore
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.business\obj\Debug\netcoreapp3.1\app.business.dll
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.business\obj\Debug\netcoreapp3.1\app.business.pdb
 C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_12\app.business\obj\Debug\netcoreapp3.1\app.business.csprojAssemblyReference.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\bin\Debug\netcoreapp3.1\app.business.deps.json
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\bin\Debug\netcoreapp3.1\app.business.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\bin\Debug\netcoreapp3.1\app.business.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\bin\Debug\netcoreapp3.1\app.data.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\bin\Debug\netcoreapp3.1\app.entity.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\bin\Debug\netcoreapp3.1\app.data.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\bin\Debug\netcoreapp3.1\app.entity.pdb
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\obj\Debug\netcoreapp3.1\app.business.csprojAssemblyReference.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\obj\Debug\netcoreapp3.1\app.business.AssemblyInfoInputs.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\obj\Debug\netcoreapp3.1\app.business.AssemblyInfo.cs
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\obj\Debug\netcoreapp3.1\app.business.csproj.CoreCompileInputs.cache
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\obj\Debug\netcoreapp3.1\app.business.csproj.CopyComplete
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\obj\Debug\netcoreapp3.1\app.business.dll
+C:\Users\muamm\OneDrive\Masaüstü\SinemKaraca_13\app.business\obj\Debug\netcoreapp3.1\app.business.pdb
